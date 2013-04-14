@@ -1,0 +1,28 @@
+{
+  "name": "loudr",
+  "version": "0.1.0",
+  "author": "Gerald Leenerts",
+  "description": "User based notification",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "mongoose": "~3.6.4",
+    "passport": "~0.1.16",
+    "restify": "~2.4.1",
+    "ejs": "~0.8.3",
+    "async": "~0.2.7"
+  },
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-compass": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-coffee": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-nodeunit": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-contrib-qunit": "*"
+  }
+}
