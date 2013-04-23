@@ -9,7 +9,7 @@ Notifications and Support system
 - `git clone https://github.com/gwing33/loudr.git`
 - `cd loudr`
 - `npm install`
-- From here I'm still in development, I have stuff runing IE, `npm install -g node-dev` then youc an `node-dev app.coffee` or `node-dev api.coffee`. But that might change.
+- From here I'm still in development, I have stuff runing i.e., `npm install -g node-dev` then youc an `node-dev app.coffee` or `node-dev api.coffee`. But that might change.
 
 ## Modules (Incomplete, see package.json for what's currently used.)
 - mongoose
