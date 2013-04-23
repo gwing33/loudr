@@ -6,15 +6,15 @@ module.exports = (grunt) ->
     coffee:
       app:
         expand: true
-        cwd: "src"
+        cwd: "app/assets/coffee"
         src: [ "**/*.coffee" ]
-        dest: "build"
+        dest: "app/static/js"
         ext: ".js"
 
     compass:
       dist:
         options:
-          config: "sass/config.rb"
+          config: "config.rb"
 
     jshint:
       options:
@@ -39,22 +39,18 @@ module.exports = (grunt) ->
       lib_test:
         src: [ "lib/**/*.js", "test/**/*.js" ]
 
+    ###
     concat:
-      options:
-        banner: "<%= banner %>"
-        stripBanners: true
-
       dist:
         src: [ "App/static/js/<%= pkg.name %>.js" ]
         dest: "App/static/js/<%= pkg.name %>.min.js"
 
     uglify:
-      options:
-        banner: "<%= banner %>"
-
       dist:
-        src: "<%= concat.dist.dest %>"
-        dest: "App/static/js/<%= pkg.name %>.min.js"
+        src: "App/static/js/*.js"
+        dest: "App/static/js/*.min.js"
+    ###
+    
 
     watch:
       gruntfile:
@@ -66,19 +62,19 @@ module.exports = (grunt) ->
         tasks: [ "jshint:lib_test", "qunit" ]
 
       coffee:
-        files: [ "src/**/*.coffee" ]
+        files: [ "app/assets/coffee/**/*.coffee" ]
         tasks: [ "coffee" ]
 
       compass:
-        files: [ "sass/**/*.sass" ]
+        files: [ "app/assets/sass/**/*.sass" ]
         tasks: [ "compass" ]
 
   grunt.loadNpmTasks "grunt-contrib-coffee"
   grunt.loadNpmTasks "grunt-contrib-compass"
-  grunt.loadNpmTasks "grunt-contrib-concat"
-  grunt.loadNpmTasks "grunt-contrib-uglify"
+  # grunt.loadNpmTasks "grunt-contrib-concat"
+  # grunt.loadNpmTasks "grunt-contrib-uglify"
   grunt.loadNpmTasks "grunt-contrib-nodeunit"
   grunt.loadNpmTasks "grunt-contrib-jshint"
   grunt.loadNpmTasks "grunt-contrib-watch"
 
-  grunt.registerTask "default", [ "coffee", "compass", "jshint", "concat", "uglify" ]
+  grunt.registerTask "default", [ "coffee", "compass", "jshint" ]

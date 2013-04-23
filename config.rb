@@ -15,9 +15,10 @@ end
 
 # Set this to the root of your project when deployed:
 http_path = "/"
-project_path = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+# project_path = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+project_path = File.expand_path(File.join(File.dirname(__FILE__), '.'))
 css_dir = "App/static/css"
-sass_dir = "sass"
+sass_dir = "App/assets/sass"
 images_dir = "App/static/img"
 javascripts_dir = "App/static/js"
 fonts_dir = "App/static/fonts"
