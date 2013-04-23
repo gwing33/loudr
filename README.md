@@ -16,9 +16,9 @@ Mongo is quite a different database structure than SQL.
 - `git clone https://github.com/gwing33/loudr.git`
 - `cd loudr`
 - `npm install`
-- From here I'm still in development, I have stuff runing i.e., `npm install -g node-dev` then youc an `node-dev app.coffee` or `node-dev api.coffee`. But that might change.
+- From here I'm still in development, I have stuff runing i.e., `npm install -g node-dev` then you can `node-dev app.coffee` or `node-dev api.coffee`. But that might change.
 - Ohh, also you need to install ruby, then `gem install sass` and `gem install compass`
-- Oooohhhh, also run 'grunt watch' in another terminal/shell and it'll update files.
+- Oooohhhh, also run `grunt watch` in another terminal/shell and it'll update files.
 - Also, should probably install MongoDB
 - Maybe look into redis?
 
