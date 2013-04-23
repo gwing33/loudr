@@ -3,6 +3,13 @@ loudr
 
 Notifications and Support system
 
+I'll clean everything up once I get further along, but here's where I'm currently at.
+The installation process isn't perfect.
+The Module list is still being worked on.
+The TODO list is pretty vague with what I want to do.
+Rought DB Design sketched out, but need to just jump into MongoDB and start messing with it before I can really do anything.
+Mongo is quite a different database structure than SQL.
+
 ## Installation
 - Install git, on windows it's easiest to download the github gui.
 - Install [Node.js](http://nodejs.org/)
@@ -12,6 +19,8 @@ Notifications and Support system
 - From here I'm still in development, I have stuff runing i.e., `npm install -g node-dev` then youc an `node-dev app.coffee` or `node-dev api.coffee`. But that might change.
 - Ohh, also you need to install ruby, then `gem install sass` and `gem install compass`
 - Oooohhhh, also run 'grunt watch' in another terminal/shell and it'll update files.
+- Also, should probably install MongoDB
+- Maybe look into redis?
 
 
 
