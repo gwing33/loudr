@@ -1,14 +1,48 @@
-loudr
-=====
+# loudr
 
-Notifications and Support system
+## Notifications and Support System
 
-I'll clean everything up once I get further along, but here's where I'm currently at.
-The installation process isn't perfect.
-The Module list is still being worked on.
-The TODO list is pretty vague with what I want to do.
-Rought DB Design sketched out, but need to just jump into MongoDB and start messing with it before I can really do anything.
-Mongo is quite a different database structure than SQL.
+This system is mean for other websites to add an easy way to communicate and interact with their customers.
+By giving them a **"notification"** system, that can send updates an individual user or group of users with what is going on.
+
+
+The goal is to increase the lifetime value of the customer by making them feel like they are welcome.
+Another goal is to help with usability, sending notifications out based on maintence or site problems helps with UX.
+
+
+### General Structure - [Rough Database Idea Sketch](https://www.evernote.com/pub/geraldroy/loudr)
+- Users (People who pay for the application)
+- Applications (Paying customers, and their different websites)
+- App Users (An app's user base)
+- App User Groups
+- Notifications
+
+
+### Key Features
+- Dynamically Collect Application Users
+- Send Notifications to:
+    - Individual Users
+    - Group of Users
+    - All Users
+- Notification Functionality
+    - Mark as **Seen**
+    - Mark as **Interacted**
+    - Mark as **Dissmissed**
+    - Types:
+        - General (Regular list notification)
+        - Maintenance (Possibly same as alert?)
+        - Alert
+
+
+#### Additional future thoughts
+- Realtime instant messaging
+- Statistics Tracking
+- Conditional Notifications
+    - Example: New User Registered
+    - Example: User visits page (x number of times?) -> send automated notification
+    - Possibly link to automated notifications to an email?
+- Help / FAQ module? This might be a full on additional product
+
 
 ## Installation
 - Install git, on windows it's easiest to download the github gui.
@@ -42,19 +76,15 @@ Mongo is quite a different database structure than SQL.
 - grunt-contrib-watch
 - grunt-contrib-qunit
 - node-dev
+- bcrypt
 
 ## TODO
-- Work a little harder on the file structure
-- Learn MongoDB
+- List Key Functionality
+- Ruff UI Design
+- From Design, look further at how I want to structure the folders
+- Get Feedback
 - Figure out how to set up tests (mocha?)
 - Look into redis, see if there is possible configuration
-
-## Database Schema
-
-Nothing is built yet, but if I were to do it in SQL it'd look something like the folloiwng:
-
-[Rough Database Idea Sketch](https://www.evernote.com/pub/geraldroy/loudr)
-
 
 
 
