@@ -1,11 +1,11 @@
 exports.index = (req, res) ->
     ejs = require 'ejs'
 
-    body_html = 'nope'
-    res.render '../views/index.ejs', hw: 'Fuck yes', (err, html) ->
+    body_html = ''
+    
+    res.render '../views/index.ejs', hw: ' for Loudr', (err, html) ->
         body_html = html
         return false
-    console.log body_html
 
     res.render "_layout.ejs",
         title: 'Loudr'

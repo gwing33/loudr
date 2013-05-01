@@ -34,14 +34,35 @@ Another goal is to help with usability, sending notifications out based on maint
         - Alert
 
 
-#### Additional future thoughts
-- Realtime instant messaging
-- Statistics Tracking
+### Storyboards
+- Onboarding
+- Setup / Installation
+- Communicate
+- User Management
+
+### General Page Structure?
+- Logged out Landing
+- Dashboard (Logged in landing)
+- Account
+- Manage Users
+- Communicate
+- API
+- Application Selection
+- Auth (login, create, logout etc...)
+
+Not sure how to communicate this, I'm drawing a storyboard to help with this.
+
+
+
+#### Future Features
 - Conditional Notifications
     - Example: New User Registered
     - Example: User visits page (x number of times?) -> send automated notification
     - Possibly link to automated notifications to an email?
+- Optional user import feature
+- Statistics Tracking
 - Help / FAQ module? This might be a full on additional product
+- Realtime instant messaging
 
 
 ## Installation
