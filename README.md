@@ -9,8 +9,11 @@ By giving them a **"notification"** system, that can send updates an individual 
 The goal is to increase the lifetime value of the customer by making them feel like they are welcome.
 Another goal is to help with usability, sending notifications out based on maintence or site problems helps with UX.
 
+### Compteitor list
+- [Intercom.io](https://www.intercom.io): This is where I got my initial idea, the reason why I want to push forward instead of using them is because I feel they don't have an easy installation/setup process and it needs to be a bit more simplistic functionality.
 
-### General Structure - [Rough Database Idea Sketch](https://www.evernote.com/pub/geraldroy/loudr)
+
+### General Structure - [Rough Database Idea Sketches](https://www.evernote.com/pub/geraldroy/loudr)
 - Users (People who pay for the application)
 - Applications (Paying customers, and their different websites)
 - App Users (An app's user base)
@@ -19,7 +22,9 @@ Another goal is to help with usability, sending notifications out based on maint
 
 
 ### Key Features
-- Dynamically Collect Application Users
+- Dynamically Collect Application Users and Tags/Groups
+- Dynamic fields for a user should also be doable. (Thank you schemaless DB)
+- Scrape Social networks for user accounts.
 - Send Notifications to:
     - Individual Users
     - Group of Users
@@ -35,8 +40,8 @@ Another goal is to help with usability, sending notifications out based on maint
 
 
 ### Storyboards
-- Onboarding
-- Setup / Installation
+- Onboarding: See [Rough Database Idea Sketches](https://www.evernote.com/pub/geraldroy/loudr)
+- Setup / Installation: See [Rough Database Idea Sketches](https://www.evernote.com/pub/geraldroy/loudr)
 - Communicate
 - User Management
 
@@ -55,7 +60,7 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 
 
 #### Future Features
-- Conditional Notifications
+- Conditional Notifications (Auto Response sort of thing)
     - Example: New User Registered
     - Example: User visits page (x number of times?) -> send automated notification
     - Possibly link to automated notifications to an email?
@@ -100,7 +105,6 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 - bcrypt
 
 ## TODO
-- List Key Functionality
 - Ruff UI Design
 - From Design, look further at how I want to structure the folders
 - Get Feedback
