@@ -9,9 +9,11 @@ By giving them a **"notification"** system, that can send updates an individual 
 The goal is to increase the lifetime value of the customer by making them feel like they are welcome.
 Another goal is to help with usability, sending notifications out based on maintence or site problems helps with UX.
 
+See my [Evernote Notebook](https://www.evernote.com/pub/geraldroy/loudr) to see all notes/sketches.
+
 ### Compteitor list
 - [Intercom.io](https://www.intercom.io): This is where I got my initial idea, the reason why I want to push forward instead of using them is because I feel they don't have an easy installation/setup process and it needs to be a bit more simplistic functionality.
-- [My Intercom.io Site overview](https://www.evernote.com/shard/s55/sh/a2a31538-db37-4fb8-9cc3-a8a977684792/5ddcb63599aeb28b8e1edf9b43adcf3e)
+- [Intercom.io Site overview](https://www.evernote.com/shard/s55/sh/a2a31538-db37-4fb8-9cc3-a8a977684792/5ddcb63599aeb28b8e1edf9b43adcf3e)
 
 
 ### General Structure - [Rough Database Idea Sketches](https://www.evernote.com/shard/s55/sh/dc08a435-ae2a-4cad-9c40-649239ae5094/f2dc4b913bdd195871472f65221abbce)
