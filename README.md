@@ -41,8 +41,8 @@ Another goal is to help with usability, sending notifications out based on maint
 
 
 ### Storyboards
-- Onboarding: See [Onboarding Storyboard](https://www.evernote.com/shard/s55/sh/e9f1c4ea-98e8-403c-8384-4d03dd802d2f/9d9d4945729486093ca3b338bf860381)
-- Setup / Installation: See [Onboarding Storyboard](https://www.evernote.com/shard/s55/sh/e9f1c4ea-98e8-403c-8384-4d03dd802d2f/9d9d4945729486093ca3b338bf860381)
+- [Onboarding](https://www.evernote.com/shard/s55/sh/e9f1c4ea-98e8-403c-8384-4d03dd802d2f/9d9d4945729486093ca3b338bf860381)
+- [Setup / Installation](https://www.evernote.com/shard/s55/sh/e9f1c4ea-98e8-403c-8384-4d03dd802d2f/9d9d4945729486093ca3b338bf860381)
 - Communicate
 - User Management
 
