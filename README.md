@@ -108,6 +108,12 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 - bcrypt
 
 ## TODO
+- Install Bower
+- Grunt install node-dev
+- [Backbone.Marionette](http://marionettejs.com/)
+- Look into [Mocha](https://github.com/yaymukund/grunt-simple-mocha)
+- Socket.io
+- [Firebase](https://www.firebase.com/)
 - Ruff UI Design
 - From Design, look further at how I want to structure the folders
 - Get Feedback

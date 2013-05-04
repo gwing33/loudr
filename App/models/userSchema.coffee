@@ -1,6 +1,7 @@
 mongoose = require("mongoose")
-Schema = mongoose.Schema
 bcrypt = require("bcrypt")
+
+Schema = mongoose.Schema
 SALT_WORK_FACTOR = 10
 
 UserSchema = new Schema(

@@ -1,6 +1,8 @@
 respond = (req, res, next) ->
   res.send "hello " + req.params.name
 
+# Look into socket.io
+
 restify = require("restify")
 server = restify.createServer()
 server.get "/hello/:name", respond
