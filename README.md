@@ -61,7 +61,6 @@ See my [Evernote Notebook](https://www.evernote.com/pub/geraldroy/loudr) to see 
 Not sure how to communicate this, I'm drawing a storyboard to help with this.
 
 
-
 #### Future Features
 - Conditional Notifications (Auto Response sort of thing)
     - Example: New User Registered
@@ -71,6 +70,14 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 - Statistics Tracking
 - Help / FAQ module? This might be a full on additional product
 - Realtime instant messaging
+
+## Modules
+- users
+    - permissions
+    - payment
+- apps
+    - app_users
+
 
 
 ## Installation
@@ -86,32 +93,7 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 - Maybe look into redis?
 
 
-
-## Modules (Incomplete, see package.json for what's currently used.)
-- mongoose
-- passport
-- restify
-- ejs
-- async
-- request
-- express
-- grunt
-- grunt-contrib-jshint
-- grunt-contrib-compass
-- grunt-contrib-uglify
-- grunt-contrib-coffee
-- grunt-contrib-concat
-- grunt-contrib-nodeunit
-- grunt-contrib-watch
-- grunt-contrib-qunit
-- node-dev
-- bcrypt
-
 ## TODO
-- Install Bower
-- Grunt install node-dev
-- [Backbone.Marionette](http://marionettejs.com/)
-- Look into [Mocha](https://github.com/yaymukund/grunt-simple-mocha)
 - Socket.io
 - [Firebase](https://www.firebase.com/)
 - Ruff UI Design

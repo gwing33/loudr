@@ -5,7 +5,8 @@
   "description": "User based notification",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "grunt watch & compass watch & node-dev app.coffee & node-dev api.coffee"
   },
   "dependencies": {
     "mongoose": "~3.6.4",
@@ -15,17 +16,18 @@
     "async": "~0.2.7",
     "request": "~2.16.6",
     "express": "~3.2.0",
-    "bcrypt": "~0.7.5"
+    "bcrypt": "~0.7.5",
+    "backbone": "~1.0.0"
   },
   "devDependencies": {
     "grunt": "*",
     "grunt-contrib-jshint": "*",
-    "grunt-contrib-compass": "*",
     "grunt-contrib-uglify": "*",
     "grunt-contrib-coffee": "*",
     "grunt-contrib-concat": "*",
     "grunt-contrib-nodeunit": "*",
     "grunt-contrib-watch": "*",
-    "grunt-contrib-qunit": "*"
+    "grunt-contrib-qunit": "*",
+    "grunt-simple-mocha": "~0.4.0"
   }
 }

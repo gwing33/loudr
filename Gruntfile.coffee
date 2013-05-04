@@ -11,11 +11,6 @@ module.exports = (grunt) ->
         dest: "app/static/js"
         ext: ".js"
 
-    compass:
-      dist:
-        options:
-          config: "config.rb"
-
     jshint:
       options:
         curly: true
@@ -38,18 +33,27 @@ module.exports = (grunt) ->
 
       lib_test:
         src: [ "lib/**/*.js", "test/**/*.js" ]
-
-    ###
-    concat:
-      dist:
-        src: [ "App/static/js/<%= pkg.name %>.js" ]
-        dest: "App/static/js/<%= pkg.name %>.min.js"
-
-    uglify:
-      dist:
-        src: "App/static/js/*.js"
-        dest: "App/static/js/*.min.js"
-    ###
+    
+#    simplemocha:
+#      options:
+#        globals: ['should']
+#        timeout: 3000
+#        ignoreLeaks: false
+#        grep: '*-test'
+#        ui: 'bdd'
+#        reporter: 'tap'
+#
+#    all: { src: ['test/**/*.js'] }
+#    
+#    concat:
+#      dist:
+#        src: [ "App/static/js/<%= pkg.name %>.js" ]
+#        dest: "App/static/js/<%= pkg.name %>.min.js"
+#
+#    uglify:
+#      dist:
+#        src: "App/static/js/*.js"
+#        dest: "App/static/js/*.min.js"
     
 
     watch:
@@ -61,20 +65,13 @@ module.exports = (grunt) ->
         files: "<%= jshint.lib_test.src %>"
         tasks: [ "jshint:lib_test", "qunit" ]
 
-      coffee:
-        files: [ "app/assets/coffee/**/*.coffee" ]
-        tasks: [ "coffee" ]
-
-      compass:
-        files: [ "app/assets/sass/**/*.sass" ]
-        tasks: [ "compass" ]
-
   grunt.loadNpmTasks "grunt-contrib-coffee"
-  grunt.loadNpmTasks "grunt-contrib-compass"
-  # grunt.loadNpmTasks "grunt-contrib-concat"
-  # grunt.loadNpmTasks "grunt-contrib-uglify"
   grunt.loadNpmTasks "grunt-contrib-nodeunit"
   grunt.loadNpmTasks "grunt-contrib-jshint"
   grunt.loadNpmTasks "grunt-contrib-watch"
 
-  grunt.registerTask "default", [ "coffee", "compass", "jshint" ]
+  # grunt.loadNpmTasks "grunt-contrib-concat"
+  # grunt.loadNpmTasks "grunt-contrib-uglify"
+  # grunt.loadNpmTasks 'grunt-simple-mocha'
+
+  grunt.registerTask "default", [ "coffee", "jshint" ] # simplemocha
