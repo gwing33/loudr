@@ -1,18 +1,16 @@
 restify = require "restify"
+mongoose = require "mongoose"
 routes = require "./routes"
+config = require "./config"
 
-server = restify.createServer()
+server = restify.createServer();
 server.pre restify.pre.userAgentConnection()
 
-routes.site(server)
+db = mongoose.connect config.creds.conn_str
+Schema = mongoose.Schema
 
-# Controllers Here
-#siteController = require './controllers/site'
-
-# Main Routes
-# server.get "/", siteController.index
-
-# Admin Routes
+# Add Routes
+routes.add(server)
 
 server.listen 3001, ->
   console.log "%s listening at %s", server.name, server.url

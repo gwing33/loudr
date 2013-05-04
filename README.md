@@ -94,13 +94,11 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 
 
 ## TODO
-- Socket.io
-- [Firebase](https://www.firebase.com/)
+- Create a user via API
 - Ruff UI Design
 - From Design, look further at how I want to structure the folders
-- Get Feedback
-- Figure out how to set up tests (mocha?)
+- Set up Tests
 - Look into redis, see if there is possible configuration
-
+- Socket.io
 
 
