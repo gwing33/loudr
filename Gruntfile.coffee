@@ -57,6 +57,10 @@ module.exports = (grunt) ->
     
 
     watch:
+      coffee:
+        files: "app/assets/coffee/**/*.coffee"
+        tasks: ['coffee']
+      
       gruntfile:
         files: "<%= jshint.gruntfile.src %>"
         tasks: [ "jshint:gruntfile" ]

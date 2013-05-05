@@ -1,12 +1,13 @@
 restify = require "restify"
 mongoose = require "mongoose"
 routes = require "./routes"
-config = require "./config"
+config = require "../config"
 
-server = restify.createServer();
+server = restify.createServer()
 server.pre restify.pre.userAgentConnection()
+server.use restify.bodyParser()
 
-db = mongoose.connect config.creds.conn_str
+db = mongoose.connect config.settings.conn_str
 Schema = mongoose.Schema
 
 # Add Routes

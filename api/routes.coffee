@@ -11,3 +11,5 @@ exports.add = (server) ->
 
     server.get '/user/:email', userController.get_by_email
     server.post '/user/', userController.create
+    
+    server.post '/auth/login', userController.login

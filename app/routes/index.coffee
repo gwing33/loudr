@@ -3,7 +3,7 @@ exports.index = (req, res) ->
 
     body_html = ''
     
-    res.render '../views/index.ejs', hw: ' for Loudr', (err, html) ->
+    res.render '../views/index.ejs', (err, html) ->
         body_html = html
         return false
 

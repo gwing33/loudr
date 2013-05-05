@@ -15,9 +15,6 @@ app.set "port", process.env.PORT or 3000
 app.set "views", __dirname + "/app/views"
 app.set "view engine", "ejs"
 
-app.set "api_url", "localhost:3000"
-app.set "api_key", "glee123"
-
 
 app.use express.favicon()
 app.use express.logger("dev")
@@ -32,7 +29,7 @@ app.use express.static path.join(__dirname, "app/static")
 app.use express.errorHandler()  if "development" is app.get("env")
 
 app.get "/", routes.index
-app.get "/users", user.list
+app.post "/login", user.login
 
 http.createServer(app).listen app.get("port"), ->
   console.log "Express server listening on port " + app.get("port")
