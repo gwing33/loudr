@@ -94,7 +94,8 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 
 
 ## TODO
-- Create a user via API
+- Store User Sessions
+- Create New User
 - Ruff UI Design
 - From Design, look further at how I want to structure the folders
 - Set up Tests

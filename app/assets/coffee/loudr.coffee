@@ -7,16 +7,13 @@ $ ->
     $.ajax
       url: el.attr 'action'
       type: el.attr 'method'
+      dataType: 'json'
       data:
         email: el.find('[name="email"]').val()
         password: el.find('[name="password"]').val()
       success: (json) ->
-        console.log json
-        return
+        console.log json.reason unless json.success
       error: (blah, gah, doh) ->
         console.log blah, gah, doh
-        return
-
-    return false
-
+  
   undefined
