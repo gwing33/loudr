@@ -18,6 +18,8 @@ exports.login = (req, res, next) ->
       success: user?
       reason: 'Account is locked, check your email to reactivate your account.'
     
+    req.session.user_id = 123 if json.success
+
     reasons = User.failedLogin
     switch reason_id
       when reasons.NOT_FOUND

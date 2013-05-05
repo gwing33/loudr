@@ -7,6 +7,7 @@ routes = require "./app/routes"
 user = require "./app/routes/user"
 http = require "http"
 path = require "path"
+auth = require "./middleware/auth"
 
 app = express()
 
@@ -14,7 +15,6 @@ app = express()
 app.set "port", process.env.PORT or 3000
 app.set "views", __dirname + "/app/views"
 app.set "view engine", "ejs"
-
 
 app.use express.favicon()
 app.use express.logger("dev")
@@ -30,6 +30,7 @@ app.use express.errorHandler()  if "development" is app.get("env")
 
 app.get "/", routes.index
 app.post "/login", user.login
+app.post "/logout", user.logout
 
 http.createServer(app).listen app.get("port"), ->
   console.log "Express server listening on port " + app.get("port")

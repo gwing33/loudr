@@ -6,7 +6,6 @@ exports.login = (req, res) ->
     email: req.body.email
     password: req.body.password
 
-
   options =
     host: config.settings.api_host,
     port: config.settings.api_port,
@@ -31,3 +30,6 @@ exports.login = (req, res) ->
   # write data to request body
   api_req.write post_data
   api_req.end()
+
+exports.logout = (req, res) ->
+  delete req.session.user_id

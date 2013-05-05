@@ -2,9 +2,14 @@ mongoose = require("mongoose")
 bcrypt = require("bcrypt")
 
 Schema = mongoose.Schema
+ObjectId = Schema.ObjectId
+
 SALT_WORK_FACTOR = 10
 
 UserSchema = new Schema(
+  user_id:
+    type: ObjectId
+    turnOn: true
   email:
     type: String
     required: true
