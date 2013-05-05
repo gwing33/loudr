@@ -34,16 +34,16 @@ module.exports = (grunt) ->
       lib_test:
         src: [ "lib/**/*.js", "test/**/*.js" ]
     
-#    simplemocha:
-#      options:
-#        globals: ['should']
-#        timeout: 3000
-#        ignoreLeaks: false
-#        grep: '*-test'
-#        ui: 'bdd'
-#        reporter: 'tap'
-#
-#    all: { src: ['test/**/*.js'] }
+    simplemocha:
+      options:
+        globals: ['should']
+        timeout: 3000
+        ignoreLeaks: false
+        grep: '*-test'
+        ui: 'bdd'
+        reporter: 'tap'
+
+      all: { src: ['tests/**/*.js'] }
 #    
 #    concat:
 #      dist:
@@ -59,7 +59,7 @@ module.exports = (grunt) ->
     watch:
       coffee:
         files: "app/assets/coffee/**/*.coffee"
-        tasks: ['coffee']
+        tasks: [ "coffee" ]
       
       gruntfile:
         files: "<%= jshint.gruntfile.src %>"
@@ -69,13 +69,17 @@ module.exports = (grunt) ->
         files: "<%= jshint.lib_test.src %>"
         tasks: [ "jshint:lib_test", "qunit" ]
 
+      simplemocha:
+        files: "tests/**/*-test.js"
+        tasks: [ "simplemocha" ]
+
   grunt.loadNpmTasks "grunt-contrib-coffee"
   grunt.loadNpmTasks "grunt-contrib-nodeunit"
   grunt.loadNpmTasks "grunt-contrib-jshint"
   grunt.loadNpmTasks "grunt-contrib-watch"
-
+  grunt.loadNpmTasks 'grunt-simple-mocha'
   # grunt.loadNpmTasks "grunt-contrib-concat"
   # grunt.loadNpmTasks "grunt-contrib-uglify"
-  # grunt.loadNpmTasks 'grunt-simple-mocha'
+  
 
-  grunt.registerTask "default", [ "coffee", "jshint" ] # simplemocha
+  grunt.registerTask "default", [ "coffee", "jshint", "simplemocha" ] # 

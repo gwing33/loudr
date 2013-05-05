@@ -73,32 +73,37 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 
 ## Modules
 - users
+    - auth
     - permissions
     - payment
 - apps
     - app_users
+- user_notifications
+
 
 
 
 ## Installation
-- Install git, on windows it's easiest to download the github gui.
+- Install git
+- Install Ruby
+- `gem install sass`
+- `gem install compass`
+- Install and start up [MongoDB](http://www.mongodb.org/)
+- Install and start up [Redis](http://redis.io/)
 - Install [Node.js](http://nodejs.org/)
 - `git clone https://github.com/gwing33/loudr.git`
 - `cd loudr`
 - `npm install`
-- From here I'm still in development, I have stuff runing i.e., `npm install -g node-dev` then you can `node-dev app.coffee` or `node-dev api.coffee`. But that might change.
-- Ohh, also you need to install ruby, then `gem install sass` and `gem install compass`
-- Oooohhhh, also run `grunt watch` in another terminal/shell and it'll update files.
-- Also, should probably install MongoDB
-- Maybe look into redis?
+- modify config.coffee with your db settings
+- `npm start`
 
 
 ## TODO
+- Set up Tests
 - Store User Sessions
 - Create New User
 - Ruff UI Design
 - From Design, look further at how I want to structure the folders
-- Set up Tests
 - Look into redis, see if there is possible configuration
 - Socket.io
 

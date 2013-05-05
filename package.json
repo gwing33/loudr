@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "grunt watch & compass watch & node-dev app.coffee & node-dev api.coffee"
+    "start": "grunt watch & compass watch & node-dev --debug=5858 app.coffee & node-dev --debug=5859 api.coffee & node-inspector --web-port=3002"
   },
   "dependencies": {
     "mongoose": "~3.6.4",
@@ -16,7 +16,10 @@
     "request": "~2.16.6",
     "express": "~3.2.0",
     "bcrypt": "~0.7.5",
-    "backbone": "~1.0.0"
+    "backbone": "~1.0.0",
+    "connect": "~2.7.8",
+    "connect-redis": "~1.4.5",
+    "hiredis": "~0.1.15"
   },
   "devDependencies": {
     "grunt": "*",

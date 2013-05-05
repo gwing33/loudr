@@ -33,3 +33,21 @@ exports.login = (req, res) ->
 
 exports.logout = (req, res) ->
   delete req.session.user_id
+
+# connect = require('connect')
+# RedisStore = require('connect-redis')(connect);
+
+# RedisSessionStore ?= require('connect-redis')(express)
+# redisSessionStore ?= new RedisSessionStore(
+#     host: appConfig.databaseRedis.host
+#     port: appConfig.databaseRedis.port
+#     db: appConfig.databaseRedis.username
+#     pass: appConfig.databaseRedis.password
+#     no_ready_check: true
+#     ttl: 60*60  # hour
+# )
+# server.use express.session({
+#     secret: appConfig.site.salt
+#     cookie: maxAge: 1000*60*60
+#     store: redisSessionStore
+# })
