@@ -3,13 +3,13 @@
 # controller classes
 exports.add = (server) ->
     # Define Controllers
-    siteController = require './controllers/site'
-    userController = require './controllers/user'
+    site_controller = require './controllers/site'
+    user_controller = require './controllers/user'
     
     # Define Routes
-    server.get '/', siteController.index
+    server.get '/', site_controller.index
 
-    server.get '/user/:email', userController.get_by_email
-    server.post '/user/', userController.create
+    server.post '/user/', user_controller.create_user
+    server.post '/auth/login', user_controller.login
+    # server.get '/user/:email', user_controller.get_by_email
     
-    server.post '/auth/login', userController.login

@@ -10,6 +10,7 @@ UserSchema = new Schema(
   user_id:
     type: ObjectId
     turnOn: true
+  
   email:
     type: String
     required: true
