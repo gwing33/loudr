@@ -99,9 +99,9 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 
 
 ## TODO
-- Write tests that simulate URL calls
+- Delete User
+- Create User
 - Store User Sessions
-- Create New User
 - Ruff UI Design
 - From Design, look further at how I want to structure the folders
 - Look into redis, see if there is possible configuration
