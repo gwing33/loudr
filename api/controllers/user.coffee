@@ -8,9 +8,7 @@ exports.get_by_email = (req, res, next) ->
   res.send "getting user: " + req.params.email
 
 exports.login = (req, res, next) ->
-  params = JSON.parse req.body
-
-  User.getAuthenticated params.email, params.password, (err, user, reason_id) ->
+  User.getAuthenticated req.params.email, req.params.password, (err, user, reason_id) ->
     throw err  if err
     
     # Defaults to reasons.MAX_ATTEMPTS
