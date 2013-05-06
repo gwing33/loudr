@@ -54,6 +54,18 @@ UserSchema.methods.comparePassword = (candidatePassword, cb) ->
     return cb(err) if err
     cb null, isMatch
 
+UserSchema.virtual('full_name').get () ->
+  return @.first_name + ' ' + @.last_name
+
+UserSchema.methods.toJson = () ->
+  user_obj =
+    email: @.email
+    name: @.full_name
+    loginAttempts: @.loginAttempts
+    locked: @.locked
+
+  return user_obj
+
 UserSchema.methods.incLoginAttempts = (cb) ->
   updates = $inc:
     loginAttempts: 1
@@ -67,9 +79,9 @@ reasons = UserSchema.statics.failedLogin =
   PASSWORD_INCORRECT: 1
   MAX_ATTEMPTS: 5
 
-UserSchema.statics.getAuthenticated = (username, password, cb) ->
+UserSchema.statics.getAuthenticated = (email, password, cb) ->
   @findOne
-    username: username
+    email: email
   , (err, user) ->
     return cb(err) if err
     return cb(null, null, reasons.NOT_FOUND)  unless user

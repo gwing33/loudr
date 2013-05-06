@@ -27,12 +27,16 @@ exports.login = (req, res, next) ->
       res.send
         success: false
     
+    if user?
+      # req.session.user_id = 123 if json.success
+      tmp_user = user.toJson()
+      tmp_user.success = true
+      return res.send tmp_user
+
     # Defaults to reasons.MAX_ATTEMPTS
     json =
-      success: user?
+      success: false
       reason: 'Account is locked, check your email to reactivate your account.'
-    
-    req.session.user_id = 123 if json.success
 
     reasons = User.failedLogin
     switch reason_id
