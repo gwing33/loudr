@@ -99,8 +99,6 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 
 
 ## TODO
-- Delete User
-- Create User
 - Store User Sessions
 - Ruff UI Design
 - From Design, look further at how I want to structure the folders

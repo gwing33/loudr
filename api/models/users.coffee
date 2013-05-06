@@ -7,10 +7,6 @@ ObjectId = Schema.ObjectId
 SALT_WORK_FACTOR = 10
 
 UserSchema = new Schema(
-  user_id:
-    type: ObjectId
-    turnOn: true
-  
   email:
     type: String
     required: true
@@ -59,6 +55,7 @@ UserSchema.virtual('full_name').get () ->
 
 UserSchema.methods.toJson = () ->
   user_obj =
+    _id: @._id
     email: @.email
     name: @.full_name
     loginAttempts: @.loginAttempts
@@ -79,12 +76,29 @@ reasons = UserSchema.statics.failedLogin =
   PASSWORD_INCORRECT: 1
   MAX_ATTEMPTS: 5
 
+UserSchema.statics.getById = (id, cb) ->
+  @findOne
+    _id: id
+  , (err, user) ->
+    return cb er if err
+    return cb null, null, reasons.NOT_FOUND unless user
+
+    cb null, user
+
+UserSchema.statics.removeById = (id, cb) ->
+  @findOne
+    _id: id
+  , (err, user) ->
+    return cb er if err
+    return cb null, null, reasons.NOT_FOUND unless user
+    cb null, user.remove()
+
 UserSchema.statics.getAuthenticated = (email, password, cb) ->
   @findOne
     email: email
   , (err, user) ->
-    return cb(err) if err
-    return cb(null, null, reasons.NOT_FOUND)  unless user
+    return cb er if err
+    return cb null, null, reasons.NOT_FOUND unless user
     if user.locked
       return user.incLoginAttempts((err) ->
         return cb(err) if err

@@ -9,14 +9,20 @@ exports.create_user = (req, res, next) ->
     password: req.params.password
    
   # save user to database
-  
-  new_user.save (err) ->
+  new_user.save (err, user) ->
     if err
       res.send
         success: false
     else
-      res.send @
-    
+      tmp_user = user.toJson()
+      tmp_user.success = true
+      return res.send tmp_user
+
+exports.delete_user = (req, res, next) ->
+  User.removeById req.params.id, (err, success) ->
+    res.send
+      success: !err
+
 
 exports.get_by_email = (req, res, next) ->
   res.send "getting user: " + req.params.email
