@@ -98,11 +98,36 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 - `npm start`
 
 
-## TODO
+## API TODO
 - Store User Sessions
-- Ruff UI Design
-- From Design, look further at how I want to structure the folders
-- Look into redis, see if there is possible configuration
-- Socket.io
+- User App
+    - Create User App
+    - Edit User App Name
+    - Delete User App
+    - Generate API Key
+    - Allow multiple users to an app
+        - Set up permissions?
+- App User
+    - Create
+    - Delete
+    - Edit
+    - Tags
+        - Add
+        - Remove
+    - Get app users by tag
+- App User Notifications
+    - Get a list of notifications
+    - If user doesn't exist, create an App User
+    - Edit
+    - Create
+    - Delete
+    - Mark as seen, interacted, dismissed
+- User Permissions
+    - Superuser Ability
+
+## APP TODO
+- Design Frontend
+- Desing Logo
+- Client side script
 
 
