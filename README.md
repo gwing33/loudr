@@ -99,7 +99,7 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 
 
 ## TODO
-- Set up Tests
+- Write tests that simulate URL calls
 - Store User Sessions
 - Create New User
 - Ruff UI Design

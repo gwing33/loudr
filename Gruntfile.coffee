@@ -1,4 +1,6 @@
 module.exports = (grunt) ->
+  port = 3001
+
   grunt.initConfig
     pkg: grunt.file.readJSON("package.json")
     banner: "/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - " + "<%= grunt.template.today(\"yyyy-mm-dd\") %>\n" + "<%= pkg.homepage ? \"* \" + pkg.homepage + \"\\n\" : \"\" %>" + "* Copyright (c) <%= grunt.template.today(\"yyyy\") %> <%= pkg.author.name %>;" + " Licensed <%= _.pluck(pkg.licenses, \"type\").join(\", \") %> */\n"
@@ -39,11 +41,22 @@ module.exports = (grunt) ->
         globals: ['should']
         timeout: 3000
         ignoreLeaks: false
-        grep: '*-test'
+        # grep: '*-test'
         ui: 'bdd'
-        reporter: 'tap'
+        reporter: 'Spec'
 
-      all: { src: ['tests/**/*.js'] }
+      all:
+        src: ['tests/**/*-test.coffee']
+
+    mocha:
+      all:
+        options:
+          mocha:
+            ignoreLeaks: false
+            grep: 'food'
+          urls: [ 'http://localhost:' + port + '/' ]
+          run: true
+
 #    
 #    concat:
 #      dist:
@@ -70,16 +83,17 @@ module.exports = (grunt) ->
         tasks: [ "jshint:lib_test", "qunit" ]
 
       simplemocha:
-        files: "tests/**/*-test.js"
+        files: "tests/**/*-test.coffee"
         tasks: [ "simplemocha" ]
 
   grunt.loadNpmTasks "grunt-contrib-coffee"
   grunt.loadNpmTasks "grunt-contrib-nodeunit"
   grunt.loadNpmTasks "grunt-contrib-jshint"
   grunt.loadNpmTasks "grunt-contrib-watch"
-  grunt.loadNpmTasks 'grunt-simple-mocha'
+  grunt.loadNpmTasks "grunt-mocha"
+  grunt.loadNpmTasks "grunt-simple-mocha"
   # grunt.loadNpmTasks "grunt-contrib-concat"
   # grunt.loadNpmTasks "grunt-contrib-uglify"
   
 
-  grunt.registerTask "default", [ "coffee", "jshint", "simplemocha" ] # 
+  grunt.registerTask "default", [ "coffee", "jshint", "simplemocha"] # , "mocha" ]
