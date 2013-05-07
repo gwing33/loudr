@@ -100,6 +100,10 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 
 ## API TODO
 - Store User Sessions
+- User
+    - Change Password
+    - Email locked account
+    - Update Account
 - User App
     - Create User App
     - Edit User App Name
@@ -129,5 +133,27 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 - Design Frontend
 - Desing Logo
 - Client side script
+- Beta Collection
+- API Documentation
 
+## Marketing TODO
+- Live Chat / Contact
+- Twitter
+- G+
+- Facebook
+- Blog
+- Sitemap
+- PPC Campaign
+- SEO Silo's
+- Find Competitors
+- Terminology
 
+## Server Setup TODO
+- Buy Domain Name
+- Get hosting
+- Set up staging
+- Set up deploy
+- Run tests
+
+## Other TODO
+- Product Life-Cycle Management: [PLCM](http://en.wikipedia.org/wiki/Product_life-cycle_management_(marketing))
