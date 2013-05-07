@@ -156,4 +156,4 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 - Run tests
 
 ## Other TODO
-- Product Life-Cycle Management: [PLCM](http://en.wikipedia.org/wiki/Product_life-cycle_management_(marketing))
+- Product Life-Cycle Management: [PLCM](http://en.wikipedia.org/wiki/Product_life-cycle_management_%28marketing%29)
