@@ -64,9 +64,9 @@ describe 'Loudr API', () ->
       put_data = 
         form:
           email: tmp_user_data.form.email
-          old_password: "glee123"
-          password: "password"
-          name: "Kit Kat"
+          password: "glee123"
+          new_password: "password"
+          full_name: "Kit Kat"
 
       request.put api_url + '/user/' + tmp_user._id, put_data, (err, resp, body) ->
         assert !err
@@ -99,6 +99,19 @@ describe 'Loudr API', () ->
         assert !err
         json = JSON.parse body
 
+        assert.equal json.success, true
+        done()
+
+    it "should change the name", (done) ->
+      put_data = 
+        form:
+          full_name: "Gerald Leenerts"
+
+      request.put api_url + '/user/' + tmp_user._id, put_data, (err, resp, body) ->
+        assert !err
+        json = JSON.parse body
+
+        assert.equal json.full_name, "Gerald Leenerts"
         assert.equal json.success, true
         done()
 

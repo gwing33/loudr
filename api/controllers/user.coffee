@@ -1,5 +1,6 @@
 User = require "../models/usersModel"
 mongoose = require "mongoose"
+async = require "async"
 
 exports.create_user = (req, res, next) ->
   new_user = new User
@@ -24,40 +25,40 @@ exports.delete_user = (req, res, next) ->
       success: !err
 
 exports.update_user = (req, res, next) ->
-  if(req.params.password)
-    # Do a save
-    User.getById req.params.id, (err, user) ->
-      if err
-        res.send
-          success: false
+  # Do a save
+  User.getById req.params.id, (err, user) ->
+    if err
+      res.send
+        success: false
 
-      # See if password matches, if it does, set the new password
-      matched = false
+    async.waterfall [
+      (cb) ->
+        if req.params.new_password
+          user.comparePassword req.params.password, (err, isMatch) ->
+            cb err if err
 
-      user.comparePassword req.params.old_password, (err, isMatch) ->
-        matched = isMatch
+            user.set('password', req.params.new_password) if isMatch
+            cb null, user
+        else
+          cb null, user
+      , (user, cb) ->
+        user.set('full_name', req.params.full_name) if req.params.full_name
 
-      user.set('password', req.params.password)
-      user.set('full_name', req.params.name) if req.params.name
-
-      user.save (err, user) ->
+        user.save (err, user) ->
+          cb err if err
+          
+          cb null, user
+      ], (err, user) ->
         if err
           res.send
             success: false
-        else
-          tmp_user = user.toJson()
-          tmp_user.success = true
-          return res.send tmp_user
-  else
-    # just update
-    User.update 
-      _id: req.params.id
-    , req.params, (err, numberAffected, raw) ->
-      if err
-        res.send
-          success: false
+            error: err
 
-      console.log numberAffected, raw
+        tmp_user = user.toJson()
+        tmp_user.success = true
+        return res.send tmp_user
+
+
   
 
 exports.get_by_email = (req, res, next) ->
