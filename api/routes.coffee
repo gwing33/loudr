@@ -11,6 +11,7 @@ exports.add = (server) ->
 
     server.post '/user/', user_controller.create_user
     server.del '/user/:id', user_controller.delete_user
+    server.put '/user/:id', user_controller.update_user
     server.post '/auth/login', user_controller.login
     # server.get '/user/:email', user_controller.get_by_email
     

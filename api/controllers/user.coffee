@@ -1,4 +1,4 @@
-User = require "../models/users"
+User = require "../models/usersModel"
 mongoose = require "mongoose"
 
 exports.create_user = (req, res, next) ->
@@ -23,6 +23,42 @@ exports.delete_user = (req, res, next) ->
     res.send
       success: !err
 
+exports.update_user = (req, res, next) ->
+  if(req.params.password)
+    # Do a save
+    User.getById req.params.id, (err, user) ->
+      if err
+        res.send
+          success: false
+
+      # See if password matches, if it does, set the new password
+      matched = false
+
+      user.comparePassword req.params.old_password, (err, isMatch) ->
+        matched = isMatch
+
+      user.set('password', req.params.password)
+      user.set('full_name', req.params.name) if req.params.name
+
+      user.save (err, user) ->
+        if err
+          res.send
+            success: false
+        else
+          tmp_user = user.toJson()
+          tmp_user.success = true
+          return res.send tmp_user
+  else
+    # just update
+    User.update 
+      _id: req.params.id
+    , req.params, (err, numberAffected, raw) ->
+      if err
+        res.send
+          success: false
+
+      console.log numberAffected, raw
+  
 
 exports.get_by_email = (req, res, next) ->
   res.send "getting user: " + req.params.email

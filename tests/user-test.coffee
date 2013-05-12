@@ -4,7 +4,7 @@ should = require "should"
 config = require "../config"
 request = require "request"
 mongoose = require "mongoose"
-User = require "../api/models/users"
+User = require "../api/models/usersModel"
 
 db = mongoose.connect config.settings.conn_str
 api_url = config.settings.api_host + ':' + config.settings.api_port
@@ -52,6 +52,48 @@ describe 'Loudr API', () ->
         form:
           email: tmp_user_data.form.email
           password: "glee123"
+        
+      request.post api_url + '/auth/login', post_data, (err, resp, body) ->
+        assert !err
+        json = JSON.parse body
+
+        assert.equal json.success, true
+        done()
+
+    it "should change the password", (done) ->
+      put_data = 
+        form:
+          email: tmp_user_data.form.email
+          old_password: "glee123"
+          password: "password"
+          name: "Kit Kat"
+
+      request.put api_url + '/user/' + tmp_user._id, put_data, (err, resp, body) ->
+        assert !err
+        json = JSON.parse body
+
+        assert.equal json.full_name, "Kit Kat"
+        assert.equal json.success, true
+        done()
+
+    it "should be invalid password now", (done) ->
+      post_data = 
+        form:
+          email: tmp_user_data.form.email
+          password: "glee123"
+        
+      request.post api_url + '/auth/login', post_data, (err, resp, body) ->
+        assert !err
+        json = JSON.parse body
+        
+        assert.equal json.success, false
+        done()
+
+    it "should be valid new password now", (done) ->
+      post_data = 
+        form:
+          email: tmp_user_data.form.email
+          password: "password"
         
       request.post api_url + '/auth/login', post_data, (err, resp, body) ->
         assert !err
