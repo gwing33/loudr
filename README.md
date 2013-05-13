@@ -100,8 +100,6 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 
 ## API TODO
 - Store User Sessions
-- User
-    - Email locked account
 - User App
     - Create User App
     - Edit User App Name

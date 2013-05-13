@@ -2,7 +2,6 @@ mongoose = require("mongoose")
 bcrypt = require("bcrypt")
 
 Schema = mongoose.Schema
-ObjectId = Schema.ObjectId
 
 SALT_WORK_FACTOR = 10
 
@@ -13,11 +12,11 @@ UserSchema = new Schema(
     index:
       unique: true
 
-  first_name:
-    type: String
-
-  last_name:
-    type: String
+  name:
+    first:
+      type: String
+    last:
+      type: String
 
   password:
     type: String
@@ -29,6 +28,10 @@ UserSchema = new Schema(
     default: 0
   
   locked:
+    type: Boolean
+    default: false
+
+  is_admin:
     type: Boolean
     default: false
 )
@@ -50,18 +53,18 @@ UserSchema.methods.comparePassword = (candidatePassword, cb) ->
     return cb err if err
     cb null, isMatch
 
-UserSchema.virtual('full_name').get(() ->
-    return @.first_name + ' ' + @.last_name
+UserSchema.virtual('name.full').get(() ->
+    return @.name.first + ' ' + @.name.last
   ).set (name) ->
     split = name.split(' ')
-    @.first_name = split[0]
-    @.last_name = split[1]
+    @.name.first = split[0]
+    @.name.last = split[1]
 
 UserSchema.methods.toJson = () ->
   user_obj =
     _id: @._id
     email: @.email
-    full_name: @.full_name
+    full_name: @.name.full
     loginAttempts: @.loginAttempts
     locked: @.locked
 

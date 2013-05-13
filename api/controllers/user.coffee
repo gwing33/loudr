@@ -42,7 +42,7 @@ exports.update_user = (req, res, next) ->
         else
           cb null, user
       , (user, cb) ->
-        user.set('full_name', req.params.full_name) if req.params.full_name
+        user.set('name.full', req.params.full_name) if req.params.full_name
 
         user.save (err, user) ->
           cb err if err

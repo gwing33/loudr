@@ -46,7 +46,7 @@ module.exports = (grunt) ->
         reporter: 'Spec'
 
       all:
-        src: ['tests/**/*-test.coffee']
+        src: ['tests/loudr-test.coffee']
 
     mocha:
       all:
