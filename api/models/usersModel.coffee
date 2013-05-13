@@ -31,9 +31,15 @@ UserSchema = new Schema(
     type: Boolean
     default: false
 
-  is_admin:
+  is_super:
     type: Boolean
     default: false
+
+  permissions:
+    valid_untill: Date
+    allowances: [String]
+
+  stripe_id: String
 )
 
 UserSchema.pre 'save', (next) ->
