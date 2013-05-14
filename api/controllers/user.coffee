@@ -5,8 +5,9 @@ async = require "async"
 exports.create_user = (req, res, next) ->
   new_user = new User
     email: req.params.email
-    first_name: req.params.first_name
-    last_name: req.params.last_name
+    name:
+      first: req.params.first_name
+      last: req.params.last_name
     password: req.params.password
    
   # save user to database

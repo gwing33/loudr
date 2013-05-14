@@ -100,28 +100,27 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 
 ## API TODO
 - Store User Sessions
-- User App
+- Project (User created)
     - Create User App
     - Edit User App Name
     - Delete User App
     - Generate API Key
     - Allow multiple users to an app
-        - Set up permissions?
-- App User
+- Fans (Belong to Projects)
     - Create
     - Delete
     - Edit
-    - Tags
+    - Groups
         - Add
         - Remove
     - Get app users by tag
-- App User Notifications
-    - Get a list of notifications
-    - If user doesn't exist, create an App User
-    - Edit
-    - Create
-    - Delete
-    - Mark as seen, interacted, dismissed
+    - Notifications
+        - Get a list of notifications
+        - If user doesn't exist, create an App User
+        - Edit
+        - Create
+        - Delete
+        - Mark as seen, interacted, dismissed
 - User Permissions
     - Superuser Ability
 

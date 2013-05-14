@@ -19,8 +19,12 @@ FanSchema = new Schema(
     klout:
       type: String
 
+  # Reference to the APP
+  api_key: String
 
   notifications: [Notifications]
+
+  groups: [String]
  
   info:
     logins: [Date]
