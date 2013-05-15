@@ -71,15 +71,11 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 - Help / FAQ module? This might be a full on additional product
 - Realtime instant messaging
 
-## Modules
-- users
-    - auth
-    - permissions
-    - payment
-- apps
-    - app_users
-- user_notifications
-
+## Terminology
+- Users: Loudr subscriber
+- Project: User's application
+- Fans: Project users
+- Notifications: Notifications sent to users.
 
 
 
