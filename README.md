@@ -126,7 +126,6 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 
 ## APP TODO
 - Design Frontend
-- Desing Logo
 - Client side script
 - Beta Collection
 - API Documentation
