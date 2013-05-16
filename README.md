@@ -97,10 +97,11 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 ## API TODO
 - Store User Sessions
 - Project (User created)
-    - Create User App
-    - Edit User App Name
-    - Delete User App
     - Generate API Key
+    - Create Project
+    - Edit Project
+    - Disable Project
+    - Delete Project
     - Allow multiple users to an app
 - Fans (Belong to Projects)
     - Create

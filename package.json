@@ -19,7 +19,8 @@
     "backbone": "~1.0.0",
     "connect": "~2.7.8",
     "connect-redis": "~1.4.5",
-    "hiredis": "~0.1.15"
+    "hiredis": "~0.1.15",
+    "node-uuid": "~1.4.0"
   },
   "devDependencies": {
     "grunt": "*",

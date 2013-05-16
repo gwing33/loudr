@@ -11,4 +11,4 @@ api_url = config.settings.api_host + ':' + config.settings.api_port
 describe 'Loudr API', () ->
   require './user-test'
 
-  require './app-test'
+  require './project-test'

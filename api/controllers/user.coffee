@@ -60,10 +60,8 @@ exports.update_user = (req, res, next) ->
         return res.send tmp_user
 
 
-  
-
-exports.get_by_email = (req, res, next) ->
-  res.send "getting user: " + req.params.email
+exports.get_user = (req, res, next) ->
+  res.send "getting user: " + req.params.id
 
 exports.login = (req, res, next) ->
   User.getAuthenticated req.params.email, req.params.password, (err, user, reason_id) ->

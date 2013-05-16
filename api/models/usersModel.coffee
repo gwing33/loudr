@@ -1,5 +1,6 @@
 mongoose = require("mongoose")
 bcrypt = require("bcrypt")
+# Project = require("./projectsModel")
 
 Schema = mongoose.Schema
 
@@ -35,11 +36,12 @@ UserSchema = new Schema(
     type: Boolean
     default: false
 
-  permissions:
+  permissions: [
     valid_untill: Date
-    allowances: [String]
+    subscription: String
+  ]
 
-  stripe_id: String
+  stripe_token: String
 )
 
 UserSchema.pre 'save', (next) ->

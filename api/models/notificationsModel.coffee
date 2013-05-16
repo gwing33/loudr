@@ -2,7 +2,7 @@ mongoose = require("mongoose")
 
 Schema = mongoose.Schema
 
-NotificationsSchema = new Schema(
+NotificationSchema = new Schema(
   message:
     html: 
       type: String
@@ -32,14 +32,14 @@ NotificationsSchema = new Schema(
     default: false
 )
 
-NotificationsSchema.statics.formats = 
+NotificationSchema.statics.formats = 
   HTML: 0
   TEXT: 1
 
-NotificationsSchema.statics.message_types = 
+NotificationSchema.statics.message_types = 
   GENERAL: 0
   MAINTENANCE: 1
   ALERT: 2
 
 
-module.exports = mongoose.model('Notifications', NotificationsSchema)
+module.exports = mongoose.model('Notifications', NotificationSchema)
