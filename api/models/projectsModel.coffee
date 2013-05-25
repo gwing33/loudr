@@ -22,6 +22,10 @@ ProjectSchema = new Schema(
       index:
         unique: true
 
+  disabled:
+    type: Boolean
+    default: false
+
   info:
     creator: ObjectId
     created:

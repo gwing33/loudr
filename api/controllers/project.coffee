@@ -2,8 +2,11 @@ Project = require "../models/projectsModel"
 mongoose = require "mongoose"
 async = require "async"
 
-exports.get_project = (req, res, next) ->
-  Project.getById req.params.id, (err, project) ->
+exports.get_all = (req, res, next) ->
+  res.send 'hello'
+
+exports.get_by_id = (req, res, next) ->
+  Project.getById req.body.id, (err, project) ->
     if err
       res.send
         success: false
@@ -15,4 +18,13 @@ exports.get_project = (req, res, next) ->
     return res.send tmp_project
 
 exports.create_project = (req, res, next) ->
+  res.send 'hello'
+
+exports.update_project = (req, res, next) ->
+  res.send 'hello'
+
+exports.disable_project = (req, res, next) ->
+  res.send 'hello'
+
+exports.delete_project = (req, res, next) ->
   res.send 'hello'

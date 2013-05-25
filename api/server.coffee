@@ -1,11 +1,22 @@
-restify = require "restify"
+# restify = require "restify"
+express = require "express"
 mongoose = require "mongoose"
 routes = require "./routes"
 config = require "../config"
 
-server = restify.createServer()
-server.pre restify.pre.userAgentConnection()
-server.use restify.bodyParser()
+RedisStore = require("connect-redis")(express)
+# redis = require("redis").createClient()
+
+server = express()
+server.use express.bodyParser()
+# server.pre restify.pre.userAgentConnection()
+server.use express.cookieParser()
+server.use express.session
+  secret: "s3cr3ts3cr3t1v3g0t4s3cr3t"
+  store: new RedisStore
+    host: 'localhost'
+    port: 6379
+    #client: redis
 
 db = mongoose.connect config.settings.conn_str, (err) ->
   mongoose.connection.db.dropDatabase (err) ->
@@ -17,7 +28,7 @@ mongoose.connection.on "error", (errorObject) ->
 Schema = mongoose.Schema
 
 # Add Routes
-routes.add(server)
+routes.add server
 
 server.listen 3001, ->
   console.log "%s listening at %s", server.name, server.url

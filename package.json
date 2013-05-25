@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "mongoose": "~3.6.4",
-    "restify": "~2.4.1",
     "ejs": "~0.8.3",
     "async": "~0.2.7",
     "request": "~2.16.6",
@@ -20,7 +19,8 @@
     "connect": "~2.7.8",
     "connect-redis": "~1.4.5",
     "hiredis": "~0.1.15",
-    "node-uuid": "~1.4.0"
+    "node-uuid": "~1.4.0",
+    "redis": "~0.8.3"
   },
   "devDependencies": {
     "grunt": "*",
