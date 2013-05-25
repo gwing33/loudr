@@ -50,6 +50,10 @@ ProjectSchema.methods.generateApiKey = (app_id, user_password) ->
 
   @.set('api.key', api_key)
 
+ProjectSchema.methods.compareKeys = (api_key) ->
+  # loudr username:project.api.key
+  return @api.key == api_key
+
 ProjectSchema.methods.toJson = () ->
   project_obj =
     _id: @._id
@@ -58,16 +62,12 @@ ProjectSchema.methods.toJson = () ->
 
   return project_obj
 
-ProjectSchema.static.compareKeys = (api_key) ->
-  # loudr username:project.api.key
-  return @.get('api.key') == api_key
-
 
 
 ProjectSchema.statics.permissions =
   BASIC: 0
   MODERATOR: 1
-  CREATOR: 2
-  ADMIN: 3
+  FULL_CONTROL: 2
+  CREATOR: 3
 
 module.exports = mongoose.model('Project', ProjectSchema)

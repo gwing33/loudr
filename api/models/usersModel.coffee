@@ -101,6 +101,15 @@ UserSchema.statics.getById = (id, cb) ->
 
     cb null, user
 
+UserSchema.statics.getByEmail = (email, cb) ->
+  @findOne
+    email: email
+  , (err, user) ->
+    return cb err if err
+    return cb null, null, reasons.NOT_FOUND unless user
+
+    cb null, user
+
 UserSchema.statics.removeById = (id, cb) ->
   @findOne
     _id: id

@@ -24,7 +24,7 @@ describe 'User API', () ->
       form:
         email: "geral.leenerts+test2@gmail.com"
         password: "glee123"
-      
+
     request.post api_url + '/auth/login', post_data, (err, resp, body) ->
       assert !err
       json = JSON.parse body
@@ -108,6 +108,16 @@ describe 'User API', () ->
         full_name: "Gerald Leenerts"
 
     request.put api_url + '/user/' + tmp_user._id, put_data, (err, resp, body) ->
+      assert !err
+      json = JSON.parse body
+
+      assert.equal json.full_name, "Gerald Leenerts"
+      assert.equal json.success, true
+      done()
+
+  # http://localhost:3001/user/gerald.leenerts&2Btest@gmail.com
+  it "should get user by email", (done) ->
+    request.get api_url + '/user/gerald.leenerts%2Btest@gmail.com', (err, resp, body) ->
       assert !err
       json = JSON.parse body
 
