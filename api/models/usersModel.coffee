@@ -66,13 +66,21 @@ UserSchema.virtual('name.full').get(() ->
   ).set (name) ->
     split = name.split(' ')
     @.name.first = split[0]
-    @.name.last = split[1]
+    
+    if split.length > 2
+      split.splice 0, 1
+      @.name.last = split.join(' ')
+    else
+      @.name.last = split[1]
 
 UserSchema.methods.toJson = () ->
   user_obj =
     _id: @._id
     email: @.email
-    full_name: @.name.full
+    name:
+      first: @name.first
+      last: @name.last
+      full: @.name.full
     loginAttempts: @.loginAttempts
     locked: @.locked
 

@@ -20,7 +20,7 @@ server.use express.session
 
 db = mongoose.connect config.settings.conn_str, (err) ->
   mongoose.connection.db.dropDatabase (err) ->
-    console.log 'DropDB Error:', err
+    console.log 'DropDB Error:', err if err?
 
 mongoose.connection.on "error", (errorObject) ->
   console.log 'Connection Error:', errorObject

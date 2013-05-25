@@ -19,6 +19,7 @@ describe 'User API', () ->
       last_name: "leenerts"
       password: "glee123"
 
+  # Fail Login
   it "shouldn't find a user", (done) ->
     post_data = 
       form:
@@ -32,6 +33,7 @@ describe 'User API', () ->
       assert.equal json.success, false
       done()
   
+  # Create User
   it "should create a user", (done) ->
     request.post api_url + '/user', tmp_user_data, (err, resp, body) ->
       assert !err
@@ -39,6 +41,7 @@ describe 'User API', () ->
       assert.equal tmp_user.success, true
       done()
 
+  # Fail Create
   it "shouldn't create a user", (done) ->
     request.post api_url + '/user', tmp_user_data, (err, resp, body) ->
       assert !err
@@ -72,7 +75,7 @@ describe 'User API', () ->
       assert !err
       json = JSON.parse body
 
-      assert.equal json.full_name, "Kit Kat"
+      assert.equal json.name.full, "Kit Kat"
       assert.equal json.success, true
       done()
 
@@ -105,13 +108,13 @@ describe 'User API', () ->
   it "should change the name", (done) ->
     put_data = 
       form:
-        full_name: "Gerald Leenerts"
+        full_name: "Gerald Leenerts III"
 
     request.put api_url + '/user/' + tmp_user._id, put_data, (err, resp, body) ->
       assert !err
       json = JSON.parse body
 
-      assert.equal json.full_name, "Gerald Leenerts"
+      assert.equal json.name.full, "Gerald Leenerts III"
       assert.equal json.success, true
       done()
 
@@ -121,7 +124,7 @@ describe 'User API', () ->
       assert !err
       json = JSON.parse body
 
-      assert.equal json.full_name, "Gerald Leenerts"
+      assert.equal json.name.full, "Gerald Leenerts III"
       assert.equal json.success, true
       done()
 

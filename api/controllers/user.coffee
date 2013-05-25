@@ -3,100 +3,102 @@ mongoose = require "mongoose"
 async = require "async"
 connect = require('connect')
 
+fail = (err) ->
+  json =
+    success: false
+  json.error = err if err
+  
+  return json
+
 exports.get_user = (req, res, next) ->
-  User.getByEmail req.params.email, (err, user, reason_id) ->
-    if err
-      return res.send
-        success: false
-    
-    if !user
-      return res.send
-        success: false
-        reason: reason_id
-
-
+  if req.params.email is req.session.user.email
+    user = new User req.session.user
     tmp_user = user.toJson()
     tmp_user.success = true
     return res.send tmp_user
 
+  return res.send fail(null)
+
+#  User.getByEmail req.params.email, (err, user, reason_id) ->
+#    if err
+#      return res.send
+#        success: false
+#    
+#    if !user
+#      return res.send
+#        success: false
+#        reason: reason_id
+#
+#    tmp_user = user.toJson()
+#    tmp_user.success = true
+#    return res.send tmp_user
+
 exports.login = (req, res, next) ->
   User.getAuthenticated req.body.email, req.body.password, (err, user, reason_id) ->
-    if err
-      return res.send
-        success: false
+    return res.send fail(null) if err
     
     if user?
-      async.waterfall [
-        (cb) ->
-          req.session.regenerate (err) ->
-            cb err
-        ], (err) ->
-          if err
-            return res.send
-              success: false
+      req.session.user = user.toJson()
 
-          req.session.email = user.email
-          req.session.user_id = user._id
-          
-          # req.session.user_id = 123 if json.success
-          tmp_user = user.toJson()
-          tmp_user.success = true
-          return res.send tmp_user
-    else
-      # Defaults to reasons.MAX_ATTEMPTS
-      json =
-        success: false
-        reason: 'Account is locked, check your email to reactivate your account.'
+      # req.session.user_id = 123 if json.success
+      tmp_user = user.toJson()
+      tmp_user.success = true
+      return res.send tmp_user
+    
+    # Defaults to reasons.MAX_ATTEMPTS
+    json =
+      success: false
+      reason: 'Account is locked, check your email to reactivate your account.'
 
-      reasons = User.failedLogin
-      switch reason_id
-        when reasons.NOT_FOUND
-          json.reason = 'We do not seem to have that email address.'
-        when reasons.PASSWORD_INCORRECT
-          json.reason = 'Password was invalid.'
+    reasons = User.failedLogin
+    switch reason_id
+      when reasons.NOT_FOUND
+        json.reason = 'We do not seem to have that email address.'
+      when reasons.PASSWORD_INCORRECT
+        json.reason = 'Password was invalid.'
 
-      res.send json
+    res.send json
 
 exports.logout = (req, res, next) ->
-  res.session.destroy (err) ->
-    # Dunno What to do here...
-  
+  res.session = null
+
   res.send
     success: true
 
 exports.update_user = (req, res, next) ->
-  # Do a save
-  User.getById req.params.id, (err, user) ->
-    if err
-      return res.send
-        success: false
+  if req.session.user? and req.session.user._id == req.params.id
+    # Do a save
+    User.getById req.params.id, (err, user) ->
+      return res.send fail(null) if err
 
-    async.waterfall [
-      (cb) ->
-        if req.body.new_password
-          user.comparePassword req.body.password, (err, isMatch) ->
-            cb err if err
+      async.waterfall [
+        (cb) ->
+          if req.body.new_password
+            user.comparePassword req.body.password, (err, isMatch) ->
+              cb err if err
 
-            user.set('password', req.body.new_password) if isMatch
+              user.set('password', req.body.new_password) if isMatch
+              cb null, user
+          else
             cb null, user
-        else
-          cb null, user
-      , (user, cb) ->
-        user.set('name.full', req.body.full_name) if req.body.full_name
+        , (user, cb) ->
+          user.set('name.full', req.body.full_name) if req.body.full_name
 
-        user.save (err, user) ->
-          cb err if err
-          
-          cb null, user
-      ], (err, user) ->
-        if err
-          return res.send
-            success: false
-            error: err
+          user.save (err, user) ->
+            cb err if err
+            
+            cb null, user
+        ], (err, user) ->
+          return res.send fail(err) if err
 
-        tmp_user = user.toJson()
-        tmp_user.success = true
-        return res.send tmp_user
+          # Update in the session
+          req.session.user = user.toJson()
+
+          tmp_user = user.toJson()
+          tmp_user.success = true
+          return res.send tmp_user
+
+  return fail(null)
 
 exports.create_user = (req, res, next) ->
   new_user = new User
@@ -108,13 +110,13 @@ exports.create_user = (req, res, next) ->
    
   # save user to database
   new_user.save (err, user) ->
-    if err
-      return res.send
-        success: false
-    else
-      tmp_user = user.toJson()
-      tmp_user.success = true
-      return res.send tmp_user
+    return res.send fail(null) if err
+    
+    req.session.user = user.toJson()
+
+    tmp_user = user.toJson()
+    tmp_user.success = true
+    return res.send tmp_user
 
 exports.delete_user = (req, res, next) ->
   User.removeById req.params.id, (err, success) ->
