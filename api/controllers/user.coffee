@@ -25,17 +25,24 @@ exports.get_user = (req, res, next) ->
 
   return res.send fail(null)
 
-#  User.getByEmail req.params.email, (err, user, reason_id) ->
-#    if err
-#      return res.send
-#        success: false
+# exports.create_gerald_account = (req, res, next) ->
+#   new_user = new User
+#     email: 'gerald.leenerts@gmail.com'
+#     name:
+#       first: 'Gerald'
+#       last: 'Leenerts'
+#     password: 'glee123'
 #    
-#    if !user
-#      return res.send
-#        success: false
-#        reason: reason_id
-#
-#    return res.send success user.toJson()
+#   # save user to database
+#   new_user.save (err, user) ->
+#     return res.send fail(null) if err
+#     
+#     req.session.user = user.toJson()
+# 
+#     return res.send success user.toJson()
+
+exports.authed = (req, res, next) ->
+  return res.send req.session.user?
 
 # Should attempt to log the user into the site
 exports.login = (req, res, next) ->
@@ -69,7 +76,7 @@ exports.login = (req, res, next) ->
 
 # Should log the user out of the site
 exports.logout = (req, res, next) ->
-  res.session = null
+  delete req.session.user
 
   res.send
     success: true

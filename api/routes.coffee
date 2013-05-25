@@ -11,6 +11,7 @@ exports.add = (server) ->
   server.get '/', site_controller.index
 
   # Authing
+  server.get '/authed', user_controller.authed
   server.post '/auth/login', user_controller.login
   server.get '/auth/logout', user_controller.logout
 
@@ -19,6 +20,7 @@ exports.add = (server) ->
   server.post '/user', user_controller.create_user
   server.put '/user/:id', user_controller.update_user
   server.del '/user/:id', user_controller.delete_user
+  # server.get '/user/create/gerald/account', user_controller.create_gerald_account
 
   # Projects
   server.get '/project/:id', project_controller.get_all
