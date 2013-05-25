@@ -10,12 +10,18 @@ fail = (err) ->
   
   return json
 
+success = (user) ->
+  json =
+    user: user
+    success: true
+
+  return json
+
 exports.get_user = (req, res, next) ->
-  if req.params.email is req.session.user.email
+  if req.params.email == req.session.user.email
     user = new User req.session.user
-    tmp_user = user.toJson()
-    tmp_user.success = true
-    return res.send tmp_user
+    
+    return res.send success user.toJson()
 
   return res.send fail(null)
 
@@ -29,22 +35,24 @@ exports.get_user = (req, res, next) ->
 #        success: false
 #        reason: reason_id
 #
-#    tmp_user = user.toJson()
-#    tmp_user.success = true
-#    return res.send tmp_user
+#    return res.send success user.toJson()
 
+# Should attempt to log the user into the site
 exports.login = (req, res, next) ->
+  # Log them out if logged in, in case it's a different user
+  req.session.user = null if req.session.user?
+
+  # With email and password, validate user
   User.getAuthenticated req.body.email, req.body.password, (err, user, reason_id) ->
-    return res.send fail(null) if err
+    return res.send fail(null) if err # Error out
     
+     # If successful user, set session, return json object
     if user?
       req.session.user = user.toJson()
 
-      # req.session.user_id = 123 if json.success
-      tmp_user = user.toJson()
-      tmp_user.success = true
-      return res.send tmp_user
+      return res.send success user.toJson()
     
+    # Unsuccessful login because...
     # Defaults to reasons.MAX_ATTEMPTS
     json =
       success: false
@@ -59,6 +67,7 @@ exports.login = (req, res, next) ->
 
     res.send json
 
+# Should log the user out of the site
 exports.logout = (req, res, next) ->
   res.session = null
 
@@ -66,8 +75,10 @@ exports.logout = (req, res, next) ->
     success: true
 
 exports.update_user = (req, res, next) ->
+  # Validate user is logged in
   if req.session.user? and req.session.user._id == req.params.id
-    # Do a save
+    
+    # Get the actual user, so can validate against password
     User.getById req.params.id, (err, user) ->
       return res.send fail(null) if err
 
@@ -94,12 +105,11 @@ exports.update_user = (req, res, next) ->
           # Update in the session
           req.session.user = user.toJson()
 
-          tmp_user = user.toJson()
-          tmp_user.success = true
-          return res.send tmp_user
+          return res.send success user.toJson()
 
   return fail(null)
 
+# Create new user, if successful, log them in
 exports.create_user = (req, res, next) ->
   new_user = new User
     email: req.body.email
@@ -114,11 +124,18 @@ exports.create_user = (req, res, next) ->
     
     req.session.user = user.toJson()
 
-    tmp_user = user.toJson()
-    tmp_user.success = true
-    return res.send tmp_user
+    return res.send success user.toJson()
+
 
 exports.delete_user = (req, res, next) ->
-  User.removeById req.params.id, (err, success) ->
-    res.send
-      success: !err
+  # Validate user is logged in
+  if req.session.user? and req.session.user._id == req.params.id
+    # Log them out...because they won't exist
+    req.session.user = null
+
+    # Remove them
+    User.removeById req.params.id, (err, success) ->
+      return res.send { success: !err }
+  else
+    return res.send { success: false }
+

@@ -71,12 +71,13 @@ describe 'User API', () ->
         new_password: "password"
         full_name: "Kit Kat"
 
-    request.put api_url + '/user/' + tmp_user._id, put_data, (err, resp, body) ->
+    request.put api_url + '/user/' + tmp_user.user._id, put_data, (err, resp, body) ->
       assert !err
       json = JSON.parse body
 
-      assert.equal json.name.full, "Kit Kat"
       assert.equal json.success, true
+      assert.equal json.user.name.full, "Kit Kat"
+      
       done()
 
   it "should be invalid password now", (done) ->
@@ -110,11 +111,11 @@ describe 'User API', () ->
       form:
         full_name: "Gerald Leenerts III"
 
-    request.put api_url + '/user/' + tmp_user._id, put_data, (err, resp, body) ->
+    request.put api_url + '/user/' + tmp_user.user._id, put_data, (err, resp, body) ->
       assert !err
       json = JSON.parse body
 
-      assert.equal json.name.full, "Gerald Leenerts III"
+      assert.equal json.user.name.full, "Gerald Leenerts III"
       assert.equal json.success, true
       done()
 
@@ -124,26 +125,26 @@ describe 'User API', () ->
       assert !err
       json = JSON.parse body
 
-      assert.equal json.name.full, "Gerald Leenerts III"
+      assert.equal json.user.name.full, "Gerald Leenerts III"
       assert.equal json.success, true
       done()
 
   it "should get user by id", (done) ->
-    User.getById tmp_user._id, (err, user) ->
+    User.getById tmp_user.user._id, (err, user) ->
       assert !err
       assert user 
       done()
 
   # delete an existing user
   it "should delete a user", (done) ->
-    request.del api_url + '/user/' + tmp_user._id, (err, resp, body) ->
+    request.del api_url + '/user/' + tmp_user.user._id, (err, resp, body) ->
       assert !err
       json = JSON.parse body
       assert.equal json.success, true
       done()
 
   it "shouldn't find a user after deleting", (done) ->
-    User.getById tmp_user._id, (err, user) ->
+    User.getById tmp_user.user._id, (err, user) ->
       assert !err
       assert !user
       done()
