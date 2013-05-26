@@ -25,21 +25,21 @@ exports.get_user = (req, res, next) ->
 
   return res.send fail(null)
 
-# exports.create_gerald_account = (req, res, next) ->
-#   new_user = new User
-#     email: 'gerald.leenerts@gmail.com'
-#     name:
-#       first: 'Gerald'
-#       last: 'Leenerts'
-#     password: 'glee123'
-#    
-#   # save user to database
-#   new_user.save (err, user) ->
-#     return res.send fail(null) if err
-#     
-#     req.session.user = user.toJson()
-# 
-#     return res.send success user.toJson()
+exports.create_gerald_account = (req, res, next) ->
+  new_user = new User
+    email: 'gerald.leenerts@gmail.com'
+    name:
+      first: 'Gerald'
+      last: 'Leenerts'
+    password: 'glee123'
+   
+  # save user to database
+  new_user.save (err, user) ->
+    return res.send fail(null) if err
+    
+    req.session.user = user.toJson()
+
+    return res.send success user.toJson()
 
 exports.authed = (req, res, next) ->
   return res.send req.session.user?

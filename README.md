@@ -95,7 +95,6 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 
 
 ## API TODO
-- Build Test for is authenticated...
 - Project (User created)
     - Generate API Key
     - Create Project

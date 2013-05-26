@@ -38,6 +38,7 @@ describe 'User API', () ->
     request.post api_url + '/user', tmp_user_data, (err, resp, body) ->
       assert !err
       tmp_user = JSON.parse body
+      console.log tmp_user.user._id
       assert.equal tmp_user.success, true
       done()
 

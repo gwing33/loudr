@@ -37,6 +37,33 @@ ProjectSchema = new Schema(
       default: Date.now
 )
 
+ProjectSchema.methods.compareKeys = (api_key) ->
+  # loudr username:project.api.key
+  return @api.key == api_key
+
+ProjectSchema.methods.toJson = () ->
+  project_obj =
+    _id: @_id
+    name: @name
+    api:
+      key: @api.key
+    disabled: @disabled
+    users: @users
+    info: @info
+
+  return project_obj
+
+
+ProjectSchema.statics.permissions =
+  BASIC: 0
+  MODERATOR: 1
+  ADMIN: 2
+
+ProjectSchema.statics.generateApiKey = (user_id) ->
+  crypto = require('crypto')
+
+  return crypto.createHash('sha256').update(Date.now().toString()).update(user_id).digest('hex')
+
 ProjectSchema.statics.getById = (id, cb) ->
   @findOne
     _id: id
@@ -45,33 +72,5 @@ ProjectSchema.statics.getById = (id, cb) ->
     return cb null, null, reasons.NOT_FOUND unless user
 
     cb null, user
-
-ProjectSchema.methods.generateApiKey = (app_id, user_password) ->
-  crypto = require('crypto')
-
-  api_key = crypto.createHash('sha256').update(app_id).update(user_password).digest('hex')
-  console.log api_key
-
-  @.set('api.key', api_key)
-
-ProjectSchema.methods.compareKeys = (api_key) ->
-  # loudr username:project.api.key
-  return @api.key == api_key
-
-ProjectSchema.methods.toJson = () ->
-  project_obj =
-    _id: @._id
-    users: @.users
-    info: @.info
-
-  return project_obj
-
-
-
-ProjectSchema.statics.permissions =
-  BASIC: 0
-  MODERATOR: 1
-  FULL_CONTROL: 2
-  CREATOR: 3
 
 module.exports = mongoose.model('Project', ProjectSchema)

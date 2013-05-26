@@ -20,10 +20,10 @@ exports.add = (server) ->
   server.post '/user', user_controller.create_user
   server.put '/user/:id', user_controller.update_user
   server.del '/user/:id', user_controller.delete_user
-  # server.get '/user/create/gerald/account', user_controller.create_gerald_account
+  server.get '/user/create/gerald/account', user_controller.create_gerald_account
 
   # Projects
-  server.get '/project/:id', project_controller.get_all
+  server.get '/project', project_controller.get_all
   server.get '/project/:id', project_controller.get_by_id
   server.post '/project', project_controller.create_project
   server.put '/project/:id', project_controller.update_project

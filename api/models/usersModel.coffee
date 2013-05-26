@@ -123,8 +123,10 @@ UserSchema.statics.removeById = (id, cb) ->
     _id: id
   , (err, user) ->
     return cb err if err
-    return cb null, null, reasons.NOT_FOUND unless user
-    cb null, user.remove()
+    return cb reasons.NOT_FOUND, null unless user
+    user.remove()
+    
+    cb null, true
 
 UserSchema.statics.getAuthenticated = (email, password, cb) ->
   @findOne
