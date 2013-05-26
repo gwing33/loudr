@@ -37,6 +37,11 @@ ProjectSchema = new Schema(
       default: Date.now
 )
 
+ProjectSchema.pre 'save', (next) ->
+  project = this
+  project.info.updated = Date.now
+  next()
+
 ProjectSchema.methods.compareKeys = (api_key) ->
   # loudr username:project.api.key
   return @api.key == api_key
@@ -67,10 +72,10 @@ ProjectSchema.statics.generateApiKey = (user_id) ->
 ProjectSchema.statics.getById = (id, cb) ->
   @findOne
     _id: id
-  , (err, user) ->
+  , (err, project) ->
     return cb err if err
-    return cb null, null, reasons.NOT_FOUND unless user
+    return cb reasons.NOT_FOUND, null unless project
 
-    cb null, user
+    cb null, project
 
 module.exports = mongoose.model('Project', ProjectSchema)

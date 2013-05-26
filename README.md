@@ -96,7 +96,6 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 
 ## API TODO
 - Project (User created)
-    - Edit Project
     - Disable Project
     - Delete Project
     - Allow multiple users to an app

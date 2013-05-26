@@ -39,9 +39,10 @@ exports.create_project = (req, res, next) ->
   if req.session.user?
     new_project = new Project
       name: req.body.name
-      users:
+      users: [
         user_id: req.session.user._id
         permission: Project.permissions.ADMIN
+      ]
       info:
         creator: req.session.user._id
     
@@ -49,15 +50,35 @@ exports.create_project = (req, res, next) ->
     new_project.save (err, project) ->
       return res.send fail(err) if err
 
+      console.log project
       return res.send success project.toJson()
   else
     res.send authentication_error
 
 exports.update_project = (req, res, next) ->
-  res.send 'hello'
+  # Validate user is logged in
+  if req.session.user?
+    Project.getById req.params.id, (err, project) ->
+      return res.send fail(err) if err
+
+      project.name = req.body.name if req.body.name?
+      # project.disabled = req.body.disable if req.body.disable?
+
+      project.save (err, project) ->
+        return res.send fail(err) if err
+        return res.send success project.toJson()
 
 exports.disable_project = (req, res, next) ->
-  res.send 'hello'
+  # Validate user is logged in
+  if req.session.user?
+    Project.getById req.params.id, (err, project) ->
+      return res.send fail(err) if err
+
+      project.disabled = req.body.disable if req.body.disable?
+
+      project.save (err, project) ->
+        return res.send fail(err) if err
+        return res.send success project.toJson()
 
 exports.delete_project = (req, res, next) ->
   res.send 'hello'

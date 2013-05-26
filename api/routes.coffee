@@ -29,3 +29,4 @@ exports.add = (server) ->
   server.put '/project/:id', project_controller.update_project
   server.del '/project/confirm/:id', project_controller.delete_project
   server.del '/project/:id', project_controller.disable_project
+  server.del '/project/delete/:id', project_controller.delete_project
