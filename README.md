@@ -96,8 +96,6 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 
 ## API TODO
 - Project (User created)
-    - Generate API Key
-    - Create Project
     - Edit Project
     - Disable Project
     - Delete Project
