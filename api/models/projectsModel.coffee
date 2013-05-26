@@ -53,11 +53,27 @@ ProjectSchema.methods.toJson = () ->
     api:
       key: @api.key
     disabled: @disabled
-    users: @users
+    users: JSON.stringify @users
     info: @info
 
   return project_obj
 
+ProjectSchema.methods.authed_user = (user_id, permission_level) ->
+  authed = false
+
+  # If they are the creator, they are good
+  authed = @info.creator.toString() == user_id
+  
+  # TODO: IF super user, they are good
+
+  # Look at valid users
+  unless authed
+    for user in @users
+      if user.user_id.toString() == user_id
+        authed = true
+        break;
+
+  return authed
 
 ProjectSchema.statics.permissions =
   BASIC: 0
@@ -77,5 +93,17 @@ ProjectSchema.statics.getById = (id, cb) ->
     return cb reasons.NOT_FOUND, null unless project
 
     cb null, project
+
+ProjectSchema.statics.removeById = (id, user_id, cb) ->
+  @findOne
+    _id: id
+  , (err, project) ->
+    return cb err if err
+    return cb reasons.NOT_FOUND, null unless project
+    if project.authed_user user_id
+      project.remove()
+      cb null, true
+    else
+      cb true, null
 
 module.exports = mongoose.model('Project', ProjectSchema)

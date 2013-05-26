@@ -118,6 +118,16 @@ UserSchema.statics.getByEmail = (email, cb) ->
 
     cb null, user
 
+UserSchema.statics.getAllByEmails = (emails, cb) ->
+  @find
+    email:
+      $in: emails
+  , (err, users) ->
+    return cb err if err
+    return cb reasons.NOT_FOUND, null unless users
+
+    cb null, users
+
 UserSchema.statics.removeById = (id, cb) ->
   @findOne
     _id: id

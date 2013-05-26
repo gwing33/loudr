@@ -53,6 +53,51 @@ describe 'Project API', () ->
       assert.equal json.success, true
       done()
 
+  # Disable Project
+  it "Disable Project", (done) ->
+    request.del api_url + '/project/disable/' + project._id, (err, resp, body) ->
+      assert !err
+      json = JSON.parse body
+
+      assert.equal json.project.disabled, true
+      assert.equal json.success, true
+      done()
+
+  # Enable project
+  it "Enable Project", (done) ->
+    request.get api_url + '/project/enable/' + project._id, (err, resp, body) ->
+      assert !err
+      json = JSON.parse body
+
+      assert.equal json.project.disabled, false
+      assert.equal json.success, true
+      done()
+
+  # Add User Project
+  it "Add User to Project", (done) ->
+    post_data =
+      form:
+        emails: ['gerald.leenerts+peon@gmail.com']
+
+    request.put api_url + '/project/' + project._id, post_data, (err, resp, body) ->
+      assert !err
+      json = JSON.parse body
+      
+      console.log json
+      
+      assert.equal json.project.users.length, 2
+      assert.equal json.success, true
+      done()
+
+  # Delete Project
+  it "Delete Project", (done) ->
+    request.del api_url + '/project/' + project._id, (err, resp, body) ->
+      assert !err
+      json = JSON.parse body
+
+      assert.equal json.success, true
+      done()
+
   # Validate API Key
   # User disable a project
   # Delete a project (Admin only)

@@ -95,10 +95,6 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 
 
 ## API TODO
-- Project (User created)
-    - Disable Project
-    - Delete Project
-    - Allow multiple users to an app
 - Fans (Belong to Projects)
     - Create
     - Delete
@@ -116,6 +112,7 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
         - Mark as seen, interacted, dismissed
 - User Permissions
     - Superuser Ability
+- Invite Users by email
 
 ## APP TODO
 - Design Frontend
