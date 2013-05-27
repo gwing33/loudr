@@ -44,6 +44,7 @@ exports.seed = (req, res, next) ->
   
   # save user to database
   new_user.save (err, user) ->
+    return res.send 'Shit, already here' if err
     req.session.user = user.toJson()
     new_users.push user.toJson()
 

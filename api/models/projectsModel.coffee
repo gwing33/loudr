@@ -10,9 +10,9 @@ ProjectSchema = new Schema(
 
   users: [
     user_id: ObjectId
-    permission:
-      type: Number
-      default: 0
+  permission:
+    type: Number
+    default: 0
   ]
 
   api:

@@ -18,9 +18,10 @@ server.use express.session
     port: 6379
     #client: redis
 
-db = mongoose.connect config.settings.conn_str, (err) ->
-  mongoose.connection.db.dropDatabase (err) ->
-    console.log 'DropDB Error:', err if err?
+db = mongoose.connect config.settings.conn_str
+  # , (err) ->
+  # mongoose.connection.db.dropDatabase (err) ->
+  #   console.log 'DropDB Error:', err if err?
 
 mongoose.connection.on "error", (errorObject) ->
   console.log 'Connection Error:', errorObject
