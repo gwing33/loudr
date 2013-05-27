@@ -1,7 +1,7 @@
 User = require "../models/usersModel"
 mongoose = require "mongoose"
 async = require "async"
-connect = require('connect')
+connect = require "connect"
 
 fail = (err) ->
   json =
@@ -24,34 +24,6 @@ exports.get_user = (req, res, next) ->
     return res.send success user.toJson()
 
   return res.send fail(null)
-
-exports.seed = (req, res, next) ->
-  new_users = []
-
-  new_user = new User
-    email: 'gerald.leenerts@gmail.com'
-    name:
-      first: 'Gerald'
-      last: 'Leenerts'
-    password: 'glee123'
-  
-  new_user2 = new User
-    email: 'gerald.leenerts+peon@gmail.com'
-    name:
-      first: 'Bob'
-      last: 'Frank'
-    password: 'twofirstnames'
-  
-  # save user to database
-  new_user.save (err, user) ->
-    return res.send 'Shit, already here' if err
-    req.session.user = user.toJson()
-    new_users.push user.toJson()
-
-    new_user2.save (err, user2) ->
-      new_users.push user2.toJson()
-
-      return res.send new_users
 
 exports.authed = (req, res, next) ->
   return res.send req.session.user?

@@ -6,13 +6,14 @@ exports.add = (server) ->
   site_controller = require './controllers/site'
   user_controller = require './controllers/user'
   project_controller = require './controllers/project'
+  fan_controller = require './controllers/fan'
+  notification_controller = require './controllers/notification'
 
   # Define Routes
   server.get '/', site_controller.index
 
-  # Test Seeds
-  # TODO: Break this out into it's own controller
-  server.get '/seed/users', user_controller.seed
+  # Test Seeds, Remove after Development
+  server.get '/seed', site_controller.seed
 
   # Authing
   server.get '/authed', user_controller.authed
@@ -25,7 +26,6 @@ exports.add = (server) ->
   server.put '/user/:id', user_controller.update_user
   server.del '/user/:id', user_controller.delete_user
 
-
   # Projects
   server.get '/project', project_controller.get_all
   server.get '/project/:id', project_controller.get_by_id
@@ -36,3 +36,16 @@ exports.add = (server) ->
   server.del '/project/disable/:id', project_controller.disable_project
   server.get '/project/enable/:id', project_controller.enable_project
   
+  # Fans
+  server.get '/fans/:key/', fan_controller.get_all_fans
+  server.get '/fan/:key/:email', fan_controller.get_fan_by_email
+  server.post '/fan', fan_controller.create_fan
+  server.put '/fan/:key/:email', fan_controller.update_fan
+  server.del '/fan/:key/:email', fan_controller.delete_fan
+
+  # Fan Notifications
+  server.get '/fan/:key/:email/notifications', notification_controller.get_all
+  server.get '/fan/:key/:email/notification/:id', notification_controller.get_by_id
+  server.post '/fan/:key/:email/notification', notification_controller.create_notification
+  server.put '/fan/:key/:email/notification/:id', notification_controller.update_notification
+  server.del '/fan/:key/:email/notification/:id', notification_controller.delete_notification

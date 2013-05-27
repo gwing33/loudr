@@ -1,5 +1,5 @@
 mongoose = require("mongoose")
-Notifications = require("./notificationsModel")
+Notification = require("./notificationsModel")
 
 Schema = mongoose.Schema
 
@@ -11,6 +11,10 @@ FanSchema = new Schema(
     last:
       type: String
   
+  email:
+    type: String
+    required: true
+
   social:
     facebook:
       type: String
@@ -20,16 +24,16 @@ FanSchema = new Schema(
       type: String
 
   # Reference to the APP
-  api_key: String
+  api_key:
+    type: String
+    required: true
 
-  notifications: [Notifications]
+  notifications: [Notification]
 
   groups: [String]
  
   info:
-    logins: [Date]
-
-    # This is the date they signed up for the applicaiton
+    # This is the date they signed up for the project
     # It is not when a user sent the information over to us
     registered:
       type: Date
@@ -43,6 +47,8 @@ FanSchema = new Schema(
       type: Date
       default: Date.now
 )
+
+
 
 
 module.exports = mongoose.model('Fan', FanSchema)

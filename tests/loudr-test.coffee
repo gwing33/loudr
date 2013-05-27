@@ -12,3 +12,5 @@ describe 'Loudr API', () ->
   require './user-test'
 
   require './project-test'
+
+  require './user-test'

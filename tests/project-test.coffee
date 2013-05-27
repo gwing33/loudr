@@ -83,8 +83,6 @@ describe 'Project API', () ->
       assert !err
       json = JSON.parse body
       
-      console.log json
-      
       assert.equal json.project.users.length, 2
       assert.equal json.success, true
       done()
@@ -97,7 +95,3 @@ describe 'Project API', () ->
 
       assert.equal json.success, true
       done()
-
-  # Validate API Key
-  # User disable a project
-  # Delete a project (Admin only)

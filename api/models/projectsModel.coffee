@@ -10,9 +10,9 @@ ProjectSchema = new Schema(
 
   users: [
     user_id: ObjectId
-  permission:
-    type: Number
-    default: 0
+    permission:
+      type: Number
+      default: 0
   ]
 
   api:
@@ -53,7 +53,7 @@ ProjectSchema.methods.toJson = () ->
     api:
       key: @api.key
     disabled: @disabled
-    users: JSON.stringify @users
+    users: @users
     info: @info
 
   return project_obj
@@ -83,7 +83,7 @@ ProjectSchema.statics.permissions =
 ProjectSchema.statics.generateApiKey = (user_id) ->
   crypto = require('crypto')
 
-  return crypto.createHash('sha256').update(Date.now().toString()).update(user_id).digest('hex')
+  return crypto.createHash('sha256').update(Date.now().toString()).update(user_id.toString()).digest('hex')
 
 ProjectSchema.statics.getById = (id, cb) ->
   @findOne

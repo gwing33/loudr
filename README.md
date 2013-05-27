@@ -102,14 +102,11 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
     - Groups
         - Add
         - Remove
-    - Get app users by tag
     - Notifications
-        - Get a list of notifications
-        - If user doesn't exist, create an App User
-        - Edit
         - Create
+        - Edit
+        - Get a list of notifications
         - Delete
-        - Mark as seen, interacted, dismissed
 - User Permissions
     - Superuser Ability
 - Invite Users by email
