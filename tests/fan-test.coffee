@@ -7,10 +7,28 @@ mongoose = require "mongoose"
 # User = require "../api/models/usersModel"
 
 # db = mongoose.connect config.settings.conn_str
-api_url = config.settings.api_host + ':' + config.settings.api_port
 project_api_key = '4201d2e8bb26b1c1715bb6e421bb4a131e631603efc8498a4cc3cdc7baf95daa'
+api_url = config.settings.api_host + ':' + config.settings.api_port + '/app/' + project_api_key
+
 
 describe 'Fan API', () ->
+  it "Create a Fan on an app", (done) ->
+    post_data =
+      form:
+        groups: ["Gold Membership", "Cicyle in Cirlces"]
+        first_name: "Steve"
+        last_name: "Steval"
+        registered_date: "2013-05-17T17:32:00.171Z"
+
+    request.post api_url + encodeURIComponent('/fan/gerald.leenerts+fan1@gmail.com') , post_data, (err, resp, body) ->
+      assert !err
+      json = JSON.parse body
+      fan = json.fan
+      
+      console.log fan
+      
+      assert.equal json.success, true
+      done()
   # Should already be logged in at gerald.leenerts@gmail.com
 
   # Create a fan on a project

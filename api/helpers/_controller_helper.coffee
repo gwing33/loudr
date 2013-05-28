@@ -9,9 +9,10 @@ exports.fail = (err) ->
   
   return json
 
-exports.success = (project) ->
+exports.success = (obj_name, obj) ->
   json =
-    project: project
     success: true
+
+  json[name] = obj
 
   return json

@@ -37,15 +37,17 @@ exports.add = (server) ->
   server.get '/project/enable/:id', project_controller.enable_project
   
   # Fans
-  server.get '/fans/:key/', fan_controller.get_all_fans
-  server.get '/fan/:key/:email', fan_controller.get_fan_by_email
-  server.post '/fan', fan_controller.create_fan
-  server.put '/fan/:key/:email', fan_controller.update_fan
-  server.del '/fan/:key/:email', fan_controller.delete_fan
+  # I use "app" here instead of project because urls will be longer,
+  # it might make more sense to do "project" but for now, it's good.
+  server.get '/app/:key/fans/', fan_controller.get_all_fans
+  server.get '/app/:key/fan/:email', fan_controller.get_fan_by_email
+  server.post '/app/:key/fan', fan_controller.create_fan
+  server.put '/app/:key/fan/:email', fan_controller.update_fan
+  server.del '/app/:key/fan/:email', fan_controller.delete_fan
 
   # Fan Notifications
-  server.get '/fan/:key/:email/notifications', notification_controller.get_all
-  server.get '/fan/:key/:email/notification/:id', notification_controller.get_by_id
-  server.post '/fan/:key/:email/notification', notification_controller.create_notification
-  server.put '/fan/:key/:email/notification/:id', notification_controller.update_notification
-  server.del '/fan/:key/:email/notification/:id', notification_controller.delete_notification
+  server.get '/app/:key/fan/:email/notifications', notification_controller.get_all
+  server.get '/app/:key/fan/:email/notification/:id', notification_controller.get_by_id
+  server.post '/app/:key/fan/:email/notification', notification_controller.create_notification
+  server.put '/app/:key/fan/:email/notification/:id', notification_controller.update_notification
+  server.del '/app/:key/fan/:email/notification/:id', notification_controller.delete_notification

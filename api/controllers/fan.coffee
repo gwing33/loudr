@@ -14,24 +14,24 @@ exports.update_fan = (req, res, next) ->
   res.send 'hello'
 
 exports.create_fan = (req, res, next) ->
+  fan_groups = if req.body.groups? then req.body.groups else []
+  
+  registered_date = Date.now
+
   new_fan = new Fan
-    api_key: ''
-    email: ''
+    api_key: req.body.key
+    email:  req.body.email
     name:
-      first: ''
-      last: ''
-    social:
-      facebook: ''
-      twitter: ''
-      klout: ''
-    groups: ''
+      first: if req.body.first_name? then req.body.first_name else ''
+      last: if req.body.last_name? then req.body.last_name else ''
+    groups: fan_groups
     info:
-      registered: ''
+      registered: if req.body.registered_date? then req.body.registered_date else Date.now
 
     new_fan.save (err, fan) ->
       return res.send helper.fail(err) if err
 
-      return res.send helper.success fan.toJson()
+      return res.send helper.success 'fan', fan.toJson()
 
 exports.delete_fan = (req, res, next) ->
   res.send 'hello'
