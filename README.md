@@ -97,10 +97,7 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 ## API TODO
 - Fans (Belong to Projects)
     - Delete
-    - Edit
-    - Groups
-        - Add
-        - Remove
+    - Remove Group
     - Notifications
         - Create
         - Edit

@@ -73,6 +73,15 @@ FanSchema.virtual('name.full').get(() ->
     else
       @.name.last = split[1]
 
+FanSchema.statics.getByKeyAndEmail = (key, email, cb) ->
+  @findOne
+    api_key: key
+    email: email
+  , (err, fan) ->
+    return cb err if err
+    return cb 'Not Found', null unless fan
+
+    cb null, fan
 
 
 module.exports = mongoose.model('Fan', FanSchema)
