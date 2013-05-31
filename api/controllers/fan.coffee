@@ -19,7 +19,7 @@ exports.create_fan = (req, res, next) ->
   registered_date = Date.now
 
   new_fan = new Fan
-    api_key: req.body.key
+    api_key: req.params.key
     email:  req.body.email
     name:
       first: if req.body.first_name? then req.body.first_name else ''
@@ -28,10 +28,10 @@ exports.create_fan = (req, res, next) ->
     info:
       registered: if req.body.registered_date? then req.body.registered_date else Date.now
 
-    new_fan.save (err, fan) ->
-      return res.send helper.fail(err) if err
+  new_fan.save (err, fan) ->
+    return res.send helper.fail(err) if err
 
-      return res.send helper.success 'fan', fan.toJson()
+    return res.send helper.success 'fan', fan.toJson()
 
 exports.delete_fan = (req, res, next) ->
   res.send 'hello'

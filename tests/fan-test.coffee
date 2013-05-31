@@ -15,20 +15,20 @@ describe 'Fan API', () ->
   it "Create a Fan on an app", (done) ->
     post_data =
       form:
+        email: 'gerald.leenerts%2bfan1%40gmail.com'
         groups: ["Gold Membership", "Cicyle in Cirlces"]
         first_name: "Steve"
         last_name: "Steval"
         registered_date: "2013-05-17T17:32:00.171Z"
 
-    request.post api_url + encodeURIComponent('/fan/gerald.leenerts+fan1@gmail.com') , post_data, (err, resp, body) ->
+    request.post api_url + '/fan', post_data, (err, resp, body) ->
       assert !err
       json = JSON.parse body
       fan = json.fan
       
-      console.log fan
-      
       assert.equal json.success, true
       done()
+
   # Should already be logged in at gerald.leenerts@gmail.com
 
   # Create a fan on a project

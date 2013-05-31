@@ -48,6 +48,30 @@ FanSchema = new Schema(
       default: Date.now
 )
 
+FanSchema.methods.toJson = () ->
+  fan_obj =
+    _id: @_id
+    name: @name.full
+    email: @email
+    social: @social
+    api_key: @api_key
+    notifications: @notifications
+    groups: @groups
+    info: @info
+
+  return fan_obj
+
+FanSchema.virtual('name.full').get(() ->
+    return @.name.first + ' ' + @.name.last
+  ).set (name) ->
+    split = name.split(' ')
+    @.name.first = split[0]
+    
+    if split.length > 2
+      split.splice 0, 1
+      @.name.last = split.join(' ')
+    else
+      @.name.last = split[1]
 
 
 

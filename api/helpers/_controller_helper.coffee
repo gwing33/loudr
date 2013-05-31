@@ -13,6 +13,6 @@ exports.success = (obj_name, obj) ->
   json =
     success: true
 
-  json[name] = obj
+  json[obj_name] = obj
 
   return json
