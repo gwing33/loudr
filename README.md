@@ -133,9 +133,3 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 
 ## Other TODO
 - Product Life-Cycle Management: <a href='http://en.wikipedia.org/wiki/Product_life-cycle_management_(marketing)'>PLCM</a>
-
-
-
-
-
-
