@@ -46,6 +46,7 @@ describe 'Fan API', () ->
     post_data =
       form:
         groups: ['New Group', 'Gold Membership']
+        remove_groups: ['Cicyle in Cirlces']
         registered_date: "2013-04-17T17:32:00.171Z"
         first_name: "Stever"
 
@@ -53,7 +54,9 @@ describe 'Fan API', () ->
       assert !err
       json = JSON.parse body
       
-      assert.equal json.fan.groups.length, 3
+      console.log json.fan.groups
+
+      assert.equal json.fan.groups.length, 2
       assert.equal json.success, true
       done()
   

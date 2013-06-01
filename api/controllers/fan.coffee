@@ -29,6 +29,9 @@ exports.update_fan = (req, res, next) ->
       # Remove unique params
       _.uniq fan.groups
 
+    if req.body.remove_groups?
+      fan.groups = _.difference fan.groups, req.body.remove_groups
+
     fan.name.first = req.body.first_name if req.body.first_name?
     fan.name.last = req.body.last_name if req.body.last_name?
     fan.info.registered = req.body.registered_date if req.body.registered_date?

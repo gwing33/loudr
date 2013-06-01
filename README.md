@@ -96,7 +96,6 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 
 ## API TODO
 - Fans (Belong to Projects)
-    - Remove Group
     - Notifications
         - Create
         - Edit
