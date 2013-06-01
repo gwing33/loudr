@@ -53,8 +53,6 @@ describe 'Fan API', () ->
     request.put api_url + '/fan/gerald.leenerts%2bfan1%40gmail.com', post_data, (err, resp, body) ->
       assert !err
       json = JSON.parse body
-      
-      console.log json.fan.groups
 
       assert.equal json.fan.groups.length, 2
       assert.equal json.success, true

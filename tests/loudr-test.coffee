@@ -14,3 +14,5 @@ describe 'Loudr API', () ->
   require './project-test'
 
   require './fan-test'
+
+  require './notification-test'

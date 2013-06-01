@@ -14,6 +14,7 @@ exports.add = (server) ->
 
   # Test Seeds, Remove after Development
   server.get '/seed', site_controller.seed
+  server.get '/seed/fans', site_controller.seed_fans
 
   # Authing
   server.get '/authed', user_controller.authed
@@ -37,6 +38,7 @@ exports.add = (server) ->
   server.get '/project/enable/:id', project_controller.enable_project
   
   # Fans
+  # - - -
   # I use "app" here instead of project because urls will be longer,
   # it might make more sense to do "project" but for now, it's good.
   server.get '/app/:key/fans/', fan_controller.get_all_fans
@@ -46,8 +48,11 @@ exports.add = (server) ->
   server.del '/app/:key/fan/:email', fan_controller.delete_fan
 
   # Fan Notifications
-  server.get '/app/:key/fan/:email/notifications', notification_controller.get_all
-  server.get '/app/:key/fan/:email/notification/:id', notification_controller.get_by_id
-  server.post '/app/:key/fan/:email/notification', notification_controller.create_notification
-  server.put '/app/:key/fan/:email/notification/:id', notification_controller.update_notification
-  server.del '/app/:key/fan/:email/notification/:id', notification_controller.delete_notification
+  # - - - - - - - - -
+  # Changed to "status" so it's a little shorter
+  # Not sure if I'm going to stick with it or not
+  server.get '/app/:key/fan/:email/stati', notification_controller.get_all
+  server.get '/status/:id', notification_controller.get_by_id
+  server.post '/app/:key/fan/:email/status', notification_controller.create_notification
+  server.put '/app/:key/fan/:email/status/:id', notification_controller.update_notification
+  server.del '/app/:key/fan/:email/status/:id', notification_controller.delete_notification

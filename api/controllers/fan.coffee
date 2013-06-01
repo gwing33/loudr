@@ -6,6 +6,7 @@ _ = require "../helpers/underscore"
 helper = require "../helpers/_controller_helper"
 
 exports.get_all_fans = (req, res, next) ->
+  # TODO
   res.send 'hello'
 
 exports.get_fan_by_email = (req, res, next) ->

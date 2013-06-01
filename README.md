@@ -96,14 +96,16 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 
 ## API TODO
 - Fans (Belong to Projects)
+    - Get All
     - Notifications
-        - Create
+        - Get single Notification
         - Edit
-        - Get a list of notifications
+        - Get All
         - Delete
 - User Permissions
     - Superuser Ability
 - Invite Users by email
+- Create more unit tests for different editing, creating variation that may occur
 
 ## APP TODO
 - Design Frontend

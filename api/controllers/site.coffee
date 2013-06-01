@@ -1,11 +1,27 @@
 User = require "../models/usersModel"
 Project = require "../models/projectsModel"
+Fan = require "../models/fansModel"
 mongoose = require "mongoose"
 async = require "async"
 connect = require "connect"
 
 exports.index = (req, res, next) ->
   res.send "hello"
+
+exports.seed_fans = (req, res, next) ->
+  new_fan = new Fan
+    api_key: '4201d2e8bb26b1c1715bb6e421bb4a131e631603efc8498a4cc3cdc7baf95daa'
+    email: 'gerald.leenerts+peon_seed@gamil.com'
+    groups: ["Premium Member", "Facebook"]
+    name:
+      first: "Peon"
+      last: "Poe"
+    registered_date: "2013-05-17T17:32:00.171Z"
+
+  new_fan.save (err, fan) ->
+    return res.send 'Shit Fan already here' if err
+    return res.send fan.toJson()
+
 
 exports.seed = (req, res, next) ->
   seeds = []
@@ -27,7 +43,7 @@ exports.seed = (req, res, next) ->
 
   # save user to database
   new_user.save (err, user) ->
-    return res.send 'Shit, already here' if err
+    return res.send 'Shit be here' if err
     main_user = user.toJson()
     seeds.push main_user
 
@@ -44,10 +60,7 @@ exports.seed = (req, res, next) ->
         ]
         info:
           creator:  main_user._id
-      
-      console.log new_project, Project.permissions.ADMIN
 
       new_project.save (err, project) ->
         seeds.push project.toJson()
-
-        return res.send seeds      
+        return res.send seeds

@@ -1,5 +1,5 @@
 mongoose = require("mongoose")
-Notification = require("./notificationsModel")
+NotificationSchema = require("./notificationsSchema")
 
 Schema = mongoose.Schema
 
@@ -28,7 +28,7 @@ FanSchema = new Schema(
     type: String
     required: true
 
-  notifications: [Notification]
+  notifications: [NotificationSchema.model]
 
   groups: [String]
  
