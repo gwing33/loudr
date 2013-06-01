@@ -58,4 +58,5 @@ exports.create_fan = (req, res, next) ->
     return res.send helper.success 'fan', fan.toJson()
 
 exports.delete_fan = (req, res, next) ->
-  res.send 'hello'
+  Fan.removeFan req.params.key, req.params.email, (err, success) ->
+    return res.send { success: !err }

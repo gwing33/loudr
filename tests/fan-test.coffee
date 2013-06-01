@@ -10,7 +10,6 @@ mongoose = require "mongoose"
 project_api_key = '4201d2e8bb26b1c1715bb6e421bb4a131e631603efc8498a4cc3cdc7baf95daa'
 api_url = config.settings.api_host + ':' + config.settings.api_port + '/app/' + project_api_key
 
-
 describe 'Fan API', () ->
   # Should already be logged in at gerald.leenerts@gmail.com
 
@@ -59,3 +58,10 @@ describe 'Fan API', () ->
       done()
   
   # Delete a fan
+  it "Delete a fan", (done) ->
+    request.del api_url + '/fan/gerald.leenerts%2bfan1%40gmail.com', (err, resp, body) ->
+      assert !err
+      json = JSON.parse body
+      
+      assert.equal json.success, true
+      done()

@@ -73,6 +73,18 @@ FanSchema.virtual('name.full').get(() ->
     else
       @.name.last = split[1]
 
+FanSchema.statics.removeFan = (key, email, cb) ->
+  # ToDo Add some sort of Permissions here.
+  @findOne
+    api_key: key
+    email: email
+  , (err, fan) ->
+    return cb err if err
+    return cb 'Not Found', null unless fan
+    
+    fan.remove()
+    cb null, true
+
 FanSchema.statics.getByKeyAndEmail = (key, email, cb) ->
   @findOne
     api_key: key
