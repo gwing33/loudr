@@ -12,14 +12,11 @@ exports.get_all_fans = (req, res, next) ->
 exports.get_fan_by_email = (req, res, next) ->
   Fan.getByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
     if err
-      res.send
+      return res.send
         success: false
         error: err
 
-    tmp_fan = fan.toJson()
-    tmp_fan.success = true
-
-    return res.send tmp_fan
+    return res.send helper.success 'fan', fan.toJson()
 
 exports.update_fan = (req, res, next) ->
   Fan.getByKeyAndEmail req.params.key, req.params.email, (err, fan) ->

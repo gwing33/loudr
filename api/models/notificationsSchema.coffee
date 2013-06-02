@@ -42,7 +42,7 @@ NotificationSchema.statics.formats =
   HTML: 0
   TEXT: 1
 
-NotificationSchema.statics.message_types = 
+NotificationSchema.statics.message_kinds = 
   GENERAL: 0
   MAINTENANCE: 1
   ALERT: 2

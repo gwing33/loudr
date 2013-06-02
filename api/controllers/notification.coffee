@@ -12,7 +12,17 @@ exports.get_all = (req, res, next) ->
   res.send 'hello'
 
 exports.get_by_id = (req, res, next) ->
-  res.send 'hello'
+  Fan.getByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
+    if err
+      return res.send
+        success: false
+        error: err
+    
+    notification = fan.notifications.id(req.params.id)
+
+    return res.send helper.fail 'Not Found' unless notification
+    return res.send helper.success 'notification', notification.toJson()
+  
 
 exports.create_notification = (req, res, next) ->
   new_notification = new Notification
@@ -25,7 +35,7 @@ exports.create_notification = (req, res, next) ->
 
   Fan.getByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
     if err
-      res.send
+      return res.send
         success: false
         error: err
 
@@ -37,9 +47,41 @@ exports.create_notification = (req, res, next) ->
       return res.send helper.success 'notification', new_notification.toJson()
 
 exports.update_notification = (req, res, next) ->
-  
-  res.send 'hello'
+  Fan.getByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
+    if err
+      return res.send
+        success: false
+        error: err
+    
+    notification = fan.notifications.id(req.params.id)
+
+    return res.send helper.fail 'Not Found' unless notification
+
+    notification.html = req.body.html if req.body.html?
+    notification.text = req.body.text if req.body.text?
+    notification.url = req.body.url if req.body.url?
+    notification.kind = req.body.kind if req.body.kind?
+    notification.format = req.body.format if req.body.format?
+    notification.seen = req.body.seen if req.body.seen?
+    notification.interacted = req.body.interacted if req.body.interacted?
+    notification.dissmissed = req.body.dissmissed if req.body.dissmissed?
+    notification.updated = Date.now()
+
+    fan.save (err, fan) ->
+      return res.send helper.fail(err) if err
+
+      return res.send helper.success 'notification', notification.toJson()
 
 exports.delete_notification = (req, res, next) ->
-  
-  res.send 'hello'
+  Fan.getByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
+    if err
+      return res.send
+        success: false
+        error: err
+    
+    notification = fan.notifications.id(req.params.id).remove()
+
+    return res.send helper.fail 'Not Found' unless notification
+
+    fan.save (err, fan) ->
+      return res.send { success: !err }

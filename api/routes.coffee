@@ -51,8 +51,8 @@ exports.add = (server) ->
   # - - - - - - - - -
   # Changed to "status" so it's a little shorter
   # Not sure if I'm going to stick with it or not
-  server.get '/app/:key/fan/:email/stati', notification_controller.get_all
-  server.get '/status/:id', notification_controller.get_by_id
-  server.post '/app/:key/fan/:email/status', notification_controller.create_notification
-  server.put '/app/:key/fan/:email/status/:id', notification_controller.update_notification
-  server.del '/app/:key/fan/:email/status/:id', notification_controller.delete_notification
+  server.get '/app/:key/fan/:email/notes', notification_controller.get_all
+  server.get '/app/:key/fan/:email/note/:id', notification_controller.get_by_id
+  server.post '/app/:key/fan/:email/note', notification_controller.create_notification
+  server.put '/app/:key/fan/:email/note/:id', notification_controller.update_notification
+  server.del '/app/:key/fan/:email/note/:id', notification_controller.delete_notification

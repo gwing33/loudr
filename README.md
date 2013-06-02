@@ -94,24 +94,19 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 - `npm start`
 
 
-## API TODO
-- Fans (Belong to Projects)
-    - Get All
-    - Notifications
-        - Get single Notification
-        - Edit
-        - Get All
-        - Delete
-- User Permissions
-    - Superuser Ability
-- Invite Users by email
-- Create more unit tests for different editing, creating variation that may occur
-
 ## APP TODO
 - Design Frontend
 - Client side script
 - Beta Collection
 - API Documentation
+
+## API TODO
+- Fans (Belong to Projects)
+    - Get All
+- Look over User Permissions
+    - Superuser Ability
+- Invite Users by email
+- Create more unit tests for different editing, creating variation that may occur
 
 ## Marketing TODO
 - Live Chat / Contact

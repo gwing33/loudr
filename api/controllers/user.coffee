@@ -62,7 +62,7 @@ exports.login = (req, res, next) ->
 exports.logout = (req, res, next) ->
   delete req.session.user
 
-  res.send
+  return res.send
     success: true
 
 exports.update_user = (req, res, next) ->

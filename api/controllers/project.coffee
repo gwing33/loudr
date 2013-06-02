@@ -27,7 +27,7 @@ exports.get_all = (req, res, next) ->
 exports.get_by_id = (req, res, next) ->
   Project.getById req.body.id, (err, project) ->
     if err
-      res.send
+      return res.send
         success: false
         error: err
 
