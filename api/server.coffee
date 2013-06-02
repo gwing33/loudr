@@ -9,7 +9,6 @@ RedisStore = require("connect-redis")(express)
 
 server = express()
 server.use express.bodyParser()
-# server.pre restify.pre.userAgentConnection()
 server.use express.cookieParser()
 server.use express.session
   secret: "s3cr3ts3cr3t1v3g0t4s3cr3t"

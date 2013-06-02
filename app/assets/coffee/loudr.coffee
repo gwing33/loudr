@@ -1,36 +1,26 @@
-$ ->
-  $('form#login').submit (e) ->
-    e.preventDefault()
+require.config
+  paths:
+    backbone: '/js/vendor/backbone'
+    underscore: '/js/vendor/underscore'
+    jquery: '/js/vendor/jquery-1.9.1.min'
+    marionette: '/js/vendor/backbone.marionette'
+    'backbone.wreqr': '/js/vendor/backbone.wreqr'
+    # 'backbone.eventbinder': '/js/vendor/backbone.eventbinder'
+    'backbone.babysitter': '/js/vendor/backbone.babysitter'
+  shim:
+    jquery:
+      exports: 'jQuery'
+    underscore:
+      exports: '_'
+    backbone:
+      deps: ['jquery', 'underscore']
+      exports: 'Backbone'
 
-    el = $ @
+define ["marionette"], (Marionette) ->
+  # set up the app instance
+  LoudrApp = new Marionette.Application()
+  console.log LoudrApp
+  # configuration, setting up regions, etc ...
 
-    $.ajax
-      url: el.attr 'action'
-      type: el.attr 'method'
-      dataType: 'json'
-      data:
-        email: el.find('[name="email"]').val()
-        password: el.find('[name="password"]').val()
-      success: (json) ->
-        console.log json.reason unless json.success
-      error: (blah, gah, doh) ->
-        console.log blah, gah, doh
-
-  $('form#create_user').submit (e) ->
-    e.preventDefault()
-
-    el = $ @
-
-    $.ajax
-      url: el.attr 'action'
-      type: el.attr 'method'
-      dataType: 'json'
-      data:
-        email: el.find('[name="email"]').val()
-        password: el.find('[name="password"]').val()
-      success: (json) ->
-        console.log json.reason unless json.success
-      error: (blah, gah, doh) ->
-        console.log blah, gah, doh
-  
-  undefined
+  # export the app from this module
+  return LoudrApp

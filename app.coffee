@@ -1,14 +1,11 @@
-###
-Module dependencies.
-###
-
 express = require "express"
-routes = require "./app/routes"
-user = require "./app/routes/user"
 http = require "http"
 path = require "path"
-auth = require "./middleware/auth"
+routes = require "./app/routes"
 
+RedisStore = require("connect-redis")(express)
+
+# Create the app variable
 app = express()
 
 # all environments
@@ -20,17 +17,20 @@ app.use express.favicon()
 app.use express.logger("dev")
 app.use express.bodyParser()
 app.use express.methodOverride()
-app.use express.cookieParser("loudr")
-app.use express.session()
+app.use express.cookieParser()
+app.use express.session
+  secret: "s3cr3ts3cr3t1v3g0t4s3cr3t"
+  store: new RedisStore
+    host: 'localhost'
+    port: 6379
+
 app.use app.router
 app.use express.static path.join(__dirname, "app/static")
 
 # development only
 app.use express.errorHandler()  if "development" is app.get("env")
 
-app.get "/", routes.index
-app.post "/login", user.login
-app.post "/logout", user.logout
+routes.add app
 
 http.createServer(app).listen app.get("port"), ->
   console.log "Express server listening on port " + app.get("port")

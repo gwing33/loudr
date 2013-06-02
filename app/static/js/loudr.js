@@ -1,52 +1,33 @@
 (function() {
-  $(function() {
-    $('form#login').submit(function(e) {
-      var el;
+  require.config({
+    paths: {
+      backbone: '/js/vendor/backbone',
+      underscore: '/js/vendor/underscore',
+      jquery: '/js/vendor/jquery-1.9.1.min',
+      marionette: '/js/vendor/backbone.marionette',
+      'backbone.wreqr': '/js/vendor/backbone.wreqr',
+      'backbone.babysitter': '/js/vendor/backbone.babysitter'
+    },
+    shim: {
+      jquery: {
+        exports: 'jQuery'
+      },
+      underscore: {
+        exports: '_'
+      },
+      backbone: {
+        deps: ['jquery', 'underscore'],
+        exports: 'Backbone'
+      }
+    }
+  });
 
-      e.preventDefault();
-      el = $(this);
-      return $.ajax({
-        url: el.attr('action'),
-        type: el.attr('method'),
-        dataType: 'json',
-        data: {
-          email: el.find('[name="email"]').val(),
-          password: el.find('[name="password"]').val()
-        },
-        success: function(json) {
-          if (!json.success) {
-            return console.log(json.reason);
-          }
-        },
-        error: function(blah, gah, doh) {
-          return console.log(blah, gah, doh);
-        }
-      });
-    });
-    $('form#create_user').submit(function(e) {
-      var el;
+  define(["marionette"], function(Marionette) {
+    var LoudrApp;
 
-      e.preventDefault();
-      el = $(this);
-      return $.ajax({
-        url: el.attr('action'),
-        type: el.attr('method'),
-        dataType: 'json',
-        data: {
-          email: el.find('[name="email"]').val(),
-          password: el.find('[name="password"]').val()
-        },
-        success: function(json) {
-          if (!json.success) {
-            return console.log(json.reason);
-          }
-        },
-        error: function(blah, gah, doh) {
-          return console.log(blah, gah, doh);
-        }
-      });
-    });
-    return void 0;
+    LoudrApp = new Marionette.Application();
+    console.log(LoudrApp);
+    return LoudrApp;
   });
 
 }).call(this);
