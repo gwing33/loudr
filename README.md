@@ -101,8 +101,7 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 - API Documentation
 
 ## API TODO
-- Fans (Belong to Projects)
-    - Get All
+- Get All Fans
 - Look over User Permissions
     - Superuser Ability
 - Invite Users by email
