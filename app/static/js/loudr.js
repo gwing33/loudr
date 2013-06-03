@@ -23,11 +23,19 @@
   });
 
   define(["marionette"], function(Marionette) {
-    var LoudrApp;
+    var Loudr;
 
-    LoudrApp = new Marionette.Application();
-    console.log(LoudrApp);
-    return LoudrApp;
+    Loudr = new Marionette.Application();
+    Loudr.addRegions({
+      headerRegion: 'header',
+      mainRegion: '#main',
+      footerRegion: 'footer'
+    });
+    Loudr.on('initialize:after', function() {
+      return Backbone.history.start();
+    });
+    Loudr.start();
+    return Loudr;
   });
 
 }).call(this);

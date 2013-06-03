@@ -95,9 +95,19 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 
 
 ## APP TODO
-- Design Frontend
+- Set up frontend router
+- Set up frontend controllers
+- Stub out pages / Page flow
+    - Login
+    - Logout
+    - Homepage
+    - Dashbaord
+    - Project select / Create
+    - Fan list page
+    - Send fan(s) notification
+- Storyboard user flows
+- Design
 - Client side script
-- Beta Collection
 - API Documentation
 
 ## API TODO

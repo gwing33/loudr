@@ -1,3 +1,4 @@
+# Configure Require
 require.config
   paths:
     backbone: '/js/vendor/backbone'
@@ -16,11 +17,20 @@ require.config
       deps: ['jquery', 'underscore']
       exports: 'Backbone'
 
+# Include Marionette, which will include everything else
 define ["marionette"], (Marionette) ->
-  # set up the app instance
-  LoudrApp = new Marionette.Application()
-  console.log LoudrApp
+  Loudr = new Marionette.Application()
+
   # configuration, setting up regions, etc ...
+  Loudr.addRegions
+    headerRegion: 'header'
+    mainRegion: '#main'
+    footerRegion: 'footer'
+
+  Loudr.on 'initialize:after', () ->
+    Backbone.history.start()
+
+  Loudr.start()
 
   # export the app from this module
-  return LoudrApp
+  return Loudr
