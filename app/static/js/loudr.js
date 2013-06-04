@@ -1,29 +1,6 @@
 (function() {
-  require.config({
-    paths: {
-      backbone: '/js/vendor/backbone',
-      underscore: '/js/vendor/underscore',
-      jquery: '/js/vendor/jquery-1.9.1.min',
-      marionette: '/js/vendor/backbone.marionette',
-      'backbone.wreqr': '/js/vendor/backbone.wreqr',
-      'backbone.babysitter': '/js/vendor/backbone.babysitter'
-    },
-    shim: {
-      jquery: {
-        exports: 'jQuery'
-      },
-      underscore: {
-        exports: '_'
-      },
-      backbone: {
-        deps: ['jquery', 'underscore'],
-        exports: 'Backbone'
-      }
-    }
-  });
-
-  define(["marionette"], function(Marionette) {
-    var Loudr;
+  define(['marionette', 'loudr.site'], function(Marionette, SiteRouter) {
+    var Loudr, site_router;
 
     Loudr = new Marionette.Application();
     Loudr.addRegions({
@@ -34,7 +11,7 @@
     Loudr.on('initialize:after', function() {
       return Backbone.history.start();
     });
-    Loudr.start();
+    site_router = new SiteRouter();
     return Loudr;
   });
 

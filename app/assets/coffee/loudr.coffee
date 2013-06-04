@@ -1,24 +1,4 @@
-# Configure Require
-require.config
-  paths:
-    backbone: '/js/vendor/backbone'
-    underscore: '/js/vendor/underscore'
-    jquery: '/js/vendor/jquery-1.9.1.min'
-    marionette: '/js/vendor/backbone.marionette'
-    'backbone.wreqr': '/js/vendor/backbone.wreqr'
-    # 'backbone.eventbinder': '/js/vendor/backbone.eventbinder'
-    'backbone.babysitter': '/js/vendor/backbone.babysitter'
-  shim:
-    jquery:
-      exports: 'jQuery'
-    underscore:
-      exports: '_'
-    backbone:
-      deps: ['jquery', 'underscore']
-      exports: 'Backbone'
-
-# Include Marionette, which will include everything else
-define ["marionette"], (Marionette) ->
+define ['marionette', 'loudr.site'], (Marionette, SiteRouter) ->
   Loudr = new Marionette.Application()
 
   # configuration, setting up regions, etc ...
@@ -26,11 +6,10 @@ define ["marionette"], (Marionette) ->
     headerRegion: 'header'
     mainRegion: '#main'
     footerRegion: 'footer'
-
+  
   Loudr.on 'initialize:after', () ->
     Backbone.history.start()
 
-  Loudr.start()
+  site_router = new SiteRouter()
 
-  # export the app from this module
   return Loudr

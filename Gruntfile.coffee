@@ -11,7 +11,9 @@ module.exports = (grunt) ->
         cwd: "app/assets/coffee"
         src: [ "**/*.coffee" ]
         dest: "app/static/js"
-        ext: ".js"
+        # ext: ".js"
+        rename: (dest, src) ->
+          return dest + '/' + src.replace '.coffee', '.js'
 
     jshint:
       options:
