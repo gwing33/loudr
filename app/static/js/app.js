@@ -7,8 +7,7 @@
       marionette: '/js/vendor/backbone.marionette',
       'backbone.wreqr': '/js/vendor/backbone.wreqr',
       'backbone.babysitter': '/js/vendor/backbone.babysitter',
-      loudr: '/js/loudr',
-      'loudr.site': '/js/loudr.site'
+      loudr: '/js/loudr'
     },
     shim: {
       jquery: {

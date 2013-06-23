@@ -48,7 +48,7 @@ See my [Evernote Notebook](https://www.evernote.com/pub/geraldroy/loudr) to see 
 - Communicate
 - User Management
 
-### General Page Structure?
+### General Pages
 - Logged out Landing
 - Dashboard (Logged in landing)
 - Account
