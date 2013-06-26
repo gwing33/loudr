@@ -25,5 +25,19 @@ define ["marionette"], (Marionette) ->
       #   full: @.name.full
       # loginAttempts: @.loginAttempts
       # locked: @.locked
-    
+    login: (email, password) ->
+      $.ajax
+        url: '/login',
+        data:
+          email: email
+          password: password
+        type: 'POST',
+        dataType: 'json',
+        success: (json) ->
+          console.log json
+        error: (err, blah, doh) ->
+          console.log err, blah, doh
+
+      return false
+
   return LoudrAuth

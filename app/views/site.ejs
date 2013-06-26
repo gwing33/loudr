@@ -28,8 +28,19 @@
       </nav>
     </header>
 
-    <div id='main' class='container'>
-    </div>
+    <div id='main' class='container'></div>
+
+
+    <script type='text/html' id='login_template'>
+      <form>
+        <label for='email'>Email / Username:</label>
+        <input name='email' type='text'>
+        <label for='password'>Password:</label>
+        <input name='password' type='password'>
+        <br>
+        <button class='btn'>Login</button>
+      </form>
+    </script>
 
     <script data-main="/js/app" src="/js/vendor/require.js"></script>
 

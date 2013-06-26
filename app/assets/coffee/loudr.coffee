@@ -1,17 +1,5 @@
-define ['marionette', 'loudr.site', 'loudr.auth', 'loudr.login'], (Marionette, SiteRouter, LoudrAuth, LoudrLogin) ->
+define ['marionette', 'loudr.router', 'loudr.auth', 'loudr.login'], (Marionette, LoudrRouter, LoudrAuth, LoudrLogin) ->
   Loudr = new Marionette.Application()
-  auth = new LoudrAuth();
-
-
-  SiteRouter = Marionette.AppRouter.extend
-    controller:
-      home: () ->
-        site_router.navigate 'login', {trigger: true} unless auth.is_authed()
-      login: () ->
-        # Render Login page
-    appRoutes:
-      "": "home"
-      "login": "login"
 
   # configuration, setting up regions, etc ...
   Loudr.addRegions
@@ -19,11 +7,15 @@ define ['marionette', 'loudr.site', 'loudr.auth', 'loudr.login'], (Marionette, S
     mainRegion: '#main'
     # footerRegion: 'footer'
   
+  Loudr.addInitializer () ->
+    @auth = new LoudrAuth()
+
   Loudr.on 'initialize:after', () ->
+    @router = new LoudrRouter
+      app: @
+
     Backbone.history.start
       pushState: true
       root: "/app/"
-
-  site_router = new SiteRouter()
 
   return Loudr

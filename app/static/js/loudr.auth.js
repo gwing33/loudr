@@ -24,6 +24,24 @@
 
         d = new Date();
         return d.setHours(d.getHours() + h);
+      },
+      login: function(email, password) {
+        $.ajax({
+          url: '/login',
+          data: {
+            email: email,
+            password: password
+          },
+          type: 'POST',
+          dataType: 'json',
+          success: function(json) {
+            return console.log(json);
+          },
+          error: function(err, blah, doh) {
+            return console.log(err, blah, doh);
+          }
+        });
+        return false;
       }
     });
     return LoudrAuth;
