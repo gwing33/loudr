@@ -25,8 +25,11 @@
         d = new Date();
         return d.setHours(d.getHours() + h);
       },
-      login: function(email, password) {
-        $.ajax({
+      login: function(email, password, cb) {
+        var $this;
+
+        $this = this;
+        return $.ajax({
           url: '/login',
           data: {
             email: email,
@@ -35,13 +38,19 @@
           type: 'POST',
           dataType: 'json',
           success: function(json) {
-            return console.log(json);
+            if (json.success) {
+              console.log(this);
+              $this.set({
+                is_authed: true,
+                auth_expire: $this.addHours(1)
+              });
+            }
+            return cb(json.success);
           },
           error: function(err, blah, doh) {
             return console.log(err, blah, doh);
           }
         });
-        return false;
       }
     });
     return LoudrAuth;

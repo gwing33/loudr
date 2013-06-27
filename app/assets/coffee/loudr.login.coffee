@@ -15,9 +15,15 @@ define ["marionette"], (Marionette) ->
       email = @.$('input[name="email"]').val()
       password = @.$('input[name="password"]').val()
 
-      console.log email, password
-
       # Submit to auth model
-      @app.auth.login email, password
+      $this = @
+      @app.auth.login email, password, (success) ->
+
+        if success
+          $this.app.router.navigate '/',
+            trigger: true
+          return
+
+        console.log success
 
   return LoudrLogin

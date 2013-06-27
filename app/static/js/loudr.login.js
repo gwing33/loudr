@@ -11,13 +11,21 @@
       },
       template: "#login_template",
       attempt_login: function(e) {
-        var email, password;
+        var $this, email, password;
 
         e.preventDefault();
         email = this.$('input[name="email"]').val();
         password = this.$('input[name="password"]').val();
-        console.log(email, password);
-        return this.app.auth.login(email, password);
+        $this = this;
+        return this.app.auth.login(email, password, function(success) {
+          if (success) {
+            $this.app.router.navigate('/', {
+              trigger: true
+            });
+            return;
+          }
+          return console.log(success);
+        });
       }
     });
     return LoudrLogin;
