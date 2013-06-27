@@ -1,15 +1,16 @@
 (function() {
-  define(["marionette", "loudr.login"], function(Marionette, LoudrLogin) {
+  define(["marionette", "loudr.dashboard", "loudr.login"], function(Marionette, LoudrDashboard, LoudrLogin) {
     var LoudrRouter;
 
     LoudrRouter = Marionette.AppRouter.extend({
       controller: {
         home: function() {
-          if (!this.app.auth.is_authed()) {
-            return this.app.router.navigate('login', {
-              trigger: true
-            });
-          }
+          var dash;
+
+          dash = new LoudrDashboard({
+            app: this.app
+          });
+          return this.app.mainRegion.show(dash);
         },
         login: function() {
           var login;
