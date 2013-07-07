@@ -1,5 +1,5 @@
 define ["marionette"], (Marionette) ->
-  LoudrDashboard = Marionette.Layout.extend
+  class LoudrDashboard extends Marionette.Layout
     initialize: (options) ->
       @app = options.app
 

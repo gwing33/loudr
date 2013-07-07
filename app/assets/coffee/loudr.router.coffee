@@ -1,5 +1,5 @@
 define ["marionette", "loudr.dashboard", "loudr.login"], (Marionette, LoudrDashboard, LoudrLogin) ->
-  LoudrRouter = Marionette.AppRouter.extend
+  class LoudrRouter extends Marionette.AppRouter
     controller:
       home: () ->
         # Load dashboard

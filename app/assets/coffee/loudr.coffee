@@ -4,20 +4,26 @@ define ['marionette', 'loudr.router', 'loudr.nav', 'loudr.auth', 'loudr.login'],
 
   # configuration, setting up regions, etc ...
   Loudr.addRegions
-    headerRegion: 'header'
+    navRegion: 'header nav'
     mainRegion: '#main'
     # footerRegion: 'footer'
   
   Loudr.addInitializer () ->
     @auth = new LoudrAuth()
-    @nav = new LoudrNav
-      app: @
+
+    @nav_collection = new LoudrNav.Collection()
+    @nav_collection.add
+      name: 'messages'
+      src: '#'
+    
+    @nav = new LoudrNav.Layout
+      collection: @nav_collection
 
   Loudr.on 'initialize:after', () ->
     @router = new LoudrRouter
       app: @
 
-    @headerRegion.show @nav
+    @navRegion.show @nav
 
     # Before app history start, should check for login?
     Backbone.history.start

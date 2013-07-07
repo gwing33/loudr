@@ -1,9 +1,19 @@
 (function() {
-  define(["marionette", "loudr.dashboard", "loudr.login"], function(Marionette, LoudrDashboard, LoudrLogin) {
-    var LoudrRouter;
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-    LoudrRouter = Marionette.AppRouter.extend({
-      controller: {
+  define(["marionette", "loudr.dashboard", "loudr.login"], function(Marionette, LoudrDashboard, LoudrLogin) {
+    var LoudrRouter, _ref;
+
+    LoudrRouter = (function(_super) {
+      __extends(LoudrRouter, _super);
+
+      function LoudrRouter() {
+        _ref = LoudrRouter.__super__.constructor.apply(this, arguments);
+        return _ref;
+      }
+
+      LoudrRouter.prototype.controller = {
         home: function() {
           var dash;
 
@@ -20,15 +30,20 @@
           });
           return this.app.mainRegion.show(login);
         }
-      },
-      initialize: function(options) {
+      };
+
+      LoudrRouter.prototype.initialize = function(options) {
         return this.controller.app = options.app;
-      },
-      appRoutes: {
+      };
+
+      LoudrRouter.prototype.appRoutes = {
         "": "home",
         "login": "login"
-      }
-    });
+      };
+
+      return LoudrRouter;
+
+    })(Marionette.AppRouter);
     return LoudrRouter;
   });
 

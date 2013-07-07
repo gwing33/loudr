@@ -1,8 +1,20 @@
-define ["marionette"], (Marionette) ->
-  LoudrNav = Marionette.Layout.extend
-    initialize: (options) ->
-      @app = options.app
+define ["marionette", "backbone"], (Marionette, Backbone) ->
 
-    template: "#nav_template"
+  class LoudrNavCollection extends Backbone.Collection
+    model: class LoudrNavModel extends Backbone.Model
 
-  return LoudrNav
+  class LoudrNavItemView extends Marionette.ItemView
+    tagName: 'li'
+    template: "#nav_item_template"
+    onBeforeRender: () ->
+      console.log @
+
+  class LoudrNav extends Marionette.CollectionView
+    tagName: 'ul'
+    itemView: LoudrNavItemView
+
+  return {
+    Collection: LoudrNavCollection,
+    ItemView: LoudrNavItemView,
+    Layout: LoudrNav
+  }

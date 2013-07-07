@@ -1,9 +1,19 @@
 (function() {
-  define(["marionette"], function(Marionette) {
-    var LoudrAuth;
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-    LoudrAuth = Backbone.Model.extend({
-      login: function(email, password, cb) {
+  define(["marionette"], function(Marionette) {
+    var LoudrAuth, _ref;
+
+    LoudrAuth = (function(_super) {
+      __extends(LoudrAuth, _super);
+
+      function LoudrAuth() {
+        _ref = LoudrAuth.__super__.constructor.apply(this, arguments);
+        return _ref;
+      }
+
+      LoudrAuth.prototype.login = function(email, password, cb) {
         return $.ajax({
           url: '/login',
           data: {
@@ -19,8 +29,9 @@
             return console.log(err, blah, doh);
           }
         });
-      },
-      logout: function(cb) {
+      };
+
+      LoudrAuth.prototype.logout = function(cb) {
         return $.ajax({
           url: '/logout',
           type: 'GET',
@@ -32,8 +43,11 @@
             return console.log(err, blah, doh);
           }
         });
-      }
-    });
+      };
+
+      return LoudrAuth;
+
+    })(Backbone.Model);
     return LoudrAuth;
   });
 

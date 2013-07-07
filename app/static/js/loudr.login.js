@@ -1,16 +1,29 @@
 (function() {
-  define(["marionette"], function(Marionette) {
-    var LoudrLogin;
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-    LoudrLogin = Marionette.Layout.extend({
-      initialize: function(options) {
+  define(["marionette"], function(Marionette) {
+    var LoudrLogin, _ref;
+
+    LoudrLogin = (function(_super) {
+      __extends(LoudrLogin, _super);
+
+      function LoudrLogin() {
+        _ref = LoudrLogin.__super__.constructor.apply(this, arguments);
+        return _ref;
+      }
+
+      LoudrLogin.prototype.initialize = function(options) {
         return this.app = options.app;
-      },
-      events: {
+      };
+
+      LoudrLogin.prototype.events = {
         "submit form": "attempt_login"
-      },
-      template: "#login_template",
-      attempt_login: function(e) {
+      };
+
+      LoudrLogin.prototype.template = "#login_template";
+
+      LoudrLogin.prototype.attempt_login = function(e) {
         var $this, email, password;
 
         e.preventDefault();
@@ -26,8 +39,11 @@
           }
           return console.log(success);
         });
-      }
-    });
+      };
+
+      return LoudrLogin;
+
+    })(Marionette.Layout);
     return LoudrLogin;
   });
 

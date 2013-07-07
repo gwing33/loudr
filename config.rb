@@ -23,10 +23,10 @@ images_dir = "App/static/img"
 javascripts_dir = "App/static/js"
 fonts_dir = "App/static/fonts"
 
-http_javascripts_dir = "static/js"
-http_stylesheets_dir = "static/css"
-http_images_dir = "static/img"
-http_fonts_dir = "static/fonts"
+http_javascripts_dir = "js"
+http_stylesheets_dir = "css"
+http_images_dir = "img"
+http_fonts_dir = "fonts"
 
 
 # You can select your preferred output style here (can be overridden via the command line):

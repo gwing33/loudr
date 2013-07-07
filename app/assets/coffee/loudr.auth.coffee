@@ -1,6 +1,6 @@
 define ["marionette"], (Marionette) ->
 
-  LoudrAuth = Backbone.Model.extend
+  class LoudrAuth extends Backbone.Model
     login: (email, password, cb) ->
       # $this = @
       $.ajax

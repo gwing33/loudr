@@ -4,20 +4,25 @@
 
     Loudr = new Marionette.Application();
     Loudr.addRegions({
-      headerRegion: 'header',
+      navRegion: 'header nav',
       mainRegion: '#main'
     });
     Loudr.addInitializer(function() {
       this.auth = new LoudrAuth();
-      return this.nav = new LoudrNav({
-        app: this
+      this.nav_collection = new LoudrNav.Collection();
+      this.nav_collection.add({
+        name: 'messages',
+        src: '#'
+      });
+      return this.nav = new LoudrNav.Layout({
+        collection: this.nav_collection
       });
     });
     Loudr.on('initialize:after', function() {
       this.router = new LoudrRouter({
         app: this
       });
-      this.headerRegion.show(this.nav);
+      this.navRegion.show(this.nav);
       return Backbone.history.start({
         pushState: true,
         root: "/app/"
