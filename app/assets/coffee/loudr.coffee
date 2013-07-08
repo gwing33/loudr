@@ -11,7 +11,7 @@ define ['marionette', 'router', 'views/nav', 'models/auth', 'views/login'], (Mar
   Loudr.addInitializer () ->
     @auth = new LoudrAuth()
 
-    # Build Nav items
+    # Init Nav
     @nav_collection = new LoudrNav.Collection()
     @nav = new LoudrNav.Layout
       collection: @nav_collection

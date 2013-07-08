@@ -27,6 +27,17 @@
 
       })(Backbone.Model);
 
+      LoudrNavCollection.prototype.show_logged_in_nav = function() {
+        this.add({
+          name: 'messages',
+          src: '#'
+        });
+        return this.add({
+          name: 'statistics',
+          src: '#'
+        });
+      };
+
       return LoudrNavCollection;
 
     })(Backbone.Collection);
