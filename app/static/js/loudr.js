@@ -1,5 +1,5 @@
 (function() {
-  define(['marionette', 'loudr.router', 'loudr.nav', 'loudr.auth', 'loudr.login'], function(Marionette, LoudrRouter, LoudrNav, LoudrAuth, LoudrLogin) {
+  define(['marionette', 'router', 'views/nav', 'models/auth', 'views/login'], function(Marionette, LoudrRouter, LoudrNav, LoudrAuth, LoudrLogin) {
     var Loudr;
 
     Loudr = new Marionette.Application();
@@ -10,10 +10,6 @@
     Loudr.addInitializer(function() {
       this.auth = new LoudrAuth();
       this.nav_collection = new LoudrNav.Collection();
-      this.nav_collection.add({
-        name: 'messages',
-        src: '#'
-      });
       return this.nav = new LoudrNav.Layout({
         collection: this.nav_collection
       });

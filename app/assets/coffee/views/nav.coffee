@@ -6,8 +6,6 @@ define ["marionette", "backbone"], (Marionette, Backbone) ->
   class LoudrNavItemView extends Marionette.ItemView
     tagName: 'li'
     template: "#nav_item_template"
-    onBeforeRender: () ->
-      console.log @
 
   class LoudrNav extends Marionette.CollectionView
     tagName: 'ul'
@@ -15,6 +13,5 @@ define ["marionette", "backbone"], (Marionette, Backbone) ->
 
   return {
     Collection: LoudrNavCollection,
-    ItemView: LoudrNavItemView,
     Layout: LoudrNav
   }

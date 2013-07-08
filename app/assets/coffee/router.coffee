@@ -1,4 +1,4 @@
-define ["marionette", "loudr.dashboard", "loudr.login"], (Marionette, LoudrDashboard, LoudrLogin) ->
+define ["marionette", "views/dashboard", "views/login"], (Marionette, LoudrDashboard, LoudrLogin) ->
   class LoudrRouter extends Marionette.AppRouter
     controller:
       home: () ->

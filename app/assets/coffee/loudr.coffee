@@ -1,4 +1,4 @@
-define ['marionette', 'loudr.router', 'loudr.nav', 'loudr.auth', 'loudr.login'], (Marionette, LoudrRouter, LoudrNav, LoudrAuth, LoudrLogin) ->
+define ['marionette', 'router', 'views/nav', 'models/auth', 'views/login'], (Marionette, LoudrRouter, LoudrNav, LoudrAuth, LoudrLogin) ->
 
   Loudr = new Marionette.Application()
 
@@ -12,10 +12,10 @@ define ['marionette', 'loudr.router', 'loudr.nav', 'loudr.auth', 'loudr.login'],
     @auth = new LoudrAuth()
 
     @nav_collection = new LoudrNav.Collection()
-    @nav_collection.add
-      name: 'messages'
-      src: '#'
-    
+    # @nav_collection.add
+    #   name: 'messages'
+    #   src: '#'
+
     @nav = new LoudrNav.Layout
       collection: @nav_collection
 
@@ -24,6 +24,8 @@ define ['marionette', 'loudr.router', 'loudr.nav', 'loudr.auth', 'loudr.login'],
       app: @
 
     @navRegion.show @nav
+
+    # Call Dashboard
 
     # Before app history start, should check for login?
     Backbone.history.start

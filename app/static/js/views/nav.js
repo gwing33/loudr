@@ -42,10 +42,6 @@
 
       LoudrNavItemView.prototype.template = "#nav_item_template";
 
-      LoudrNavItemView.prototype.onBeforeRender = function() {
-        return console.log(this);
-      };
-
       return LoudrNavItemView;
 
     })(Marionette.ItemView);
@@ -66,7 +62,6 @@
     })(Marionette.CollectionView);
     return {
       Collection: LoudrNavCollection,
-      ItemView: LoudrNavItemView,
       Layout: LoudrNav
     };
   });
