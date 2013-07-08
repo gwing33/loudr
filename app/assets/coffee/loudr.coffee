@@ -11,11 +11,8 @@ define ['marionette', 'router', 'views/nav', 'models/auth', 'views/login'], (Mar
   Loudr.addInitializer () ->
     @auth = new LoudrAuth()
 
+    # Build Nav items
     @nav_collection = new LoudrNav.Collection()
-    # @nav_collection.add
-    #   name: 'messages'
-    #   src: '#'
-
     @nav = new LoudrNav.Layout
       collection: @nav_collection
 
@@ -24,8 +21,6 @@ define ['marionette', 'router', 'views/nav', 'models/auth', 'views/login'], (Mar
       app: @
 
     @navRegion.show @nav
-
-    # Call Dashboard
 
     # Before app history start, should check for login?
     Backbone.history.start

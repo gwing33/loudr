@@ -28,4 +28,7 @@ define ["marionette"], (Marionette) ->
         error: (err, blah, doh) ->
           console.log err, blah, doh
 
+    register: (email, password, cb) ->
+      cb()
+      
   return LoudrAuth

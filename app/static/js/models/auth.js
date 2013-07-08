@@ -45,6 +45,10 @@
         });
       };
 
+      LoudrAuth.prototype.register = function(email, password, cb) {
+        return cb();
+      };
+
       return LoudrAuth;
 
     })(Backbone.Model);
