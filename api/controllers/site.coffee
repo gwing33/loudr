@@ -5,8 +5,16 @@ mongoose = require "mongoose"
 async = require "async"
 connect = require "connect"
 
+helper = require "../helpers/_controller_helper"
+
+# Dashboard
 exports.index = (req, res, next) ->
-  res.send "hello"
+  # See if logged in
+  return res.send helper.authed() unless req.session.user
+
+  # Get list of projects if has any
+  return res.send 
+    success: true
 
 exports.seed_fans = (req, res, next) ->
   new_fan = new Fan

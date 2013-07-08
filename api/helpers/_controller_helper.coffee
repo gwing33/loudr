@@ -16,3 +16,8 @@ exports.success = (obj_name, obj) ->
   json[obj_name] = obj
 
   return json
+
+exports.authed = () ->
+  return json = 
+    success: false
+    error: 'Not Authorized'

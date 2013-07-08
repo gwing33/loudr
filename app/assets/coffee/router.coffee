@@ -1,20 +1,30 @@
-define ["marionette", "views/dashboard", "views/login"], (Marionette, LoudrDashboard, LoudrLogin) ->
+define ["marionette", "models/dashboard", "views/dashboard", "views/login"], (Marionette, DashboardModel, DashboardView, LoudrLogin) ->
   class LoudrRouter extends Marionette.AppRouter
     controller:
       home: () ->
-        # Load dashboard
+        $this = @
+        # Load Dashboard
+        dash_model = new DashboardModel()
+        dash_model.init (json) ->
+          return $this.app.router.navigate 'login', {trigger: true} unless json.success
+          
+          dash = new DashboardView
+            app: $this.app
 
-        # @app.router.navigate 'login', {trigger: true} unless @app.auth.is_authed()
-
-        dash = new LoudrDashboard
-          app: @app
-        
-        @app.mainRegion.show dash
+          $this.app.mainRegion.show dash
 
       login: () ->
         login = new LoudrLogin
           app: @app
         @app.mainRegion.show login
+
+      logout: () ->
+        console.log 'logging out'
+        $this = @
+        @app.auth.logout () ->
+          $this.app.router.navigate 'login', {trigger: true}
+
+
 
     initialize: (options) ->
       @controller.app = options.app
@@ -22,5 +32,6 @@ define ["marionette", "views/dashboard", "views/login"], (Marionette, LoudrDashb
     appRoutes:
       "": "home"
       "login": "login"
+      "logout": "logout"
 
   return LoudrRouter

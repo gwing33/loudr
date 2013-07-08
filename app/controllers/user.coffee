@@ -14,9 +14,9 @@ exports.login = (req, res) ->
 
     res.send body
 
-
 exports.logout = (req, res) ->
-  delete req.session.user_id
+  request.get api_url + '/auth/logout', (err, resp, body) ->
+    res.send body
 
 # connect = require('connect')
 # RedisStore = require('connect-redis')(connect);

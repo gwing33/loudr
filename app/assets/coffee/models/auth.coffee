@@ -24,7 +24,7 @@ define ["marionette"], (Marionette) ->
         type: 'GET',
         dataType: 'json',
         success: (json) ->
-          cb json.success
+          cb()
         error: (err, blah, doh) ->
           console.log err, blah, doh
 

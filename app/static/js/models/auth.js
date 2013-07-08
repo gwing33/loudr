@@ -37,7 +37,7 @@
           type: 'GET',
           dataType: 'json',
           success: function(json) {
-            return cb(json.success);
+            return cb();
           },
           error: function(err, blah, doh) {
             return console.log(err, blah, doh);

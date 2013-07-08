@@ -2,7 +2,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(["marionette", "views/dashboard", "views/login"], function(Marionette, LoudrDashboard, LoudrLogin) {
+  define(["marionette", "models/dashboard", "views/dashboard", "views/login"], function(Marionette, DashboardModel, DashboardView, LoudrLogin) {
     var LoudrRouter, _ref;
 
     LoudrRouter = (function(_super) {
@@ -15,12 +15,23 @@
 
       LoudrRouter.prototype.controller = {
         home: function() {
-          var dash;
+          var $this, dash_model;
 
-          dash = new LoudrDashboard({
-            app: this.app
+          $this = this;
+          dash_model = new DashboardModel();
+          return dash_model.init(function(json) {
+            var dash;
+
+            if (!json.success) {
+              return $this.app.router.navigate('login', {
+                trigger: true
+              });
+            }
+            dash = new DashboardView({
+              app: $this.app
+            });
+            return $this.app.mainRegion.show(dash);
           });
-          return this.app.mainRegion.show(dash);
         },
         login: function() {
           var login;
@@ -29,6 +40,17 @@
             app: this.app
           });
           return this.app.mainRegion.show(login);
+        },
+        logout: function() {
+          var $this;
+
+          console.log('logging out');
+          $this = this;
+          return this.app.auth.logout(function() {
+            return $this.app.router.navigate('login', {
+              trigger: true
+            });
+          });
         }
       };
 
@@ -38,7 +60,8 @@
 
       LoudrRouter.prototype.appRoutes = {
         "": "home",
-        "login": "login"
+        "login": "login",
+        "logout": "logout"
       };
 
       return LoudrRouter;
