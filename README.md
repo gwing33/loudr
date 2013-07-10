@@ -95,6 +95,7 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 
 
 ## APP TODO
+- API Documentation
 - Stub out pages / Page flow
     - Project select / Create
     - Fan list page
@@ -102,7 +103,7 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 - Storyboard user flows
 - Design
 - Client side script
-- API Documentation
+
 
 ## API TODO
 - Get All Fans
