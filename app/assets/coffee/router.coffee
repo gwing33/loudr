@@ -5,8 +5,8 @@ define ["marionette", "models/dashboard", "views/dashboard", "views/login"], (Ma
         $this = @
         # Load Dashboard
         dash_model = new DashboardModel()
-        dash_model.init (json) ->
-          return $this.app.router.navigate 'login', {trigger: true} unless json.success
+        dash_model.init (err, json) ->
+          return $this.app.router.navigate 'login', {trigger: true} if err
           
           dash = new DashboardView
             app: $this.app

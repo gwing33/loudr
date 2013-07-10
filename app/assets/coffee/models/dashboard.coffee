@@ -7,8 +7,8 @@ define ["marionette"], (Marionette) ->
         url: '/dashboard',
         dataType: 'json',
         success: (json) ->
-          cb json
+          cb null, json
         error: (err, blah, doh) ->
-          console.log err, blah, doh
+          cb doh
       
   return DashboardModel

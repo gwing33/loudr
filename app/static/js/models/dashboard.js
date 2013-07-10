@@ -18,10 +18,10 @@
           url: '/dashboard',
           dataType: 'json',
           success: function(json) {
-            return cb(json);
+            return cb(null, json);
           },
           error: function(err, blah, doh) {
-            return console.log(err, blah, doh);
+            return cb(doh);
           }
         });
       };

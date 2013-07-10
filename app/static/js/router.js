@@ -19,10 +19,10 @@
 
           $this = this;
           dash_model = new DashboardModel();
-          return dash_model.init(function(json) {
+          return dash_model.init(function(err, json) {
             var dash;
 
-            if (!json.success) {
+            if (err) {
               return $this.app.router.navigate('login', {
                 trigger: true
               });
