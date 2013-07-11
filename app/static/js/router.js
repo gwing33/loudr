@@ -20,17 +20,21 @@
           $this = this;
           dash_model = new DashboardModel();
           return dash_model.init(function(err, json) {
-            var dash;
+            var dash, dash_collection_view;
 
             if (err) {
               return $this.app.router.navigate('login', {
                 trigger: true
               });
             }
-            dash = new DashboardView({
+            dash = new DashboardView.Layout({
               app: $this.app
             });
-            return $this.app.mainRegion.show(dash);
+            dash_collection_view = new DashboardView.CollectionView({
+              collection: new DashboardView.Collection(json)
+            });
+            $this.app.mainRegion.show(dash);
+            return dash.projectsRegion.show(dash_collection_view);
           });
         },
         login: function() {

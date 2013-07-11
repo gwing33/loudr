@@ -10,9 +10,10 @@
     Loudr.addInitializer(function() {
       this.auth = new LoudrAuth();
       this.nav_collection = new LoudrNav.Collection();
-      return this.nav = new LoudrNav.Layout({
+      this.nav = new LoudrNav.Layout({
         collection: this.nav_collection
       });
+      return this.nav_collection.show_logged_in_nav();
     });
     Loudr.on('initialize:after', function() {
       this.router = new LoudrRouter({

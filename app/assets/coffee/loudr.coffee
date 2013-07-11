@@ -15,6 +15,7 @@ define ['marionette', 'router', 'views/nav', 'models/auth', 'views/login'], (Mar
     @nav_collection = new LoudrNav.Collection()
     @nav = new LoudrNav.Layout
       collection: @nav_collection
+    @nav_collection.show_logged_in_nav()
 
   Loudr.on 'initialize:after', () ->
     @router = new LoudrRouter

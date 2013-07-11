@@ -85,6 +85,16 @@ ProjectSchema.statics.generateApiKey = (user_id) ->
 
   return crypto.createHash('sha256').update(Date.now().toString()).update(user_id.toString()).digest('hex')
 
+ProjectSchema.statics.getAll = (user_id, cb) ->
+  @find
+    'users.user_id': user_id
+  , (err, projects) ->
+    return cb err if err
+    return cb 'Not Found', null unless projects
+
+    cb null, projects
+
+
 ProjectSchema.statics.getById = (id, cb) ->
   @findOne
     _id: id

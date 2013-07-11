@@ -22,7 +22,13 @@ success = (project) ->
   return json
 
 exports.get_all = (req, res, next) ->
-  res.send 'hello'
+  return res.status(401).send() unless req.session.user
+  
+  Project.getAll req.session.user._id, (err, projects) ->
+    return res.send err if err
+
+    res.send projects
+  
 
 exports.get_by_id = (req, res, next) ->
   Project.getById req.body.id, (err, project) ->

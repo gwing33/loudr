@@ -33,9 +33,17 @@
       <a href='{{ src }}'>{{ name }}</a>
     </script>
 
-
     <script type='text/html' id='dashboard_template'>
-      Dashboard Stuff Here...
+      <div class='project-view'>
+        <div id='project_list'></div>
+        <div id='new_project'>
+          <a href='#' class='btn'>New Project</a>
+        </div>
+      </div>
+    </script>
+
+    <script type='text/html' id='project_list_template'>
+      <a href="/app/{{ api.key }}">{{ name }}</a>
     </script>
 
     <script type='text/html' id='login_template'>

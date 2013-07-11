@@ -8,10 +8,14 @@ define ["marionette", "models/dashboard", "views/dashboard", "views/login"], (Ma
         dash_model.init (err, json) ->
           return $this.app.router.navigate 'login', {trigger: true} if err
           
-          dash = new DashboardView
+          dash = new DashboardView.Layout
             app: $this.app
 
+          dash_collection_view = new DashboardView.CollectionView
+            collection: new DashboardView.Collection json
+          
           $this.app.mainRegion.show dash
+          dash.projectsRegion.show dash_collection_view
 
       login: () ->
         login = new LoudrLogin

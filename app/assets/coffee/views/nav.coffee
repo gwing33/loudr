@@ -5,12 +5,8 @@ define ["marionette", "backbone"], (Marionette, Backbone) ->
 
     show_logged_in_nav: () ->
       @add
-        name: 'messages'
-        src: '#'
-
-      @add
-        name: 'statistics'
-        src: '#'
+        name: 'documentation'
+        src: '/docs/'
 
   class LoudrNavItemView extends Marionette.ItemView
     tagName: 'li'
