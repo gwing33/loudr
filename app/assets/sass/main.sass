@@ -1,5 +1,8 @@
 @import "compass/css3"
 
+$light_grey: #c2bcc0
+$blue: #2256ad
+
 =shadow($pix, $color)
   -webkit-box-shadow: 0px 0px $pix 0px $color
   -moz-box-shadow: 0px 0px $pix 0px $color
@@ -37,17 +40,17 @@ body
 
 header
   height: 65px
-  border-bottom: 1px solid #c2bcc0
+  border-bottom: 1px solid $light_grey
   h1
     font-size: 36px
     margin: 0
     padding: 0 30px
     line-height: 65px
-    border-right: 2px solid #c2bcc0
+    border-right: 2px solid $light_grey
     display: inline-block
     float: left
     b
-      color: #2256ad
+      color: $blue
       font-weight: 200
   nav
     float: left
@@ -65,4 +68,4 @@ header
     line-height: 65px
     font-weight: 13px
     padding: 0 20px
-    border-right: 1px solid #c2bcc0
+    border-right: 1px solid $light_grey

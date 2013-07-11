@@ -24,9 +24,10 @@ FanSchema = new Schema(
       type: String
 
   # Reference to the APP
-  api_key:
-    type: String
-    required: true
+  api:
+    key:
+      type: String
+      required: true
 
   notifications: [NotificationSchema.model]
 
@@ -54,7 +55,8 @@ FanSchema.methods.toJson = () ->
     name: @name.full
     email: @email
     social: @social
-    api_key: @api_key
+    api:
+      key: @api.key
     notifications: @notifications
     groups: @groups
     info: @info
