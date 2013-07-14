@@ -10,5 +10,5 @@ define ["marionette"], (Marionette) ->
           cb null, json
         error: (err, blah, doh) ->
           cb doh
-      
+    
   return DashboardModel

@@ -1,7 +1,4 @@
-config = require "../../config"
-request = require "request"
-
-api_url = config.settings.api_host + ':' + config.settings.api_port
+api_proxy = require "../api_proxy"
 
 exports.login = (req, res) ->
   post_data = 
@@ -9,13 +6,13 @@ exports.login = (req, res) ->
       email: req.body.email
       password: req.body.password
 
-  request.post api_url + '/auth/login', post_data, (err, resp, body) ->
+  api_proxy.post '/auth/login', post_data, (err, resp, body) ->
     res.send 'error' if err
 
     res.send body
 
 exports.logout = (req, res) ->
-  request.get api_url + '/auth/logout', (err, resp, body) ->
+  api_proxy.get '/auth/logout', (err, resp, body) ->
     res.send body
 
 # connect = require('connect')

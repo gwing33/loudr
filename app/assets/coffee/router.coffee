@@ -11,9 +11,13 @@ define ["marionette", "models/dashboard", "views/dashboard", "views/login"], (Ma
           dash = new DashboardView.Layout
             app: $this.app
 
+          dash_collection = new DashboardView.Collection
+
           dash_collection_view = new DashboardView.CollectionView
-            collection: new DashboardView.Collection json
+            collection: dash_collection
           
+          dash_collection.fetch()
+
           $this.app.mainRegion.show dash
           dash.projectsRegion.show dash_collection_view
 

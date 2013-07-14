@@ -3,29 +3,30 @@
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   define(["marionette"], function(Marionette) {
-    var LoudrDashboard, LoudrProjectCollection, LoudrProjectCollectionView, LoudrProjectItem, _ref, _ref1, _ref2, _ref3;
+    var LoudrDashboard, LoudrProjectCollection, LoudrProjectCollectionView, LoudrProjectItem, LoudrProjectModel, _ref, _ref1, _ref2, _ref3, _ref4;
 
-    LoudrProjectCollection = (function(_super) {
-      var LoudrProjectModel, _ref1;
+    LoudrProjectModel = (function(_super) {
+      __extends(LoudrProjectModel, _super);
 
-      __extends(LoudrProjectCollection, _super);
-
-      function LoudrProjectCollection() {
-        _ref = LoudrProjectCollection.__super__.constructor.apply(this, arguments);
+      function LoudrProjectModel() {
+        _ref = LoudrProjectModel.__super__.constructor.apply(this, arguments);
         return _ref;
       }
 
-      LoudrProjectCollection.prototype.model = LoudrProjectModel = (function(_super1) {
-        __extends(LoudrProjectModel, _super1);
+      return LoudrProjectModel;
 
-        function LoudrProjectModel() {
-          _ref1 = LoudrProjectModel.__super__.constructor.apply(this, arguments);
-          return _ref1;
-        }
+    })(Backbone.Model);
+    LoudrProjectCollection = (function(_super) {
+      __extends(LoudrProjectCollection, _super);
 
-        return LoudrProjectModel;
+      function LoudrProjectCollection() {
+        _ref1 = LoudrProjectCollection.__super__.constructor.apply(this, arguments);
+        return _ref1;
+      }
 
-      })(Backbone.Model);
+      LoudrProjectCollection.prototype.model = LoudrProjectModel;
+
+      LoudrProjectCollection.prototype.url = '/project';
 
       return LoudrProjectCollection;
 
@@ -34,8 +35,8 @@
       __extends(LoudrProjectItem, _super);
 
       function LoudrProjectItem() {
-        _ref1 = LoudrProjectItem.__super__.constructor.apply(this, arguments);
-        return _ref1;
+        _ref2 = LoudrProjectItem.__super__.constructor.apply(this, arguments);
+        return _ref2;
       }
 
       LoudrProjectItem.prototype.tagName = 'li';
@@ -49,11 +50,17 @@
       __extends(LoudrProjectCollectionView, _super);
 
       function LoudrProjectCollectionView() {
-        _ref2 = LoudrProjectCollectionView.__super__.constructor.apply(this, arguments);
-        return _ref2;
+        _ref3 = LoudrProjectCollectionView.__super__.constructor.apply(this, arguments);
+        return _ref3;
       }
 
+      LoudrProjectCollectionView.prototype.tagName = 'ul';
+
       LoudrProjectCollectionView.prototype.itemView = LoudrProjectItem;
+
+      LoudrProjectCollectionView.prototype.initialize = function() {
+        return this.fetch;
+      };
 
       return LoudrProjectCollectionView;
 
@@ -62,8 +69,8 @@
       __extends(LoudrDashboard, _super);
 
       function LoudrDashboard() {
-        _ref3 = LoudrDashboard.__super__.constructor.apply(this, arguments);
-        return _ref3;
+        _ref4 = LoudrDashboard.__super__.constructor.apply(this, arguments);
+        return _ref4;
       }
 
       LoudrDashboard.prototype.template = "#dashboard_template";
@@ -73,7 +80,20 @@
       };
 
       LoudrDashboard.prototype.initialize = function(options) {
+        console.log(this);
         return this.app = options.app;
+      };
+
+      LoudrDashboard.prototype.events = {
+        'submit form': 'new_project'
+      };
+
+      LoudrDashboard.prototype.new_project = function(e) {
+        e.preventDefault();
+        console.log(this);
+        return this.collection.create({
+          name: this.$('#project_name').val()
+        });
       };
 
       return LoudrDashboard;

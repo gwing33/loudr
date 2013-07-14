@@ -20,7 +20,7 @@
           $this = this;
           dash_model = new DashboardModel();
           return dash_model.init(function(err, json) {
-            var dash, dash_collection_view;
+            var dash, dash_collection, dash_collection_view;
 
             if (err) {
               return $this.app.router.navigate('login', {
@@ -30,9 +30,11 @@
             dash = new DashboardView.Layout({
               app: $this.app
             });
+            dash_collection = new DashboardView.Collection;
             dash_collection_view = new DashboardView.CollectionView({
-              collection: new DashboardView.Collection(json)
+              collection: dash_collection
             });
+            dash_collection.fetch();
             $this.app.mainRegion.show(dash);
             return dash.projectsRegion.show(dash_collection_view);
           });

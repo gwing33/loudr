@@ -2,6 +2,7 @@ User = require "../models/usersModel"
 mongoose = require "mongoose"
 async = require "async"
 connect = require "connect"
+auth = require "../helpers/_auth"
 
 fail = (err) ->
   json =
@@ -30,8 +31,8 @@ exports.authed = (req, res, next) ->
 
 # Should attempt to log the user into the site
 exports.login = (req, res, next) ->
-  # Log them out if logged in, in case it's a different user
-  req.session.user = null if req.session.user?
+  # TODO, finish authentication
+  if auth.auth_header req.headers.authorization
 
   # With email and password, validate user
   User.getAuthenticated req.body.email, req.body.password, (err, user, reason_id) ->
@@ -40,6 +41,7 @@ exports.login = (req, res, next) ->
      # If successful user, set session, return json object
     if user?
       req.session.user = user.toJson()
+      # req.session.save()
 
       return res.send success user.toJson()
     

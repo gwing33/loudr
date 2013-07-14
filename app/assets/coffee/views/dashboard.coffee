@@ -1,6 +1,10 @@
 define ["marionette"], (Marionette) ->
+
+  class LoudrProjectModel extends Backbone.Model
+
   class LoudrProjectCollection extends Backbone.Collection
-    model: class LoudrProjectModel extends Backbone.Model
+    model: LoudrProjectModel
+    url: '/project'
 
   class LoudrProjectItem extends Marionette.ItemView
     tagName: 'li'
@@ -9,7 +13,10 @@ define ["marionette"], (Marionette) ->
   # I left it as 'LoudrDashboard' because it's the landing page.
   # There could be more things than just a list of projects.
   class LoudrProjectCollectionView extends Marionette.CollectionView
+    tagName: 'ul'
     itemView: LoudrProjectItem
+    initialize: () ->
+      @fetch
 
   class LoudrDashboard extends Marionette.Layout
     template: "#dashboard_template"
@@ -17,7 +24,21 @@ define ["marionette"], (Marionette) ->
       projectsRegion: '#project_list'
 
     initialize: (options) ->
+      console.log @
       @app = options.app
+
+    events:
+      'submit form': 'new_project'
+
+    new_project: (e) ->
+      e.preventDefault()
+
+      console.log @
+
+      @collection.create
+        name: @$('#project_name').val()
+
+
 
 #       dash_collection = new LoudrProjectCollection options.json
 #       dash_collection_view = new LoudrProjectCollectionView
