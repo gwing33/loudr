@@ -58,10 +58,6 @@
 
       LoudrProjectCollectionView.prototype.itemView = LoudrProjectItem;
 
-      LoudrProjectCollectionView.prototype.initialize = function() {
-        return this.fetch;
-      };
-
       return LoudrProjectCollectionView;
 
     })(Marionette.CollectionView);
@@ -89,7 +85,6 @@
 
       LoudrDashboard.prototype.new_project = function(e) {
         e.preventDefault();
-        console.log(this);
         return this.collection.create({
           name: this.$('#project_name').val()
         });

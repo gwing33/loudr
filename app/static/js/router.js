@@ -2,7 +2,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(["marionette", "models/dashboard", "views/dashboard", "views/login"], function(Marionette, DashboardModel, DashboardView, LoudrLogin) {
+  define(["marionette", "views/dashboard", "views/login"], function(Marionette, DashboardView, LoudrLogin) {
     var LoudrRouter, _ref;
 
     LoudrRouter = (function(_super) {
@@ -15,29 +15,27 @@
 
       LoudrRouter.prototype.controller = {
         home: function() {
-          var $this, dash_model;
+          var $this, dash, dash_collection, dash_collection_view;
 
           $this = this;
-          dash_model = new DashboardModel();
-          return dash_model.init(function(err, json) {
-            var dash, dash_collection, dash_collection_view;
-
-            if (err) {
-              return $this.app.router.navigate('login', {
-                trigger: true
-              });
-            }
-            dash = new DashboardView.Layout({
-              app: $this.app
-            });
-            dash_collection = new DashboardView.Collection;
-            dash_collection_view = new DashboardView.CollectionView({
-              collection: dash_collection
-            });
-            dash_collection.fetch();
-            $this.app.mainRegion.show(dash);
-            return dash.projectsRegion.show(dash_collection_view);
+          dash = new DashboardView.Layout({
+            app: $this.app
           });
+          dash_collection = new DashboardView.Collection;
+          dash_collection_view = new DashboardView.CollectionView({
+            collection: dash_collection
+          });
+          dash_collection.fetch({
+            error: function(err, blah, doh) {
+              if (doh.xhr.status === 401) {
+                return $this.app.router.navigate('login', {
+                  trigger: true
+                });
+              }
+            }
+          });
+          $this.app.mainRegion.show(dash);
+          return dash.projectsRegion.show(dash_collection_view);
         },
         login: function() {
           var login;
@@ -50,7 +48,6 @@
         logout: function() {
           var $this;
 
-          console.log('logging out');
           $this = this;
           return this.app.auth.logout(function() {
             return $this.app.router.navigate('login', {

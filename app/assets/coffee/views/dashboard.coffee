@@ -15,8 +15,6 @@ define ["marionette"], (Marionette) ->
   class LoudrProjectCollectionView extends Marionette.CollectionView
     tagName: 'ul'
     itemView: LoudrProjectItem
-    initialize: () ->
-      @fetch
 
   class LoudrDashboard extends Marionette.Layout
     template: "#dashboard_template"
@@ -31,8 +29,6 @@ define ["marionette"], (Marionette) ->
 
     new_project: (e) ->
       e.preventDefault()
-
-      console.log @
 
       @collection.create
         name: @$('#project_name').val()
