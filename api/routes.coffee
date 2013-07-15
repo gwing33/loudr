@@ -19,7 +19,6 @@ exports.add = (server) ->
   # Authing
   server.get '/authed', user_controller.authed
   server.post '/auth/login', user_controller.login
-  server.get '/auth/logout', user_controller.logout
 
   # User Routes
   server.get '/user/:email', user_controller.get_user

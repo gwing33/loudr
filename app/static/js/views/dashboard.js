@@ -80,7 +80,6 @@
       };
 
       LoudrDashboard.prototype.initialize = function(options) {
-        console.log(this);
         return this.app = options.app;
       };
 

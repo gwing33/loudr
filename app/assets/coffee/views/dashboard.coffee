@@ -24,7 +24,6 @@ define ["marionette"], (Marionette) ->
       projectsRegion: '#project_list'
 
     initialize: (options) ->
-      console.log @
       @app = options.app
 
     events:

@@ -29,10 +29,10 @@ exports.get_user = (req, res, next) ->
 exports.authed = (req, res, next) ->
   return res.send req.session.user?
 
-# Should attempt to log the user into the site
+# Will return a user object
 exports.login = (req, res, next) ->
   # TODO, finish authentication
-  if auth.auth_header req.headers.authorization
+  return res.status(401).send() unless auth.auth_header req.headers.authorization
 
   # With email and password, validate user
   User.getAuthenticated req.body.email, req.body.password, (err, user, reason_id) ->
@@ -40,9 +40,6 @@ exports.login = (req, res, next) ->
     
      # If successful user, set session, return json object
     if user?
-      req.session.user = user.toJson()
-      # req.session.save()
-
       return res.send success user.toJson()
     
     # Unsuccessful login because...
@@ -59,13 +56,6 @@ exports.login = (req, res, next) ->
         json.reason = 'Password was invalid.'
 
     res.send json
-
-# Should log the user out of the site
-exports.logout = (req, res, next) ->
-  delete req.session.user
-
-  return res.send
-    success: true
 
 exports.update_user = (req, res, next) ->
   # Validate user is logged in

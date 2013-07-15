@@ -3,6 +3,8 @@ User = require "../models/usersModel"
 mongoose = require "mongoose"
 async = require "async"
 
+auth = require "../helpers/_auth"
+
 authentication_error = 
   success: false
   error: 'Not Authenticated'
@@ -22,9 +24,11 @@ success = (project) ->
   return json
 
 exports.get_all = (req, res, next) ->
-  return res.status(401).send() unless req.session.user
+  return res.status(401).send() unless auth.auth_header req.headers.authorization
+
+  uid = auth.get_user_id req.headers.authorization
   
-  Project.getAll req.session.user._id, (err, projects) ->
+  Project.getAll uid, (err, projects) ->
     return res.send err if err
 
     res.send projects

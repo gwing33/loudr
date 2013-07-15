@@ -3,35 +3,38 @@ request = require "request"
 
 exports.api_url = config.settings.api_host + ':' + config.settings.api_port
 
-exports.post = (url, options, cb) ->
-  options = @set_auth_token options
+exports.post = (url, options, uid, cb) ->
+  options = @set_auth_token options, uid
   
   request.post @api_url + url, options, cb
 
-exports.get = (url, options, cb) ->
-  options = @set_auth_token options
+exports.get = (url, options, uid, cb) ->
+  options = @set_auth_token options, uid
   
   request.get @api_url + url, options, cb
 
-exports.put = (url, options, cb) ->
-  options = @set_auth_token options
+exports.put = (url, options, uid, cb) ->
+  options = @set_auth_token options, uid
 
   request.put @api_url + url, options, cb
 
-exports.del = (url, options, cb) ->
-  options = @set_auth_token options
+exports.del = (url, options, uid, cb) ->
+  options = @set_auth_token options, uid
 
   request.del @api_url + url, options, cb
 
-exports.set_auth_token = (options) ->
-  if options.headers is undefined
-    options.headers = {}
-  options.headers.Authorization = @get_signed_token()
+exports.set_auth_token = (options, uid) ->
+  options.headers = {} unless options.headers?
+  
+  options.headers.Authorization = @get_signed_token uid
 
   return options
 
-exports.get_signed_token = () ->
-  return 'Loudr asdf:'
+exports.get_signed_token = (uid) ->
+  console.log 'sign token: ' + uid
+  token = 'Loudr asdf:'
+  token += uid if uid?
+  return token
 
 #  post_data = 
 #    form:

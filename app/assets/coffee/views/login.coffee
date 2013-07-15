@@ -24,6 +24,4 @@ define ["marionette"], (Marionette) ->
             trigger: true
           return
 
-        console.log success
-
   return LoudrLogin

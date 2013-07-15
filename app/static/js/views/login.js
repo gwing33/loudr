@@ -35,9 +35,7 @@
             $this.app.router.navigate('/', {
               trigger: true
             });
-            return;
           }
-          return console.log(success);
         });
       };
 
