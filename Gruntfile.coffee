@@ -5,6 +5,14 @@ module.exports = (grunt) ->
     pkg: grunt.file.readJSON("package.json")
     banner: "/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - " + "<%= grunt.template.today(\"yyyy-mm-dd\") %>\n" + "<%= pkg.homepage ? \"* \" + pkg.homepage + \"\\n\" : \"\" %>" + "* Copyright (c) <%= grunt.template.today(\"yyyy\") %> <%= pkg.author.name %>;" + " Licensed <%= _.pluck(pkg.licenses, \"type\").join(\", \") %> */\n"
 
+    php:
+      dist:
+        options:
+          keepalive: true,
+          open: true,
+          port: 3003
+          base: 'api_docs/'
+
     coffee:
       app:
         expand: true
@@ -88,6 +96,7 @@ module.exports = (grunt) ->
         files: "tests/**/*-test.coffee"
         tasks: [ "simplemocha" ]
 
+  grunt.loadNpmTasks "grunt-php"
   grunt.loadNpmTasks "grunt-contrib-coffee"
   grunt.loadNpmTasks "grunt-contrib-nodeunit"
   grunt.loadNpmTasks "grunt-contrib-jshint"
@@ -99,3 +108,4 @@ module.exports = (grunt) ->
   
 
   grunt.registerTask "default", [ "coffee", "jshint", "simplemocha"] # , "mocha" ]
+  grunt.registerTask "custom_watch", ["php", "watch"]
