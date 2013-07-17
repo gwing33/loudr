@@ -37,6 +37,9 @@
           $this.app.mainRegion.show(dash);
           return dash.projectsRegion.show(dash_collection_view);
         },
+        project: function(project_id) {
+          return console.log(project_id);
+        },
         login: function() {
           var login;
 
@@ -63,6 +66,7 @@
 
       LoudrRouter.prototype.appRoutes = {
         "": "home",
+        "project/:project_id": "project",
         "login": "login",
         "logout": "logout"
       };

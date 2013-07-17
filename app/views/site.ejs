@@ -46,7 +46,7 @@
     </script>
 
     <script type='text/html' id='project_list_template'>
-      <a href="/app/{{ api.key }}">{{ name }}</a>
+      <a href="project/{{ api.key }}">{{ name }}</a>
     </script>
 
     <script type='text/html' id='login_template'>
@@ -61,6 +61,45 @@
     </script>
 
     <script data-main="/js/app" src="/js/vendor/require.js"></script>
+
+    <script>
+      window.loudrSettings = {
+        email: "gerald.leenerts@gmail.com",
+        api_key: "8f2fd8f41de97710288a2ee90e42f8e74706a666"
+      };
+    </script>
+    <script>
+      (function(){
+        var w=window;
+        var lo=w.Loudr;
+        if(typeof lo==="function"){
+          console.log(lo);
+        }else{
+          var d=document;
+          // var l=function(){
+          //   l.c(arguments)
+          // };
+          // l.q=[];
+          // l.c=function(args){
+          //   l.q.push(args)
+          // };
+          // w.Loudr=l;
+          function ld(){
+            var s=d.createElement('script');
+            s.type='text/javascript';
+            s.async=true;
+            s.src='/js/loudr.v1.js';
+            var x=d.getElementsByTagName('script')[0];
+            x.parentNode.insertBefore(s,x);
+          }
+          if(w.attachEvent){
+            w.attachEvent('onload',ld);
+          }else{
+            w.addEventListener('load',ld,false);
+          }
+        };
+      })()
+    </script>
 
     <!--
     <script>

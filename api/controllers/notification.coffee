@@ -8,8 +8,8 @@ Notification = mongoose.model 'Notification', NotificationSchema.model
 helper = require "../helpers/_controller_helper"
 
 exports.get_all = (req, res, next) ->
-  
-  res.send 'hello'
+  if req.query.callback?
+    res.jsonp '{"somevar":123}'
 
 exports.get_by_id = (req, res, next) ->
   Fan.getByKeyAndEmail req.params.key, req.params.email, (err, fan) ->

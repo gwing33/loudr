@@ -25,7 +25,15 @@ define ["marionette"], (Marionette) ->
       @app = options.app
 
     events:
-      'submit form': 'new_project'
+      'submit form': 'new_project',
+      'click a': 'open_project'
+
+    open_project: (e) ->
+      e.preventDefault()
+      
+      # Unload Collection
+      # Load in Project view
+
 
     new_project: (e) ->
       e.preventDefault()

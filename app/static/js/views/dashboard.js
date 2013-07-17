@@ -80,7 +80,12 @@
       };
 
       LoudrDashboard.prototype.events = {
-        'submit form': 'new_project'
+        'submit form': 'new_project',
+        'click a': 'open_project'
+      };
+
+      LoudrDashboard.prototype.open_project = function(e) {
+        return e.preventDefault();
       };
 
       LoudrDashboard.prototype.new_project = function(e) {

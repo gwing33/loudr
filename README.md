@@ -95,9 +95,8 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 
 
 ## APP TODO
-- API Documentation
 - Stub out pages / Page flow
-    - Project select / Create
+    - Create project
     - Fan list page
     - Send fan(s) notification
 - Storyboard user flows

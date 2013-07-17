@@ -19,6 +19,9 @@ define ["marionette", "views/dashboard", "views/login"], (Marionette, DashboardV
         $this.app.mainRegion.show dash
         dash.projectsRegion.show dash_collection_view
 
+      project: (project_id) ->
+        console.log project_id
+
       login: () ->
         login = new LoudrLogin
           app: @app
@@ -36,6 +39,7 @@ define ["marionette", "views/dashboard", "views/login"], (Marionette, DashboardV
 
     appRoutes:
       "": "home"
+      "project/:project_id": "project"
       "login": "login"
       "logout": "logout"
 
