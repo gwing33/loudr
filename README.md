@@ -94,6 +94,14 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 - `npm start`
 
 
+## Direct Next TODO
+- Better Documentation
+- Create Fan from javascript snippet and return empty array for now
+- Create Project
+- Project Dashboard Page
+- Send Notiication
+
+
 ## APP TODO
 - Stub out pages / Page flow
     - Create project
