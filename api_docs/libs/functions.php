@@ -185,7 +185,7 @@ function build_nav($tree, $url_params = false) {
 		}
 
 		if ($val['type'] == 'folder') {
-			$html .= '<a href="#" class="aj-nav folder">'.$val['name'].'</a>';
+			$html .= '<span class="aj-nav folder">'.$val['name'].'</span>';
 			$html .= build_nav($val['tree'], $url_params);
 		} else {
 			$html .= '<a href="'.$val['url'].'">'.$val['name'].'</a>';

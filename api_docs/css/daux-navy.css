@@ -6664,7 +6664,7 @@ code {
   padding-left: 0px;
   padding-right: 0px;
 }
-.nav.nav-list li a {
+.nav.nav-list li a, .nav.nav-list li span {
   margin: 0px;
   padding: 6px 15px;
   font-family: 'Roboto Slab', serif;
@@ -6673,12 +6673,15 @@ code {
   font-size: 15px;
   text-shadow: none;
   border-top: 1px solid #e7e7e9;
+  display: block
 }
+
 .nav.nav-list li a:hover {
   color: #13132a;
   text-shadow: none;
   background-color: #c5c5cb;
 }
+
 .nav.nav-list li.active a {
   background-color: #c5c5cb;
 }
@@ -6686,7 +6689,6 @@ code {
   display: block;
 }
 .nav.nav-list li ul {
-  display: none;
   margin-left: 15px;
 }
 .nav.nav-list li ul li a {
