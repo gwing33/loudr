@@ -108,4 +108,3 @@ module.exports = (grunt) ->
   
 
   grunt.registerTask "default", [ "coffee", "jshint", "simplemocha"] # , "mocha" ]
-  grunt.registerTask "custom_watch", ["php", "watch"]

@@ -94,30 +94,16 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 - `npm start`
 
 
-## Direct Next TODO
-- Better Documentation
+## Critical TODO
 - Create Fan from javascript snippet and return empty array for now
 - Create Project
 - Project Dashboard Page
-- Send Notiication
+- List Project Fans
+- Send Notification
+- Show Fan Notifications
+- Display Notifications to Fan
+- Clean Up Permissions
 
-
-## APP TODO
-- Stub out pages / Page flow
-    - Create project
-    - Fan list page
-    - Send fan(s) notification
-- Storyboard user flows
-- Design
-- Client side script
-
-
-## API TODO
-- Get All Fans
-- Look over User Permissions
-    - Superuser Ability
-- Invite Users by email
-- Create more unit tests for different editing, creating variation that may occur
 
 ## Marketing TODO
 - Live Chat / Contact

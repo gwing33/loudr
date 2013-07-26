@@ -8,8 +8,20 @@ Notification = mongoose.model 'Notification', NotificationSchema.model
 helper = require "../helpers/_controller_helper"
 
 exports.get_all = (req, res, next) ->
-  if req.query.callback?
-    res.jsonp '{"somevar":123}'
+  Fan.getByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
+    if err and err is not 'Not Found'
+      return res.send
+        success: false
+        error: err
+
+    if err is 'Not Found'
+      # Create Fan
+      return res.jsonp '{"somevar":"need to create user"}'
+
+    if req.query.callback?
+      # See if Fan exists
+
+      res.jsonp fan.Notifications.toJson()
 
 exports.get_by_id = (req, res, next) ->
   Fan.getByKeyAndEmail req.params.key, req.params.email, (err, fan) ->

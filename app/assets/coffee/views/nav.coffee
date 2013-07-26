@@ -6,7 +6,7 @@ define ["marionette", "backbone"], (Marionette, Backbone) ->
     show_logged_in_nav: () ->
       @add
         name: 'documentation'
-        src: '/docs/'
+        src: 'http://localhost:3003/'
 
   class LoudrNavItemView extends Marionette.ItemView
     tagName: 'li'

@@ -30,7 +30,7 @@
       LoudrNavCollection.prototype.show_logged_in_nav = function() {
         return this.add({
           name: 'documentation',
-          src: '/docs/'
+          src: 'http://localhost:3003/'
         });
       };
 
