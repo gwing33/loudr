@@ -1,0 +1,22 @@
+## Fan Notifications
+
+* **GET** /app/:key/fan/:email/notes
+* **GET** /app/:key/fan/:email/note/:id
+* **POST** /app/:key/fan/:email/note
+* **PUT** /app/:key/fan/:email/note/:id
+* **DEL** /app/:key/fan/:email/note/:id
+
+```
+{
+  _id: @_id,
+  html: @html,
+  text: @text,
+  url: @url,
+  kind: @kind,
+  format: @format,
+  interacted: @interacted,
+  dissmissed: @dissmissed,
+  created: @created,
+  updated: @updated
+}
+```
