@@ -95,7 +95,6 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 
 
 ## Critical TODO
-- Create Fan from javascript snippet and return empty array for now
 - Create Project
 - Project Dashboard Page
 - List Project Fans
@@ -103,7 +102,6 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 - Show Fan Notifications
 - Display Notifications to Fan
 - Clean Up Permissions
-
 
 ## Marketing TODO
 - Live Chat / Contact
@@ -124,5 +122,7 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 - Set up deploy
 - Run tests
 
-## Other TODO
+
+
+## Other Thoughts
 - Product Life-Cycle Management: <a href='http://en.wikipedia.org/wiki/Product_life-cycle_management_(marketing)'>PLCM</a>
