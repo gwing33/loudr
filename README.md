@@ -94,35 +94,8 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 - `npm start`
 
 
-## Critical TODO
-- Go through all the tests and clean them up to match with the updated api
-- Create Project
-- Project Dashboard Page
-- List Project Fans
-- Send Notification
-- Show Fan Notifications
-- Display Notifications to Fan
-- Clean Up Permissions
-
-## Marketing TODO
-- Live Chat / Contact
-- Twitter
-- G+
-- Facebook
-- Blog
-- Sitemap
-- PPC Campaign
-- SEO Silo's
-- Find Competitors
-- Terminology
-
-## Server Setup TODO
-- Buy Domain Name
-- Get hosting
-- Set up staging
-- Set up deploy
-- Run tests
-
+## TODOs
+Moved to Milestones / Issue list in GitHub
 
 
 ## Other Thoughts
