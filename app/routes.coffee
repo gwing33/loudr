@@ -11,5 +11,6 @@ exports.add = (app) ->
   app.get "/logout", user_controller.logout
 
   app.get "/project", project_controller.index
+  app.post "/project", project_controller.create
 
   app.get "/docs", docs_controller.index

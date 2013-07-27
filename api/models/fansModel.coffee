@@ -89,7 +89,8 @@ FanSchema.statics.removeFan = (key, email, cb) ->
 
 FanSchema.statics.getByKeyAndEmail = (key, email, cb) ->
   @findOne
-    api_key: key
+    api:
+      key: key
     email: email
   , (err, fan) ->
     return cb err if err

@@ -25,13 +25,13 @@ exports.del = (url, options, uid, cb) ->
 
 exports.set_auth_token = (options, uid) ->
   options.headers = {} unless options.headers?
-  
   options.headers.Authorization = @get_signed_token uid
 
   return options
 
 exports.get_signed_token = (uid) ->
-  console.log 'sign token: ' + uid
+  # This token should be different from what everyone else uses
+  # That way I can restrict access for everyone but this application
   token = 'Loudr asdf:'
   token += uid if uid?
   return token

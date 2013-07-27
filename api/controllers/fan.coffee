@@ -50,6 +50,7 @@ exports.create_fan = (req, res, next) ->
     name:
       first: if req.body.first_name? then req.body.first_name else ''
       last: if req.body.last_name? then req.body.last_name else ''
+    notifications: []
     groups: fan_groups
     info:
       registered: if req.body.registered_date? then req.body.registered_date else Date.now

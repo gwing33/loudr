@@ -34,20 +34,11 @@ define ["marionette"], (Marionette) ->
       # Unload Collection
       # Load in Project view
 
-
     new_project: (e) ->
       e.preventDefault()
 
-      @collection.create
+      @projectsRegion.currentView.collection.create
         name: @$('#project_name').val()
-
-
-
-#       dash_collection = new LoudrProjectCollection options.json
-#       dash_collection_view = new LoudrProjectCollectionView
-#         collection: dash_collection
-# 
-#       @projectsRegion.show dash_collection_view
 
   return {
     Collection: LoudrProjectCollection

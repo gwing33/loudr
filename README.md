@@ -95,6 +95,7 @@ Not sure how to communicate this, I'm drawing a storyboard to help with this.
 
 
 ## Critical TODO
+- Go through all the tests and clean them up to match with the updated api
 - Create Project
 - Project Dashboard Page
 - List Project Fans

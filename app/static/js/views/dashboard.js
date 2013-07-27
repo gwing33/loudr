@@ -90,7 +90,7 @@
 
       LoudrDashboard.prototype.new_project = function(e) {
         e.preventDefault();
-        return this.collection.create({
+        return this.projectsRegion.currentView.collection.create({
           name: this.$('#project_name').val()
         });
       };

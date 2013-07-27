@@ -22,6 +22,7 @@ exports.get_all = (req, res, next) ->
         api:
           key: req.params.key
         email:  req.params.email
+        notifications: []
         info:
           registered: new Date
 
@@ -32,14 +33,14 @@ exports.get_all = (req, res, next) ->
             error: err
 
         if req.query.callbalck?
-          res.jsonp []
+          res.jsonp fan.notifications
         else
-          res.send []
+          res.send fan.notifications
     else
       if req.query.callback?
-        res.jsonp fan.Notifications.toJson()
+        res.jsonp fan.notifications
       else
-        res.send fan.Notifications.toJson()
+        res.send fan.notifications
 
 exports.get_by_id = (req, res, next) ->
   Fan.getByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
