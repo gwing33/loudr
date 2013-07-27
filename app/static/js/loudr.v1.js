@@ -238,7 +238,7 @@
           return this.ajax({
             url: '/app/' + this.settings.api_key + '/fan/' + this.settings.email + '/notes',
             success: function(j) {
-              return console.log('success: ', j);
+              return console.log(j);
             }
           });
         }

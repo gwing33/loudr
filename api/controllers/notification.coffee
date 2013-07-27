@@ -16,12 +16,30 @@ exports.get_all = (req, res, next) ->
 
     if err is 'Not Found'
       # Create Fan
-      return res.jsonp '{"somevar":"need to create user"}'
+      fan_groups = if req.body.groups? then req.body.groups else []
 
-    if req.query.callback?
-      # See if Fan exists
+      new_fan = new Fan
+        api:
+          key: req.params.key
+        email:  req.params.email
+        info:
+          registered: new Date
 
-      res.jsonp fan.Notifications.toJson()
+      new_fan.save (err, fan) ->
+        if err
+          return res.send
+            success: false
+            error: err
+
+        if req.query.callbalck?
+          res.jsonp []
+        else
+          res.send []
+    else
+      if req.query.callback?
+        res.jsonp fan.Notifications.toJson()
+      else
+        res.send fan.Notifications.toJson()
 
 exports.get_by_id = (req, res, next) ->
   Fan.getByKeyAndEmail req.params.key, req.params.email, (err, fan) ->

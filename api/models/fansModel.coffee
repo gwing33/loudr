@@ -97,5 +97,4 @@ FanSchema.statics.getByKeyAndEmail = (key, email, cb) ->
 
     cb null, fan
 
-
 module.exports = mongoose.model('Fan', FanSchema)

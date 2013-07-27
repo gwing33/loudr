@@ -44,7 +44,8 @@ exports.create_fan = (req, res, next) ->
   registered_date = Date.now
 
   new_fan = new Fan
-    api_key: req.params.key
+    api:
+      key: req.params.key
     email:  req.body.email
     name:
       first: if req.body.first_name? then req.body.first_name else ''
