@@ -17,17 +17,6 @@ exports.get_user = (req, res, next) ->
 
     res.send helper.success 'user', user
 
-# Get User By Email - Not needed atm
-#exports.get_user_by_email = (req, res, next) ->
-#  # This only needs to validate the loudr header
-#  # Because only the loudr site should be able to access this
-#  return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
-#
-#  Users.findOne { email: req.params.email }, (err, user) ->
-#    return res.send helper.fail 'Server Error' if err?
-#
-#    res.send helper.success 'users', users
-
 # Get All Users
 exports.get_all_users = (req, res, next) ->
   # This only needs to validate the loudr header
@@ -125,5 +114,5 @@ exports.delete_user = (req, res, next) ->
   return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
 
   User.removeById req.params.id, (err, success) ->
-    return res.send
+    res.send
       success: !err

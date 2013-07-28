@@ -22,26 +22,22 @@ exports.add = (server) ->
   # Users
   server.get '/user', user_controller.get_all_users
   server.get '/user/:id', user_controller.get_user
-  # server.get '/user/:email', user_controller.get_user_by_email
   server.post '/user', user_controller.create_user
   server.put '/user/:id', user_controller.update_user
   server.del '/user/:id', user_controller.delete_user
 
   # Projects
-  server.get '/project', project_controller.get_all
-  server.get '/project/:id', project_controller.get_by_id
-  server.post '/project', project_controller.create_project
-  server.put '/project/:id', project_controller.update_project
-  server.del '/project/:id', project_controller.delete_project
-  server.del '/project/confirm/:id', project_controller.delete_project
-  server.del '/project/disable/:id', project_controller.disable_project
-  server.get '/project/enable/:id', project_controller.enable_project
+  server.get '/user/:user_id/project', project_controller.get_all
+  server.get '/user/:user_id/project/:id', project_controller.get_by_id
+  server.post '/user/:user_id/project', project_controller.create_project
+  server.put '/user/:user_id/project/:id', project_controller.update_project
+  server.del '/user/:user_id/project/:id', project_controller.delete_project
   
   # Fans
   # - - -
   # I use "app" here instead of project because urls will be longer,
   # it might make more sense to do "project" but for now, it's good.
-  server.get '/app/:key/fans/', fan_controller.get_all_fans
+  server.get '/app/:key/fan', fan_controller.get_all_fans
   server.get '/app/:key/fan/:email', fan_controller.get_fan_by_email
   server.post '/app/:key/fan', fan_controller.create_fan
   server.put '/app/:key/fan/:email', fan_controller.update_fan

@@ -94,26 +94,4 @@ ProjectSchema.statics.getAll = (user_id, cb) ->
 
     cb null, projects
 
-
-ProjectSchema.statics.getById = (id, cb) ->
-  @findOne
-    _id: id
-  , (err, project) ->
-    return cb err if err
-    return cb 'Not Found', null unless project
-
-    cb null, project
-
-ProjectSchema.statics.removeById = (id, user_id, cb) ->
-  @findOne
-    _id: id
-  , (err, project) ->
-    return cb err if err
-    return cb 'Not Found', null unless project
-    if project.authed_user user_id
-      project.remove()
-      cb null, true
-    else
-      cb true, null
-
 module.exports = mongoose.model('Project', ProjectSchema)

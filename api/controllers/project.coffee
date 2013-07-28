@@ -6,132 +6,88 @@ async = require "async"
 auth = require "../helpers/_auth"
 helper = require "../helpers/_controller_helper"
 
-fail = (err) ->
-  json =
-    success: false
-  json.error = err if err
-  
-  return json
-
-success = (project) ->
-  json =
-    project: project
-    success: true
-
-  return json
-
 exports.get_all = (req, res, next) ->
-  return res.status(401).send() unless auth.auth_header req.headers.authorization
-
-  uid = auth.get_user_id req.headers.authorization
+  # This only needs to validate the loudr header
+  # Because only the loudr site should be able to access this
+  return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
   
-  Project.getAll uid, (err, projects) ->
-    return res.send err if err
+  Project.getAll req.params.user_id, (err, projects) ->
+    return res.send helper.fail err if err
 
-    res.send projects
+    res.send helper.success 'projects', projects
   
 
 exports.get_by_id = (req, res, next) ->
-  Project.getById req.body.id, (err, project) ->
-    if err
-      return res.send
-        success: false
-        error: err
+  # This only needs to validate the loudr header
+  # Because only the loudr site should be able to access this
+  return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
 
-    tmp_project = project.toJson()
-    tmp_project.success = true
-
-    return res.send tmp_project
+  Project.findById req.body.id, (err, project) ->
+    return res.send herlper.fail err if err
+    res.send helper.success 'project', project
 
 exports.create_project = (req, res, next) ->
-  if req.session.user?
-    new_project = new Project
-      name: req.body.name
-      users: [
-        user_id: req.session.user._id
-        permission: Project.permissions.ADMIN
-      ]
-      info:
-        creator: req.session.user._id
-    
-    new_project.api.key = Project.generateApiKey(req.session.user._id)
-    new_project.save (err, project) ->
-      return res.send fail(err) if err
-
-      return res.send success project.toJson()
-  else
-    res.send 'blarg'
+  # This only needs to validate the loudr header
+  # Because only the loudr site should be able to access this
+  return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
+  
+  new_project = new Project
+    name: req.body.name
+    users: [
+      user_id: req.params.user_id
+      permission: Project.permissions.ADMIN
+    ]
+    info:
+      creator: req.params.user_id
+  
+  new_project.api.key = Project.generateApiKey req.params.user_id
+  new_project.save (err, project) ->
+    return res.send herlper.fail err if err
+    res.send helper.success 'project', project
 
 exports.update_project = (req, res, next) ->
-  # Validate user is logged in
-  if req.session.user?
-    Project.getById req.params.id, (err, project) ->
-      return res.send fail(err) if err
+  # This only needs to validate the loudr header
+  # Because only the loudr site should be able to access this
+  return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
+  
+  Project.findById req.params.id, (err, project) ->
+    return res.send herlper.fail err if err
 
-      if project.authed_user(req.session.user._id)
-        project.name = req.body.name if req.body.name?
+    # Must be an authed user to edit the project
+    return res.status(401).send() unless project.authed_user req.params.user_id
+    
+    project.name = req.body.name if req.body.name?
 
-        if req.body.emails?
-          User.getAllByEmails req.body.emails, (err, users) ->
-            return res.send fail(err) if err
+    project.disabled = req.body.disabled if req.body.disabled?
 
-            for user in users
-              project.users.push
-                user_id: user._id
-                permission: Project.permissions.MODERATOR
+    if req.body.emails?
+      User.getAllByEmails req.body.emails, (err, users) ->
+        return res.send helper.fail err if err
 
-            project.save (err, project) ->
-              return res.send fail(err) if err
-              return res.send success project.toJson()
-        else
-          project.save (err, project) ->
-            return res.send fail(err) if err
-            return res.send success project.toJson()
-      else
-        return res.send fail('Permission Denied')
-  else
-    return res.send fail('Permission Denied')
-
-
-exports.disable_project = (req, res, next) ->
-  # Validate user is logged in
-  if req.session.user?
-    Project.getById req.params.id, (err, project) ->
-      return res.send fail(err) if err
-
-      if project.authed_user(req.session.user._id)
-        project.disabled = true
-
+        for user in users
+          project.users.push
+            user_id: user._id
+            permission: Project.permissions.MODERATOR
+    
         project.save (err, project) ->
-          return res.send fail(err) if err
-          return res.send success project.toJson()
-      else
-        return res.send fail('Permission Denied')
-  else
-    return res.send fail('Permission Denied')
-
-exports.enable_project = (req, res, next) ->
-  # Validate user is logged in
-  if req.session.user?
-    Project.getById req.params.id, (err, project) ->
-      return res.send fail(err) if err
-
-      if project.authed_user(req.session.user._id)
-        project.disabled = false
-
-        project.save (err, project) ->
-          return res.send fail(err) if err
-          return res.send success project.toJson()
-      else
-        return res.send fail('Permission Denied')
-  else
-    return res.send fail('Permission Denied')
+          return res.send herlper.fail err if err
+          res.send helper.success 'project', project
+    else # Because it wont save the users
+      project.save (err, project) ->
+        return res.send herlper.fail err if err
+        res.send helper.success 'project', project
 
 exports.delete_project = (req, res, next) ->
-  # Validate user is logged in
-  if req.session.user?
-    # Remove them
-    Project.removeById req.params.id, req.session.user._id, (err, success) ->
-      return res.send { success: !err }
-  else
-    return res.send fail('Permission Denied')
+  # This only needs to validate the loudr header
+  # Because only the loudr site should be able to access this
+  return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
+
+  Project.findById req.params.id, (err, project) ->
+    return res.send helper.fail err if err
+
+    # Must be an authed user to delete the project
+    return res.status(401).send() unless project.authed_user req.params.user_id
+    
+    project.remove()
+    res.send
+      success: true

@@ -16,10 +16,7 @@ describe 'Loudr API', () ->
   # post /project'
   # put /project/:id'
   # del /project/:id'
-  # del /project/confirm/:id'
-  # del /project/disable/:id'
-  # get /project/enable/:id'
-  #require './project-test'
+  require './project-test'
 
   # get /app/:key/fans
   # get /app/:key/fan/:email

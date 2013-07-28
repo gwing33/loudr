@@ -1,85 +1,90 @@
 # Manuall Run via: `mocha tests/user-test.coffee --compilers coffee:coffee-script --reporter Spec`
 assert = require "assert"
 should = require "should"
-config = require "../config"
-request = require "request"
 mongoose = require "mongoose"
-# User = require "../api/models/usersModel"
+api_proxy = require "../api_proxy"
 
-# db = mongoose.connect config.settings.conn_str
-api_url = config.settings.api_host + ':' + config.settings.api_port
 project = {}
+user = {}
 
 describe 'Project API', () ->
-  # Login
-  it "Login as test user", (done) ->
-    post_data = 
+  # get /user/:user_id/project
+  # get /user/:user_id/project/:id
+  # post /user/:user_id/project
+  # put /user/:user_id/project/:id
+  # del /user/:user_id/project/:id
+  
+
+  # This is just here to get the user object
+  it "should login as a user", (done) ->
+    user_data =
       form:
         email: "gerald.leenerts@gmail.com"
         password: "glee123"
 
-    request.post api_url + '/auth/login', post_data, (err, resp, body) ->
+    api_proxy.post '/auth/login', user_data, "", (err, resp, body) ->
+      assert !err
+      json = JSON.parse body
+
+      user = json.user
+      assert.equal json.success, true
+      done()
+
+  # Should Create Project
+  it "Should Create a Project", (done) ->
+    post_data =
+      form:
+        name: 'Test Project'
+    # request.post
+    api_proxy.post '/user/' + user._id + '/project', post_data, "", (err, resp, body) ->
+      assert !err
+      json = JSON.parse body
+      
+      project = json.project
+
+      assert.equal json.success, true
+      done()
+
+
+  # Should Find all Projects
+  it "Should Find all Projects", (done) ->
+    api_proxy.get '/user/' + user._id + '/project', {}, "", (err, resp, body) ->
       assert !err
       json = JSON.parse body
       
       assert.equal json.success, true
       done()
 
-  # User create a project
-  it "User create an App", (done) ->
+  # Should Find Project by ID
+  it "Should Find Project by ID", (done) ->
+    api_proxy.get '/user/' + user._id + '/project/' + project._id, {}, "", (err, resp, body) ->
+      assert !err
+      json = JSON.parse body
+      
+      assert.equal json.success, true
+      done()  
+
+  # Should Update project
+  it "Should Update a project", (done) ->
     post_data =
       form:
-        name: 'Test Project'
-    # request.post
-    request.post api_url + '/project', post_data, (err, resp, body) ->
-      assert !err
-      json = JSON.parse body
-      project = json.project
+        name: 'My AWESOME Application'
 
-      assert.equal json.success, true
-      done()
-
-  # Edit Project
-  it "Edit Project", (done) ->
-    post_data =
-      form:
-        name: 'My awesome Application'
-
-    request.put api_url + '/project/' + project._id, post_data, (err, resp, body) ->
+    api_proxy.put '/user/' + user._id + '/project/' + project._id, post_data, "", (err, resp, body) ->
       assert !err
       json = JSON.parse body
 
-      assert.equal json.project.name, 'My awesome Application'
       assert.equal json.success, true
+      assert.equal json.project.name, 'My AWESOME Application'
       done()
 
-  # Disable Project
-  it "Disable Project", (done) ->
-    request.del api_url + '/project/disable/' + project._id, (err, resp, body) ->
-      assert !err
-      json = JSON.parse body
-
-      assert.equal json.project.disabled, true
-      assert.equal json.success, true
-      done()
-
-  # Enable project
-  it "Enable Project", (done) ->
-    request.get api_url + '/project/enable/' + project._id, (err, resp, body) ->
-      assert !err
-      json = JSON.parse body
-
-      assert.equal json.project.disabled, false
-      assert.equal json.success, true
-      done()
-
-  # Add User Project
-  it "Add User to Project", (done) ->
+  # Should Add User to Project
+  it "Should Add User to Project", (done) ->
     post_data =
       form:
         emails: ['gerald.leenerts+peon@gmail.com']
 
-    request.put api_url + '/project/' + project._id, post_data, (err, resp, body) ->
+    api_proxy.put '/user/' + user._id + '/project/' + project._id, post_data, "", (err, resp, body) ->
       assert !err
       json = JSON.parse body
       
@@ -87,9 +92,9 @@ describe 'Project API', () ->
       assert.equal json.success, true
       done()
 
-  # Delete Project
-  it "Delete Project", (done) ->
-    request.del api_url + '/project/' + project._id, (err, resp, body) ->
+  # Should Delete Project
+  it "Should Delete the Project", (done) ->
+    api_proxy.del '/user/' + user._id + '/project/' + project._id, {}, "", (err, resp, body) ->
       assert !err
       json = JSON.parse body
 
