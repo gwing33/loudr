@@ -17,11 +17,12 @@ exports.add = (server) ->
   server.get '/seed/fans', site_controller.seed_fans
 
   # Authing
-  server.get '/authed', user_controller.authed
   server.post '/auth/login', user_controller.login
 
-  # User Routes
-  server.get '/user/:email', user_controller.get_user
+  # Users
+  server.get '/user', user_controller.get_all_users
+  server.get '/user/:id', user_controller.get_user
+  server.get '/user/:email', user_controller.get_user_by_email
   server.post '/user', user_controller.create_user
   server.put '/user/:id', user_controller.update_user
   server.del '/user/:id', user_controller.delete_user

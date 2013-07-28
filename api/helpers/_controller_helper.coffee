@@ -1,7 +1,3 @@
-exports.authentication_error = 
-  success: false
-  error: 'Not Authenticated'
-
 exports.fail = (err) ->
   json =
     success: false

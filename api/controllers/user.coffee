@@ -2,123 +2,128 @@ User = require "../models/usersModel"
 mongoose = require "mongoose"
 async = require "async"
 connect = require "connect"
+
 auth = require "../helpers/_auth"
+helper = require "../helpers/_controller_helper"
 
-fail = (err) ->
-  json =
-    success: false
-  json.error = err if err
-  
-  return json
-
-success = (user) ->
-  json =
-    user: user
-    success: true
-
-  return json
-
+# Get User By ID
 exports.get_user = (req, res, next) ->
-  if req.params.email == req.session.user.email
-    user = new User req.session.user
-    
-    return res.send success user.toJson()
+  # This only needs to validate the loudr header
+  # Because only the loudr site should be able to access this
+  return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
 
-  return res.send fail(null)
+  User.findById req.params.id, (err, user) ->
+    return res.send helper.fail 'Server Error' if err?
 
-exports.authed = (req, res, next) ->
-  return res.send req.session.user?
+    res.send helper.success 'user', user
+
+# Get User By Email
+exports.get_user_by_email = (req, res, next) ->
+  # This only needs to validate the loudr header
+  # Because only the loudr site should be able to access this
+  return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
+
+  Users.findOne { email: req.params.email }, (err, user) ->
+    return res.send helper.fail 'Server Error' if err?
+
+    res.send helper.success 'users', users
+
+# Get All Users
+exports.get_all_users = (req, res, next) ->
+  # This only needs to validate the loudr header
+  # Because only the loudr site should be able to access this
+  return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
+
+  Users.find {}, (err, users) ->
+    return res.send helper.fail 'Server Error' if err?
+
+    res.send helper.success 'users', users
+
 
 # Will return a user object
 exports.login = (req, res, next) ->
-  # TODO, finish authentication
-  return res.status(401).send() unless auth.auth_header req.headers.authorization
+  # This only needs to validate the loudr header
+  # Because only the loudr site should be able to access this
+  return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
 
   # With email and password, validate user
   User.getAuthenticated req.body.email, req.body.password, (err, user, reason_id) ->
-    return res.send fail(null) if err # Error out
-    
-     # If successful user, set session, return json object
+    # Sever error, this should never happen
+    return res.send helper.fail 'Server Error' if err?
+
+    # If successful user, set session, return json object
     if user?
-      return res.send success user.toJson()
+      return res.send helper.success 'user', user.toJson()
     
     # Unsuccessful login because...
     # Defaults to reasons.MAX_ATTEMPTS
-    json =
-      success: false
-      reason: 'Account is locked, check your email to reactivate your account.'
+    json = helper.fail 'Account is locked, check your email to reactivate your account.'
 
-    reasons = User.failedLogin
+    # Switch by reason_id
     switch reason_id
-      when reasons.NOT_FOUND
-        json.reason = 'We do not seem to have that email address.'
-      when reasons.PASSWORD_INCORRECT
-        json.reason = 'Password was invalid.'
+      when User.failedLogin.NOT_FOUND
+        json = helper.fail 'We do not seem to have that email address.'
+      when User.failedLogin.PASSWORD_INCORRECT
+        json = helper.fail 'Password was invalid.'
 
     res.send json
 
 exports.update_user = (req, res, next) ->
-  # Validate user is logged in
-  if req.session.user? and req.session.user._id == req.params.id
+  # This only needs to validate the loudr header
+  # Because only the loudr site should be able to access this
+  return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
+
+  User.findById req.params.id, (err, user) ->
+    return res.send helper.fail 'Server Error' if err?
     
-    # Get the actual user, so can validate against password
-    User.getById req.params.id, (err, user) ->
-      return res.send fail(null) if err
-
-      async.waterfall [
-        (cb) ->
-          if req.body.new_password
-            user.comparePassword req.body.password, (err, isMatch) ->
-              cb err if err
-
-              user.set('password', req.body.new_password) if isMatch
-              cb null, user
-          else
-            cb null, user
-        , (user, cb) ->
-          user.set('name.full', req.body.full_name) if req.body.full_name
-
-          user.save (err, user) ->
+    # Start checking what has changed
+    async.waterfall [
+      (cb) ->
+        if req.body.new_password
+          user.comparePassword req.body.password, (err, isMatch) ->
             cb err if err
-            
+
+            user.set('password', req.body.new_password) if isMatch
             cb null, user
-        ], (err, user) ->
-          return res.send fail(err) if err
+        else
+          cb null, user
+      , (user, cb) ->
+        user.set('name.full', req.body.full_name) if req.body.full_name
 
-          # Update in the session
-          req.session.user = user.toJson()
+        user.save (err, user) ->
+          cb err if err
+          
+          cb null, user
+      ], (err, user) ->
+        return res.send fail(err) if err
 
-          return res.send success user.toJson()
-
-  return fail(null)
+        return res.send success user
 
 # Create new user, if successful, log them in
 exports.create_user = (req, res, next) ->
-  new_user = new User
-    email: req.body.email
-    name:
-      first: req.body.first_name
-      last: req.body.last_name
-    password: req.body.password
-   
-  # save user to database
-  new_user.save (err, user) ->
-    return res.send fail(null) if err
-    
-    req.session.user = user.toJson()
+  # This only needs to validate the loudr header
+  # Because only the loudr site should be able to access this
+  return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
 
-    return res.send success user.toJson()
+    new_user = new User
+      email: req.body.email
+      name:
+        first: req.body.first_name
+        last: req.body.last_name
+      password: req.body.password
+   
+    # save user to database
+    new_user.save (err, user) ->
+      return res.send herlper.fail err if err
+
+      return res.send helper.success 'user', user
 
 
 exports.delete_user = (req, res, next) ->
-  # Validate user is logged in
-  if req.session.user? and req.session.user._id == req.params.id
-    # Log them out...because they won't exist
-    req.session.user = null
+  # This only needs to validate the loudr header
+  # Because only the loudr site should be able to access this
+  return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
 
-    # Remove them
-    User.removeById req.params.id, (err, success) ->
-      return res.send { success: !err }
-  else
-    return res.send { success: false }
-
+  User.removeById req.params.id, (err, success) ->
+    return res.send
+      success: !err

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This system is mean for other websites to add an easy way to communicate and interact with their customers.
+This system is meant for other websites to add an easy way to communicate and interact with their customers.
 By giving them a **"notification"** system, that can send updates an individual user or group of users with what is going on.
 
 

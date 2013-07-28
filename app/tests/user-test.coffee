@@ -6,11 +6,30 @@ request = require "request"
 mongoose = require "mongoose"
 User = require "../api/models/usersModel"
 
-# db = mongoose.connect config.settings.conn_str
-api_url = config.settings.api_host + ':' + config.settings.api_port
+api_proxy = require "../api_proxy"
 
-#describe 'Loudr API', () ->
+
+###
+  User Tests
+
+  get /auth/login
+  post /user
+  put /user/:id
+  del /user/:id
+###
+
 describe 'User API', () ->
+  # It should create a user
+  # It should validate a login as user
+  # It should not validate a user
+  # It should update a user
+  # It should delete a user
+
+
+
+
+
+  ###
   tmp_user = { }
   tmp_user_data = 
     form:
@@ -149,3 +168,4 @@ describe 'User API', () ->
       assert !err
       assert !user
       done()
+  ###

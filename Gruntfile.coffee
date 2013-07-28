@@ -56,7 +56,7 @@ module.exports = (grunt) ->
         reporter: 'Spec'
 
       all:
-        src: ['tests/loudr-test.coffee']
+        src: ['app/tests/loudr-test.coffee']
 
     mocha:
       all:
@@ -93,7 +93,7 @@ module.exports = (grunt) ->
         tasks: [ "jshint:lib_test", "qunit" ]
 
       simplemocha:
-        files: "tests/**/*-test.coffee"
+        files: "app/tests/**/*-test.coffee"
         tasks: [ "simplemocha" ]
 
   grunt.loadNpmTasks "grunt-php"

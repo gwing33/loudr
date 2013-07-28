@@ -4,10 +4,7 @@ mongoose = require "mongoose"
 async = require "async"
 
 auth = require "../helpers/_auth"
-
-authentication_error = 
-  success: false
-  error: 'Not Authenticated'
+helper = require "../helpers/_controller_helper"
 
 fail = (err) ->
   json =
@@ -63,7 +60,7 @@ exports.create_project = (req, res, next) ->
 
       return res.send success project.toJson()
   else
-    res.send authentication_error
+    res.send 'blarg'
 
 exports.update_project = (req, res, next) ->
   # Validate user is logged in
