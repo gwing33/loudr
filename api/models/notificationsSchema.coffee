@@ -47,20 +47,5 @@ NotificationSchema.statics.message_kinds =
   MAINTENANCE: 1
   ALERT: 2
 
-NotificationSchema.methods.toJson = () ->
-  notification_obj =
-    _id: @_id
-    html: @html
-    text: @text
-    url: @url
-    kind: @kind
-    format: @format
-    interacted: @interacted
-    dissmissed: @dissmissed
-    created: @created
-    updated: @updated
-
-  return notification_obj
-
 exports.model = NotificationSchema
 # module.exports = mongoose.model('Notification', NotificationSchema)

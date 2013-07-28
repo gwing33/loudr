@@ -33,22 +33,26 @@ exports.add = (server) ->
   server.put '/user/:user_id/project/:id', project_controller.update_project
   server.del '/user/:user_id/project/:id', project_controller.delete_project
   
-  # Fans
-  # - - -
-  # I use "app" here instead of project because urls will be longer,
-  # it might make more sense to do "project" but for now, it's good.
-  server.get '/app/:key/fan', fan_controller.get_all_fans
+  # Fans - I use "app" here instead of project to shorten urls
+  server.get '/app/fan/:id', fan_controller.get_fan
+  server.post '/app/fan', fan_controller.create_fan
+  server.put '/app/fan/:id', fan_controller.update_fan
+  server.del '/app/fan/:id', fan_controller.delete_fan
+
+  server.get '/app/:key/fan/', fan_controller.get_all_fans
   server.get '/app/:key/fan/:email', fan_controller.get_fan_by_email
-  server.post '/app/:key/fan', fan_controller.create_fan
-  server.put '/app/:key/fan/:email', fan_controller.update_fan
-  server.del '/app/:key/fan/:email', fan_controller.delete_fan
+  server.put '/app/:key/fan/:email', fan_controller.update_fan_by_email
+
 
   # Fan Notifications
-  # - - - - - - - - -
-  # Changed to "status" so it's a little shorter
-  # Not sure if I'm going to stick with it or not
-  server.get '/app/:key/fan/:email/notes', notification_controller.get_all
-  server.get '/app/:key/fan/:email/note/:id', notification_controller.get_by_id
-  server.post '/app/:key/fan/:email/note', notification_controller.create_notification
-  server.put '/app/:key/fan/:email/note/:id', notification_controller.update_notification
-  server.del '/app/:key/fan/:email/note/:id', notification_controller.delete_notification
+  server.get '/app/fan/:fan_id/note', notification_controller.get_all_notes
+  server.get '/app/fan/:fan_id/note/:id', notification_controller.get_note
+  server.post '/app/fan/:fan_id/note', notification_controller.create_note
+  server.put '/app/fan/:fan_id/note/:id', notification_controller.update_note
+  server.del '/app/fan/:fan_id/note/:id', notification_controller.delete_note
+
+  server.get '/app/:key/fan/:email/note', notification_controller.get_all_notes_by_email
+  server.get '/app/:key/fan/:email/note/:id', notification_controller.get_note_by_email
+  server.post '/app/:key/fan/:email/note', notification_controller.create_note_by_email
+  server.put '/app/:key/fan/:email/note/:id', notification_controller.update_note_by_email
+  server.del '/app/:key/fan/:email/note/:id', notification_controller.delete_note_by_email

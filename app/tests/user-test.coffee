@@ -23,8 +23,8 @@ describe 'User API', () ->
       last_name: "leenerts"
       password: "glee123"
 
-  # It should create a user
-  it "should create a user", (done) ->
+  # It Should create a user
+  it "Should create a user", (done) ->
     api_proxy.post '/user', tmp_user_data, "", (err, resp, body) ->
       assert !err
       tmp_user = JSON.parse body
@@ -32,8 +32,8 @@ describe 'User API', () ->
       assert.equal tmp_user.success, true
       done()
 
-  # It should validate a login as user
-  it "should validate a user login", (done) ->
+  # It Should validate a login as user
+  it "Should validate a user login", (done) ->
     user_data =
       form:
         email: "gerald.leenerts+test@gmail.com"
@@ -46,8 +46,8 @@ describe 'User API', () ->
       assert.equal json.success, true
       done()
   
-  # It should find a user by ID
-  it "should find a user by ID", (done) ->
+  # It Should find a user by ID
+  it "Should find a user by ID", (done) ->
     api_proxy.get '/user/' + tmp_user.user._id, {}, "", (err, resp, body) ->
       assert !err
       json = JSON.parse body
@@ -55,8 +55,8 @@ describe 'User API', () ->
       assert.equal json.success, true
       done()
 
-  # It should find all users
-  it "should find all users", (done) ->
+  # It Should find all users
+  it "Should find all users", (done) ->
     api_proxy.get '/user/', {}, "", (err, resp, body) ->
       assert !err
       json = JSON.parse body
@@ -64,8 +64,8 @@ describe 'User API', () ->
       assert.equal json.success, true
       done()
   
-  # It should update a user
-  it "should update a user", (done) ->
+  # It Should update a user
+  it "Should update a user", (done) ->
     user_data = 
       form:
         email: tmp_user_data.form.email
@@ -80,8 +80,8 @@ describe 'User API', () ->
       assert.equal json.success, true
       done()
 
-  # It should delete the temp user
-  it "should delete a user", (done) ->
+  # It Should delete the temp user
+  it "Should delete a user", (done) ->
     api_proxy.del '/user/' + tmp_user.user._id, {}, "", (err, resp, body) ->
       assert !err
       json = JSON.parse body

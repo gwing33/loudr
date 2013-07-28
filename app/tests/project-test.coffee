@@ -7,12 +7,17 @@ api_proxy = require "../api_proxy"
 project = {}
 user = {}
 
+###
+  Project Tests
+
+  get /user/:user_id/project
+  get /user/:user_id/project/:id
+  post /user/:user_id/project
+  put /user/:user_id/project/:id
+  del /user/:user_id/project/:id
+###
+
 describe 'Project API', () ->
-  # get /user/:user_id/project
-  # get /user/:user_id/project/:id
-  # post /user/:user_id/project
-  # put /user/:user_id/project/:id
-  # del /user/:user_id/project/:id
   
 
   # This is just here to get the user object

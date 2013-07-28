@@ -1,7 +1,6 @@
 User = require "../models/usersModel"
 mongoose = require "mongoose"
 async = require "async"
-connect = require "connect"
 
 auth = require "../helpers/_auth"
 helper = require "../helpers/_controller_helper"
@@ -13,7 +12,7 @@ exports.get_user = (req, res, next) ->
   return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
 
   User.findById req.params.id, (err, user) ->
-    return res.send helper.fail 'Server Error' if err?
+    return res.send helper.fail err if err?
 
     res.send helper.success 'user', user
 
@@ -24,7 +23,7 @@ exports.get_all_users = (req, res, next) ->
   return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
 
   User.find {}, (err, users) ->
-    return res.send helper.fail 'Server Error' if err?
+    return res.send helper.fail err if err?
 
     res.send helper.success 'users', users
 
@@ -38,7 +37,7 @@ exports.login = (req, res, next) ->
   # With email and password, validate user
   User.getAuthenticated req.body.email, req.body.password, (err, user, reason_id) ->
     # Sever error, this should never happen
-    return res.send helper.fail 'Server Error' if err?
+    return res.send helper.fail err if err?
 
     # If successful user, set session, return json object
     if user?
@@ -63,7 +62,7 @@ exports.update_user = (req, res, next) ->
   return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
 
   User.findById req.params.id, (err, user) ->
-    return res.send helper.fail 'Server Error' if err?
+    return res.send helper.fail err if err?
     
     # Start checking what has changed
     async.waterfall [

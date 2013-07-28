@@ -49,20 +49,6 @@ FanSchema = new Schema(
       default: Date.now
 )
 
-FanSchema.methods.toJson = () ->
-  fan_obj =
-    _id: @_id
-    name: @name.full
-    email: @email
-    social: @social
-    api:
-      key: @api.key
-    notifications: @notifications
-    groups: @groups
-    info: @info
-
-  return fan_obj
-
 FanSchema.virtual('name.full').get(() ->
     return @.name.first + ' ' + @.name.last
   ).set (name) ->
@@ -75,19 +61,7 @@ FanSchema.virtual('name.full').get(() ->
     else
       @.name.last = split[1]
 
-FanSchema.statics.removeFan = (key, email, cb) ->
-  # ToDo Add some sort of Permissions here.
-  @findOne
-    api_key: key
-    email: email
-  , (err, fan) ->
-    return cb err if err
-    return cb 'Not Found', null unless fan
-    
-    fan.remove()
-    cb null, true
-
-FanSchema.statics.getByKeyAndEmail = (key, email, cb) ->
+FanSchema.statics.findByKeyAndEmail = (key, email, cb) ->
   @findOne
     api:
       key: key
