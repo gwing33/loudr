@@ -62,7 +62,7 @@ exports.update_fan = (req, res, next) ->
       
     fan.save (err, fan) ->
       return res.send helper.fail err if err
-      return res.send helper.success 'fan', fan.toJson()
+      return res.send helper.success 'fan', fan
 
 # Update Fan By Email
 exports.update_fan_by_email = (req, res, next) ->
@@ -86,7 +86,7 @@ exports.update_fan_by_email = (req, res, next) ->
       
     fan.save (err, fan) ->
       return res.send helper.fail err if err
-      return res.send helper.success 'fan', fan.toJson()
+      return res.send helper.success 'fan', fan
 
 # Create Fan
 exports.create_fan = (req, res, next) ->
@@ -117,6 +117,9 @@ exports.delete_fan = (req, res, next) ->
   # This needs to validate both Header and API Key
   return res.status(401).send() unless auth.auth_header_key req.headers.authorization
 
-  Fan.removeById req.params.id, (err, success) ->
+  Fan.findById req.params.id, (err, fan) ->
+    return res.send helper.fail err if err
+    
+    fan.remove()
     res.send
-      success: !err
+      success: true

@@ -20,11 +20,14 @@ describe 'Loudr API', () ->
   # Should Delete the Project 
   require './project-test'
 
-  # get /app/:key/fans
-  # get /app/:key/fan/:email
-  # post /app/:key/fan
-  # put /app/:key/fan/:email
-  # del /app/:key/fan/:email
+  # Should prep for All Fan API calls
+  # Should Create Fan 
+  # Should Get all Fans 
+  # Should Get Fan By ID 
+  # Should Get Fan By Key/Email 
+  # Should Update Fan 
+  # Should Update Fan by Key/Email 
+  # Should Delete Fan 
   require './fan-test'
 
   # get /app/:key/fan/:email/notes

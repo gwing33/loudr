@@ -1,27 +1,32 @@
 Project = require "../models/projectsModel"
 helper = require "./_controller_helper"
 
+Auth = {}
 # Validate the Header, regular or loudr
-exports.auth_header = (header) ->
-  return true if auth_loudr_header header
+Auth.auth_header = (header) ->
+  return true if Auth.auth_loudr_header header
 
   return header.indexOf("Loudr :") != -1
 
 # Validate just the Admin Loudr Header
-exports.auth_loudr_header = (header) ->
+Auth.auth_loudr_header = (header) ->
   return header.indexOf("Loudr asdf:") != -1
 
 # Validates both Header and API Key
-exports.auth_header_key = (header) ->
-  return auth_header header and valid_api_key header
+Auth.auth_header_key = (header) ->
+  valid_key = Auth.valid_api_key header
+  valid_header = Auth.auth_header header
+  return  valid_key and valid_header
 
 # Validate both Loudr Header and API Key
-exports.auth_loudr_header_key = (header) ->
-  return auth_loudr_header header and valid_api_key header
+Auth.auth_loudr_header_key = (header) ->
+  valid_key = Auth.valid_api_key header
+  valid_header = Auth.auth_loudr_header header
+  return  valid_key and valid_header
 
 # Validates just API Key
-exports.valid_api_key = (auth_token) ->
-  key = get_api_key auth_token
+Auth.valid_api_key = (token) ->
+  key = Auth.get_api_key token
 
   Project.findById
     api:
@@ -30,6 +35,8 @@ exports.valid_api_key = (auth_token) ->
       return project?
 
 # Returns Just the API Key portion of the token
-exports.get_api_key = (auth_token) ->
-  tokens = auth_token.split ':'
+Auth.get_api_key = (token) ->
+  tokens = token.split ':'
   return tokens[1]
+
+module.exports = Auth
