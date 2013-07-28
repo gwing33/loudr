@@ -1,19 +1,14 @@
 assert = require "assert"
 should = require "should"
-config = require "../config"
-request = require "request"
-mongoose = require "mongoose"
-User = require "../api/models/usersModel"
-
-db = mongoose.connect config.settings.conn_str
-api_url = config.settings.api_host + ':' + config.settings.api_port
 
 describe 'Loudr API', () ->
 
-  # get /user/:email
-  # post /user
-  # put /user/:id
-  # del /user/:id
+  # should create a user
+  # should validate a user login
+  # should find a user by ID
+  # should find all users
+  # should update a user
+  # should delete a user 
   require './user-test'
 
   # get /project'

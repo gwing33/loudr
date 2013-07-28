@@ -22,7 +22,7 @@ exports.add = (server) ->
   # Users
   server.get '/user', user_controller.get_all_users
   server.get '/user/:id', user_controller.get_user
-  server.get '/user/:email', user_controller.get_user_by_email
+  # server.get '/user/:email', user_controller.get_user_by_email
   server.post '/user', user_controller.create_user
   server.put '/user/:id', user_controller.update_user
   server.del '/user/:id', user_controller.delete_user

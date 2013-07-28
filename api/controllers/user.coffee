@@ -17,16 +17,16 @@ exports.get_user = (req, res, next) ->
 
     res.send helper.success 'user', user
 
-# Get User By Email
-exports.get_user_by_email = (req, res, next) ->
-  # This only needs to validate the loudr header
-  # Because only the loudr site should be able to access this
-  return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
-
-  Users.findOne { email: req.params.email }, (err, user) ->
-    return res.send helper.fail 'Server Error' if err?
-
-    res.send helper.success 'users', users
+# Get User By Email - Not needed atm
+#exports.get_user_by_email = (req, res, next) ->
+#  # This only needs to validate the loudr header
+#  # Because only the loudr site should be able to access this
+#  return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
+#
+#  Users.findOne { email: req.params.email }, (err, user) ->
+#    return res.send helper.fail 'Server Error' if err?
+#
+#    res.send helper.success 'users', users
 
 # Get All Users
 exports.get_all_users = (req, res, next) ->
@@ -34,7 +34,7 @@ exports.get_all_users = (req, res, next) ->
   # Because only the loudr site should be able to access this
   return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
 
-  Users.find {}, (err, users) ->
+  User.find {}, (err, users) ->
     return res.send helper.fail 'Server Error' if err?
 
     res.send helper.success 'users', users
@@ -95,28 +95,28 @@ exports.update_user = (req, res, next) ->
           
           cb null, user
       ], (err, user) ->
-        return res.send fail(err) if err
+        return res.send helper.fail err if err
 
-        return res.send success user
+        return res.send helper.success user
 
 # Create new user, if successful, log them in
 exports.create_user = (req, res, next) ->
   # This only needs to validate the loudr header
   # Because only the loudr site should be able to access this
   return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
+  
+  new_user = new User
+    email: req.body.email
+    name:
+      first: req.body.first_name
+      last: req.body.last_name
+    password: req.body.password
+ 
+  # save user to database
+  new_user.save (err, user) ->
+    return res.send helper.fail err if err
 
-    new_user = new User
-      email: req.body.email
-      name:
-        first: req.body.first_name
-        last: req.body.last_name
-      password: req.body.password
-   
-    # save user to database
-    new_user.save (err, user) ->
-      return res.send herlper.fail err if err
-
-      return res.send helper.success 'user', user
+    res.send helper.success 'user', user
 
 
 exports.delete_user = (req, res, next) ->
