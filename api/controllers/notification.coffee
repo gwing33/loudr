@@ -10,20 +10,31 @@ helper = require "../helpers/_controller_helper"
 
 # Get all Notifications
 exports.get_all_notes = (req, res, next) ->
-  # This needs to validate both Header and API Key
-  return res.status(401).send() unless auth.auth_header_key req.headers.authorization
-
-  Fan.findById req.params.fan_id, (err, fan) ->
+  async.series
+    auth: (cb) ->
+      # This needs to validate both Header and API Key
+      auth.auth_header_key req.headers.authorization, cb
+    fan: (cb) ->
+      Fan.findById req.params.fan_id, (err, fan) ->
+        cb err, fan
+  , (err, results) ->
+    return res.status(401).send() unless results.auth
     return res.send helper.fail err if err?
 
-    res.send helper.success 'notifications', fan.notifications
+    res.send helper.success 'notifications', results.fan.notifications
 
+# Get all Notifications by Email
 exports.get_all_notes_by_email = (req, res, next) ->
-  # This needs to validate both Header and API Key
-  return res.status(401).send() unless auth.auth_header_key req.headers.authorization
-
-  Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
-    return res.send helper.fail err if err and err is not 'Not Found'
+  async.series
+    auth: (cb) ->
+      # This needs to validate both Header and API Key
+      auth.auth_header_key req.headers.authorization, cb
+    fan: (cb) ->
+      Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
+        cb err, fan
+  , (err, results) ->
+    return res.status(401).send() unless results.auth
+    return res.send helper.fail err if err? and err isnt 'Not Found'
 
     if err is 'Not Found'
       # Create Fan
@@ -41,96 +52,121 @@ exports.get_all_notes_by_email = (req, res, next) ->
         return res.send helper.fail err if err?
 
         if req.query.callbalck?
-          return res.jsonp helper.success 'notifications', fan.notifications
+          return res.jsonp helper.success 'notifications', new_fan.notifications
         else
-          return res.send helper.success 'notifications', fan.notifications
+          return res.send helper.success 'notifications', new_fan.notifications
     else
       if req.query.callback?
-        return res.jsonp helper.success 'notifications', fan.notifications
+        return res.jsonp helper.success 'notifications', results.fan.notifications
       else
-        return res.send helper.success 'notifications', fan.notifications
+        return res.send helper.success 'notifications', results.fan.notifications
   
 # Get Notification by ID
 exports.get_note = (req, res, next) ->
-  # This needs to validate both Header and API Key
-  return res.status(401).send() unless auth.auth_header_key req.headers.authorization
-
-  Fan.findById req.params.fan_id, (err, fan) ->
+  async.series
+    auth: (cb) ->
+      # This needs to validate both Header and API Key
+      auth.auth_header_key req.headers.authorization, cb
+    fan: (cb) ->
+      Fan.findById req.params.fan_id, (err, fan) ->
+        cb err, fan
+  , (err, results) ->
+    return res.status(401).send() unless results.auth
     return res.send helper.fail err if err?
 
-    notification = fan.notifications.id req.params.id
+    notification = results.fan.notifications.id req.params.id
     
     return res.send helper.fail 'Not Found' unless notification
     res.send helper.success 'notification', notification
 
 # Get Notification by Email
 exports.get_note_by_email = (req, res, next) ->
-  # This needs to validate both Header and API Key
-  return res.status(401).send() unless auth.auth_header_key req.headers.authorization
-
-  Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
+  async.series
+    auth: (cb) ->
+      # This needs to validate both Header and API Key
+      auth.auth_header_key req.headers.authorization, cb
+    fan: (cb) ->
+      Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
+        cb err, fan
+  , (err, results) ->
+    return res.status(401).send() unless results.auth
     return res.send helper.fail err if err?
 
-    notification = fan.notifications.id req.params.id
+    notification = results.fan.notifications.id req.params.id
     
     return res.send helper.fail 'Not Found' unless notification
     res.send helper.success 'notification', notification
 
 # Create Notification
 exports.create_note = (req, res, next) ->
-  # This needs to validate both Header and API Key
-  return res.status(401).send() unless auth.auth_header_key req.headers.authorization
-
-  new_notification = new Notification
-
-  new_notification.html = req.body.html if req.body.html?
-  new_notification.text = req.body.text if req.body.text?
-  new_notification.url = req.body.url if req.body.url?
-  new_notification.kind = req.body.kind if req.body.kind?
-  new_notification.format = req.body.format if req.body.format?
-
-  Fan.findById req.params.fan_id, (err, fan) ->
+  async.series
+    auth: (cb) ->
+      # This needs to validate both Header and API Key
+      auth.auth_header_key req.headers.authorization, cb
+    fan: (cb) ->
+      Fan.findById req.params.fan_id, (err, fan) ->
+        cb err, fan
+  , (err, results) ->
+    return res.status(401).send() unless results.auth
     return res.send helper.fail err if err?
 
-    fan.notifications.push new_notification
+    new_notification = new Notification
 
-    fan.save (err, fan) ->
+    new_notification.html = req.body.html if req.body.html?
+    new_notification.text = req.body.text if req.body.text?
+    new_notification.url = req.body.url if req.body.url?
+    new_notification.kind = req.body.kind if req.body.kind?
+    new_notification.format = req.body.format if req.body.format?
+
+    results.fan.notifications.push new_notification
+
+    results.fan.save (err, fan) ->
       return res.send helper.fail err if err
 
       res.send helper.success 'notification', new_notification
 
 # Create Notification By Email
 exports.create_note_by_email = (req, res, next) ->
-  # This needs to validate both Header and API Key
-  return res.status(401).send() unless auth.auth_header_key req.headers.authorization
-
-  new_notification = new Notification
-
-  new_notification.html = req.body.html if req.body.html?
-  new_notification.text = req.body.text if req.body.text?
-  new_notification.url = req.body.url if req.body.url?
-  new_notification.kind = req.body.kind if req.body.kind?
-  new_notification.format = req.body.format if req.body.format?
-
-  Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
+  async.series
+    auth: (cb) ->
+      # This needs to validate both Header and API Key
+      auth.auth_header_key req.headers.authorization, cb
+    fan: (cb) ->
+      Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
+        cb err, fan
+  , (err, results) ->
+    return res.status(401).send() unless results.auth
     return res.send helper.fail err if err?
 
-    fan.notifications.push new_notification
+    new_notification = new Notification
 
-    fan.save (err, fan) ->
+    new_notification.html = req.body.html if req.body.html?
+    new_notification.text = req.body.text if req.body.text?
+    new_notification.url = req.body.url if req.body.url?
+    new_notification.kind = req.body.kind if req.body.kind?
+    new_notification.format = req.body.format if req.body.format?
+
+    results.fan.notifications.push new_notification
+
+    results.fan.save (err, fan) ->
       return res.send helper.fail err if err
 
       res.send helper.success 'notification', new_notification
 
 # Update Notification
 exports.update_note = (req, res, next) ->
-  # This needs to validate both Header and API Key
-  return res.status(401).send() unless auth.auth_header_key req.headers.authorization
-
-  Fan.findById req.params.fan_id, (err, fan) ->
+  async.series
+    auth: (cb) ->
+      # This needs to validate both Header and API Key
+      auth.auth_header_key req.headers.authorization, cb
+    fan: (cb) ->
+      Fan.findById req.params.fan_id, (err, fan) ->
+        cb err, fan
+  , (err, results) ->
+    return res.status(401).send() unless results.auth
     return res.send helper.fail err if err?
     
-    notification = fan.notifications.id(req.params.id)
+    notification = results.fan.notifications.id(req.params.id)
 
     return res.send helper.fail 'Not Found' unless notification
 
@@ -144,20 +180,25 @@ exports.update_note = (req, res, next) ->
     notification.dissmissed = req.body.dissmissed if req.body.dissmissed?
     notification.updated = Date.now()
 
-    fan.save (err, fan) ->
+    results.fan.save (err, fan) ->
       return res.send helper.fail err if err
 
       res.send helper.success 'notification', notification
 
 # Update Notification
 exports.update_note_by_email = (req, res, next) ->
-  # This needs to validate both Header and API Key
-  return res.status(401).send() unless auth.auth_header_key req.headers.authorization
-
-  Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
+  async.series
+    auth: (cb) ->
+      # This needs to validate both Header and API Key
+      auth.auth_header_key req.headers.authorization, cb
+    fan: (cb) ->
+      Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
+        cb err, fan
+  , (err, results) ->
+    return res.status(401).send() unless results.auth
     return res.send helper.fail err if err?
     
-    notification = fan.notifications.id(req.params.id)
+    notification = results.fan.notifications.id(req.params.id)
 
     return res.send helper.fail 'Not Found' unless notification
 
@@ -171,37 +212,47 @@ exports.update_note_by_email = (req, res, next) ->
     notification.dissmissed = req.body.dissmissed if req.body.dissmissed?
     notification.updated = Date.now()
 
-    fan.save (err, fan) ->
+    results.fan.save (err, fan) ->
       return res.send helper.fail err if err
 
       res.send helper.success 'notification', notification
 
 # Delete Notification
 exports.delete_note = (req, res, next) ->
-  # This needs to validate both Header and API Key
-  return res.status(401).send() unless auth.auth_header_key req.headers.authorization
-
-  Fan.findById req.params.fan_id, (err, fan) ->
-    return res.send helper.fail err if err
+  async.series
+    auth: (cb) ->
+      # This needs to validate both Header and API Key
+      auth.auth_header_key req.headers.authorization, cb
+    fan: (cb) ->
+      Fan.findById req.params.fan_id, (err, fan) ->
+        cb err, fan
+  , (err, results) ->
+    return res.status(401).send() unless results.auth
+    return res.send helper.fail err if err?
     
-    fan.notifications.pull
+    results.fan.notifications.pull
       _id: req.params.id
 
-    fan.save (err, fan) ->
+    results.fan.save (err, fan) ->
       res.send
         success: !err
 
 # Delete Notification
 exports.delete_note_by_email = (req, res, next) ->
-  # This needs to validate both Header and API Key
-  return res.status(401).send() unless auth.auth_header_key req.headers.authorization
-
-  Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
-    return res.send helper.fail err if err
+  async.series
+    auth: (cb) ->
+      # This needs to validate both Header and API Key
+      auth.auth_header_key req.headers.authorization, cb
+    fan: (cb) ->
+      Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
+        cb err, fan
+  , (err, results) ->
+    return res.status(401).send() unless results.auth
+    return res.send helper.fail err if err?
     
-    fan.notifications.pull
+    results.fan.notifications.pull
       _id: req.params.id
 
-    fan.save (err, fan) ->
+    results.fan.save (err, fan) ->
       res.send
         success: !err

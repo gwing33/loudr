@@ -22,7 +22,6 @@ project = {}
 fan = {}
 
 describe 'Fan API', () ->
-
   # Prep
   it "Should prep", (done) ->
     user_data =
@@ -38,7 +37,6 @@ describe 'Fan API', () ->
       
       user = json.user
 
-      
       api_proxy.get '/user/' + user._id + '/project/', {}, "", (err, resp, body) ->
         assert !err
 
@@ -47,6 +45,14 @@ describe 'Fan API', () ->
         
         project = json.projects[0]
         done()
+
+  # Should 401
+  it "Should 401", (done) ->
+    api_proxy.get '/app/fan/' + fan._id, {}, 'blah', (err, resp, body) ->
+      assert !err
+      assert.equal resp.statusCode, 401
+      
+      done()
 
   # Should Create Fan
   it "Should Create Fan", (done) ->
