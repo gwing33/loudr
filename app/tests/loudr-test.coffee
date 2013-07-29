@@ -30,9 +30,16 @@ describe 'Loudr API', () ->
   # Should Delete Fan 
   require './fan-test'
 
-  # get /app/:key/fan/:email/notes
-  # get /app/:key/fan/:email/note/:id
-  # post /app/:key/fan/:email/note
-  # put /app/:key/fan/:email/note/:id
-  # del /app/:key/fan/:email/note/:id
+  # Should prep
+  # Should Create Notification 
+  # Should Create Notification By Key/Email 
+  # Should Get all Notifications 
+  # Should Get all Notifications By Key/Email 
+  # Should Get a Notification 
+  # Should Get a Notification By Key/Email 
+  # Should Update Notification 
+  # Should Update Notification By Key/Email 
+  # Should Delete a Notification 
+  # Should Delete a Notification By Key/Email 
+  # Should Cleanup 
   require './notification-test'

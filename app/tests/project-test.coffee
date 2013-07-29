@@ -20,8 +20,8 @@ user = {}
 describe 'Project API', () ->
   
 
-  # This is just here to get the user object
-  it "should login as a user", (done) ->
+  # Prep
+  it "Should Prep", (done) ->
     user_data =
       form:
         email: "gerald.leenerts@gmail.com"

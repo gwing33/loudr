@@ -12,10 +12,6 @@ exports.add = (server) ->
   # Define Routes
   server.get '/', site_controller.index
 
-  # Test Seeds, Remove after Development
-  server.get '/seed', site_controller.seed
-  server.get '/seed/fans', site_controller.seed_fans
-
   # Authing
   server.post '/auth/login', user_controller.login
 

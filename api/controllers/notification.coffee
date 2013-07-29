@@ -16,7 +16,7 @@ exports.get_all_notes = (req, res, next) ->
   Fan.findById req.params.fan_id, (err, fan) ->
     return res.send helper.fail err if err?
 
-    res.send helper.success 'notes', fan.notifications
+    res.send helper.success 'notifications', fan.notifications
 
 exports.get_all_notes_by_email = (req, res, next) ->
   # This needs to validate both Header and API Key
@@ -38,20 +38,17 @@ exports.get_all_notes_by_email = (req, res, next) ->
           registered: new Date
 
       new_fan.save (err, fan) ->
-        if err
-          return res.send
-            success: false
-            error: err
+        return res.send helper.fail err if err?
 
         if req.query.callbalck?
-          return res.jsonp fan.notifications
+          return res.jsonp helper.success 'notifications', fan.notifications
         else
-          return res.send fan.notifications
+          return res.send helper.success 'notifications', fan.notifications
     else
       if req.query.callback?
-        return res.jsonp fan.notifications
+        return res.jsonp helper.success 'notifications', fan.notifications
       else
-        return res.send fan.notifications
+        return res.send helper.success 'notifications', fan.notifications
   
 # Get Notification by ID
 exports.get_note = (req, res, next) ->
@@ -187,9 +184,8 @@ exports.delete_note = (req, res, next) ->
   Fan.findById req.params.fan_id, (err, fan) ->
     return res.send helper.fail err if err
     
-    notification = fan.notifications.id(req.params.id).remove()
-
-    return res.send helper.fail 'Not Found' unless notification
+    fan.notifications.pull
+      _id: req.params.id
 
     fan.save (err, fan) ->
       res.send
@@ -203,9 +199,8 @@ exports.delete_note_by_email = (req, res, next) ->
   Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
     return res.send helper.fail err if err
     
-    notification = fan.notifications.id(req.params.id).remove()
-
-    return res.send helper.fail 'Not Found' unless notification
+    fan.notifications.pull
+      _id: req.params.id
 
     fan.save (err, fan) ->
       res.send

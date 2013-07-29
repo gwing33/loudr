@@ -23,8 +23,8 @@ fan = {}
 
 describe 'Fan API', () ->
 
-  # Get a Project
-  it "Should prep for All Fan API calls", (done) ->
+  # Prep
+  it "Should prep", (done) ->
     user_data =
       form:
         email: "gerald.leenerts@gmail.com"
