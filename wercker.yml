@@ -4,12 +4,8 @@ services:
   - wercker/redis
 build:
   steps:
-    - npm-install@1.0.5:
-        strict-ssl: false
-    - jshint:
-        use_strict: true
-        trailing_whitespace: false
-    -  npm-test
+    - npm-install
+    - npm-test
 # deploy:
 #   steps:
 #     - compass-compile@1.0:
