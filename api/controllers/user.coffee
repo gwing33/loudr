@@ -9,7 +9,7 @@ helper = require "../helpers/_controller_helper"
 exports.get_user = (req, res, next) ->
   # This only needs to validate the loudr header
   # Because only the loudr site should be able to access this
-  return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
+  return res.send(401) unless auth.auth_loudr_header req.headers.authorization
 
   User.findById req.params.id, (err, user) ->
     return res.send helper.fail err if err?
@@ -20,7 +20,7 @@ exports.get_user = (req, res, next) ->
 exports.get_all_users = (req, res, next) ->
   # This only needs to validate the loudr header
   # Because only the loudr site should be able to access this
-  return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
+  return res.send(401) unless auth.auth_loudr_header req.headers.authorization
 
   User.find {}, (err, users) ->
     return res.send helper.fail err if err?
@@ -32,7 +32,7 @@ exports.get_all_users = (req, res, next) ->
 exports.login = (req, res, next) ->
   # This only needs to validate the loudr header
   # Because only the loudr site should be able to access this
-  return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
+  return res.send(401) unless auth.auth_loudr_header req.headers.authorization
 
   # With email and password, validate user
   User.getAuthenticated req.body.email, req.body.password, (err, user, reason_id) ->
@@ -59,7 +59,7 @@ exports.login = (req, res, next) ->
 exports.update_user = (req, res, next) ->
   # This only needs to validate the loudr header
   # Because only the loudr site should be able to access this
-  return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
+  return res.send(401) unless auth.auth_loudr_header req.headers.authorization
 
   User.findById req.params.id, (err, user) ->
     return res.send helper.fail err if err?
@@ -91,7 +91,7 @@ exports.update_user = (req, res, next) ->
 exports.create_user = (req, res, next) ->
   # This only needs to validate the loudr header
   # Because only the loudr site should be able to access this
-  return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
+  return res.send(401) unless auth.auth_loudr_header req.headers.authorization
   
   new_user = new User
     email: req.body.email
@@ -110,7 +110,7 @@ exports.create_user = (req, res, next) ->
 exports.delete_user = (req, res, next) ->
   # This only needs to validate the loudr header
   # Because only the loudr site should be able to access this
-  return res.status(401).send() unless auth.auth_loudr_header req.headers.authorization
+  return res.send(401) unless auth.auth_loudr_header req.headers.authorization
 
   User.removeById req.params.id, (err, success) ->
     res.send

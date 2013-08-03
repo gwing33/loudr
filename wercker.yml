@@ -1,0 +1,25 @@
+box: wercker/nodejs@0.0.1
+services:
+  - wercker/mongodb@0.0.1
+  - wercker/redis
+build:
+  steps:
+    - npm-install@1.0.5:
+        strict-ssl: false
+    - jshint:
+        use_strict: true
+        trailing_whitespace: false
+    # A comment
+    -  npm-test
+    -  script:
+        name: some simple test!
+        code: |-
+          echo "line 1"
+          echo "line 2"
+deploy:
+  steps:
+    - compass-compile@1.0:
+        version: 4.1.2
+        output: compressed
+    - requirejs-build:
+        build: public/js/main.build.js

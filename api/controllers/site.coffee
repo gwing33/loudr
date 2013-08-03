@@ -9,7 +9,7 @@ helper = require "../helpers/_controller_helper"
 # Dashboard
 exports.index = (req, res, next) ->
   # See if logged in
-  return res.status(401).send() unless req.session.user
+  return res.send(401) unless req.session.user
 
   # Get list of projects if has any
   return res.send 

@@ -1,4 +1,4 @@
-# Manuall Run via: `mocha tests/user-test.coffee --compilers coffee:coffee-script --reporter Spec`
+
 assert = require "assert"
 should = require "should"
 mongoose = require "mongoose"

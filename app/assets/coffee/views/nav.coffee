@@ -5,8 +5,16 @@ define ["marionette", "backbone"], (Marionette, Backbone) ->
 
     show_logged_in_nav: () ->
       @add
-        name: 'documentation'
+        icon: '<i class="icon-file-alt"></i>'
+        name: 'API Docs'
         src: 'http://localhost:3003/'
+        class_name: 'api-docs-nav'
+
+      @add
+        icon: '<i class="icon-remove"></i>'
+        name: 'Hide Menu'
+        src: 'http://localhost:3003/'
+        class_name: 'hide-responsive-nav'
 
   class LoudrNavItemView extends Marionette.ItemView
     tagName: 'li'

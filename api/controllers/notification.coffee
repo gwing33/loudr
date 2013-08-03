@@ -10,7 +10,7 @@ helper = require "../helpers/_controller_helper"
 
 # Get all Notifications
 exports.get_all_notes = (req, res, next) ->
-  async.series
+  async.parallel
     auth: (cb) ->
       # This needs to validate both Header and API Key
       auth.auth_header_key req.headers.authorization, cb
@@ -18,14 +18,14 @@ exports.get_all_notes = (req, res, next) ->
       Fan.findById req.params.fan_id, (err, fan) ->
         cb err, fan
   , (err, results) ->
-    return res.status(401).send() unless results.auth
+    return res.send(401) unless results.auth
     return res.send helper.fail err if err?
 
     res.send helper.success 'notifications', results.fan.notifications
 
 # Get all Notifications by Email
 exports.get_all_notes_by_email = (req, res, next) ->
-  async.series
+  async.parallel
     auth: (cb) ->
       # This needs to validate both Header and API Key
       auth.auth_header_key req.headers.authorization, cb
@@ -33,7 +33,7 @@ exports.get_all_notes_by_email = (req, res, next) ->
       Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
         cb err, fan
   , (err, results) ->
-    return res.status(401).send() unless results.auth
+    return res.send(401) unless results.auth
     return res.send helper.fail err if err? and err isnt 'Not Found'
 
     if err is 'Not Found'
@@ -63,7 +63,7 @@ exports.get_all_notes_by_email = (req, res, next) ->
   
 # Get Notification by ID
 exports.get_note = (req, res, next) ->
-  async.series
+  async.parallel
     auth: (cb) ->
       # This needs to validate both Header and API Key
       auth.auth_header_key req.headers.authorization, cb
@@ -71,7 +71,7 @@ exports.get_note = (req, res, next) ->
       Fan.findById req.params.fan_id, (err, fan) ->
         cb err, fan
   , (err, results) ->
-    return res.status(401).send() unless results.auth
+    return res.send(401) unless results.auth
     return res.send helper.fail err if err?
 
     notification = results.fan.notifications.id req.params.id
@@ -81,7 +81,7 @@ exports.get_note = (req, res, next) ->
 
 # Get Notification by Email
 exports.get_note_by_email = (req, res, next) ->
-  async.series
+  async.parallel
     auth: (cb) ->
       # This needs to validate both Header and API Key
       auth.auth_header_key req.headers.authorization, cb
@@ -89,7 +89,7 @@ exports.get_note_by_email = (req, res, next) ->
       Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
         cb err, fan
   , (err, results) ->
-    return res.status(401).send() unless results.auth
+    return res.send(401) unless results.auth
     return res.send helper.fail err if err?
 
     notification = results.fan.notifications.id req.params.id
@@ -99,7 +99,7 @@ exports.get_note_by_email = (req, res, next) ->
 
 # Create Notification
 exports.create_note = (req, res, next) ->
-  async.series
+  async.parallel
     auth: (cb) ->
       # This needs to validate both Header and API Key
       auth.auth_header_key req.headers.authorization, cb
@@ -107,7 +107,7 @@ exports.create_note = (req, res, next) ->
       Fan.findById req.params.fan_id, (err, fan) ->
         cb err, fan
   , (err, results) ->
-    return res.status(401).send() unless results.auth
+    return res.send(401) unless results.auth
     return res.send helper.fail err if err?
 
     new_notification = new Notification
@@ -127,7 +127,7 @@ exports.create_note = (req, res, next) ->
 
 # Create Notification By Email
 exports.create_note_by_email = (req, res, next) ->
-  async.series
+  async.parallel
     auth: (cb) ->
       # This needs to validate both Header and API Key
       auth.auth_header_key req.headers.authorization, cb
@@ -135,7 +135,7 @@ exports.create_note_by_email = (req, res, next) ->
       Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
         cb err, fan
   , (err, results) ->
-    return res.status(401).send() unless results.auth
+    return res.send(401) unless results.auth
     return res.send helper.fail err if err?
 
     new_notification = new Notification
@@ -155,7 +155,7 @@ exports.create_note_by_email = (req, res, next) ->
 
 # Update Notification
 exports.update_note = (req, res, next) ->
-  async.series
+  async.parallel
     auth: (cb) ->
       # This needs to validate both Header and API Key
       auth.auth_header_key req.headers.authorization, cb
@@ -163,7 +163,7 @@ exports.update_note = (req, res, next) ->
       Fan.findById req.params.fan_id, (err, fan) ->
         cb err, fan
   , (err, results) ->
-    return res.status(401).send() unless results.auth
+    return res.send(401) unless results.auth
     return res.send helper.fail err if err?
     
     notification = results.fan.notifications.id(req.params.id)
@@ -187,7 +187,7 @@ exports.update_note = (req, res, next) ->
 
 # Update Notification
 exports.update_note_by_email = (req, res, next) ->
-  async.series
+  async.parallel
     auth: (cb) ->
       # This needs to validate both Header and API Key
       auth.auth_header_key req.headers.authorization, cb
@@ -195,7 +195,7 @@ exports.update_note_by_email = (req, res, next) ->
       Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
         cb err, fan
   , (err, results) ->
-    return res.status(401).send() unless results.auth
+    return res.send(401) unless results.auth
     return res.send helper.fail err if err?
     
     notification = results.fan.notifications.id(req.params.id)
@@ -219,7 +219,7 @@ exports.update_note_by_email = (req, res, next) ->
 
 # Delete Notification
 exports.delete_note = (req, res, next) ->
-  async.series
+  async.parallel
     auth: (cb) ->
       # This needs to validate both Header and API Key
       auth.auth_header_key req.headers.authorization, cb
@@ -227,7 +227,7 @@ exports.delete_note = (req, res, next) ->
       Fan.findById req.params.fan_id, (err, fan) ->
         cb err, fan
   , (err, results) ->
-    return res.status(401).send() unless results.auth
+    return res.send(401) unless results.auth
     return res.send helper.fail err if err?
     
     results.fan.notifications.pull
@@ -239,7 +239,7 @@ exports.delete_note = (req, res, next) ->
 
 # Delete Notification
 exports.delete_note_by_email = (req, res, next) ->
-  async.series
+  async.parallel
     auth: (cb) ->
       # This needs to validate both Header and API Key
       auth.auth_header_key req.headers.authorization, cb
@@ -247,7 +247,7 @@ exports.delete_note_by_email = (req, res, next) ->
       Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
         cb err, fan
   , (err, results) ->
-    return res.status(401).send() unless results.auth
+    return res.send(401) unless results.auth
     return res.send helper.fail err if err?
     
     results.fan.notifications.pull

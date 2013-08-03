@@ -4,7 +4,7 @@
 
     Loudr = new Marionette.Application();
     Loudr.addRegions({
-      navRegion: 'header nav',
+      navRegion: '#main_nav',
       mainRegion: '#main'
     });
     Loudr.addInitializer(function() {

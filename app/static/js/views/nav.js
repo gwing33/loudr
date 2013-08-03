@@ -28,9 +28,17 @@
       })(Backbone.Model);
 
       LoudrNavCollection.prototype.show_logged_in_nav = function() {
+        this.add({
+          icon: '<i class="icon-file-alt"></i>',
+          name: 'API Docs',
+          src: 'http://localhost:3003/',
+          class_name: 'api-docs-nav'
+        });
         return this.add({
-          name: 'documentation',
-          src: 'http://localhost:3003/'
+          icon: '<i class="icon-remove"></i>',
+          name: 'Hide Menu',
+          src: 'http://localhost:3003/',
+          class_name: 'hide-responsive-nav'
         });
       };
 

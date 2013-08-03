@@ -4,7 +4,7 @@ define ['marionette', 'router', 'views/nav', 'models/auth', 'views/login'], (Mar
 
   # configuration, setting up regions, etc ...
   Loudr.addRegions
-    navRegion: 'header nav'
+    navRegion: '#main_nav'
     mainRegion: '#main'
     # footerRegion: 'footer'
   

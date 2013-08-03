@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "grunt watch & grunt php & compass watch & node-dev --debug=5858 app.coffee & node-dev --debug=5859 api.coffee & node-inspector --web-port=3002"
+    "start": "grunt watch & compass watch & node-dev --debug=5858 app.coffee & node-dev --debug=5859 api.coffee & node-inspector --web-port=3002"
   },
   "dependencies": {
     "mongoose": "~3.6.4",
@@ -22,7 +22,7 @@
     "node-uuid": "~1.4.0",
     "redis": "~0.8.3",
     "grunt": "*",
-    "grunt-php": "~0.1.1"
+    "marked": "~0.2.9"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "*",

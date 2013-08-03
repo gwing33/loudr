@@ -6,10 +6,9 @@ _ = require "../helpers/underscore"
 auth = require "../helpers/_auth"
 helper = require "../helpers/_controller_helper"
 
-
 # Get All Fans of an API
 exports.get_all_fans = (req, res, next) ->
-  async.series
+  async.parallel
     auth: (cb) ->
       # This needs to validate both Header and API Key
       auth.auth_header_key req.headers.authorization, cb
@@ -20,14 +19,14 @@ exports.get_all_fans = (req, res, next) ->
         , (err, fans) ->
           cb err, fans
   , (err, results) ->
-    return res.status(401).send() unless results.auth
+    return res.send(401) unless results.auth
     return res.send helper.fail err if err?
 
     res.send helper.success 'fans', results.fans
 
 # Get Fan By ID
 exports.get_fan = (req, res, next) ->
-  async.series
+  async.parallel
     auth: (cb) ->
       # This needs to validate both Header and API Key
       auth.auth_header_key req.headers.authorization, cb
@@ -35,14 +34,14 @@ exports.get_fan = (req, res, next) ->
       Fan.findById req.params.id, (err, fan) ->
         cb err, fan
   , (err, results) ->
-    return res.status(401).send() unless results.auth
+    return res.send(401) unless results.auth
     return res.send helper.fail err if err?
 
     res.send helper.success 'fan', results.fan
 
 # Get Fan By Email
 exports.get_fan_by_email = (req, res, next) ->
-  async.series
+  async.parallel
     auth: (cb) ->
       # This needs to validate both Header and API Key
       auth.auth_header_key req.headers.authorization, cb
@@ -50,14 +49,14 @@ exports.get_fan_by_email = (req, res, next) ->
       Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
         cb err, fan
   , (err, results) ->
-    return res.status(401).send() unless results.auth
+    return res.send(401) unless results.auth
     return res.send helper.fail err if err?
 
     res.send helper.success 'fan', results.fan
 
 # Update Fan By ID
 exports.update_fan = (req, res, next) ->
-  async.series
+  async.parallel
     auth: (cb) ->
       # This needs to validate both Header and API Key
       auth.auth_header_key req.headers.authorization, cb
@@ -79,7 +78,7 @@ exports.update_fan = (req, res, next) ->
           
         cb null, fan
   , (err, results) ->
-    return res.status(401).send() unless results.auth
+    return res.send(401) unless results.auth
     return res.send helper.fail err if err?
 
     results.fan.save (err, fan) ->
@@ -90,13 +89,13 @@ exports.update_fan = (req, res, next) ->
 
 # Update Fan By Email
 exports.update_fan_by_email = (req, res, next) ->
-  async.series
+  async.parallel
     auth: (cb) ->
       # This needs to validate both Header and API Key
       auth.auth_header_key req.headers.authorization, cb
     fan: (cb) ->
       Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
-        return res.send fail(err) if err
+        return res.send helper.fail err if err
 
         if req.body.groups?
           fan.groups = _.union fan.groups, req.body.groups
@@ -112,7 +111,7 @@ exports.update_fan_by_email = (req, res, next) ->
         
         cb null, fan
   , (err, results) ->
-    return res.status(401).send() unless results.auth
+    return res.send(401) unless results.auth
     return res.send helper.fail err if err?
 
     results.fan.save (err, fan) ->
@@ -122,7 +121,7 @@ exports.update_fan_by_email = (req, res, next) ->
 
 # Create Fan
 exports.create_fan = (req, res, next) ->
-  async.series
+  async.parallel
     auth: (cb) ->
       # This needs to validate both Header and API Key
       auth.auth_header_key req.headers.authorization, cb
@@ -143,7 +142,7 @@ exports.create_fan = (req, res, next) ->
 
       cb null, new_fan
   , (err, results) ->
-    return res.status(401).send() unless results.auth
+    return res.send(401) unless results.auth
     return res.send helper.fail err if err?
 
     results.fan.save (err, fan) ->
@@ -152,7 +151,7 @@ exports.create_fan = (req, res, next) ->
 
 # Delete Fan By ID
 exports.delete_fan = (req, res, next) ->
-  async.series
+  async.parallel
     auth: (cb) ->
       # This needs to validate both Header and API Key
       auth.auth_header_key req.headers.authorization, cb
@@ -160,7 +159,7 @@ exports.delete_fan = (req, res, next) ->
       Fan.findById req.params.id, (err, fan) ->
         cb err, fan
   , (err, results) ->
-    return res.status(401).send() unless results.auth
+    return res.send(401) unless results.auth
     return res.send helper.fail err if err?
 
     results.fan.remove()
