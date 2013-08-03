@@ -5,7 +5,7 @@
   "description": "User based notification",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "grunt simplemocha",
     "start": "grunt watch & compass watch & node-dev --debug=5858 app.coffee & node-dev --debug=5859 api.coffee & node-inspector --web-port=3002"
   },
   "dependencies": {
