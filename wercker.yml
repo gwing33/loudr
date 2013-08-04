@@ -4,7 +4,6 @@ services:
   - wercker/redis
 build:
   steps:
-    - npm-update
     - npm-install
 #    - npm-test
 # deploy:
