@@ -4,8 +4,9 @@ services:
   - wercker/redis
 build:
   steps:
+    - npm-update
     - npm-install
-    - npm-test
+#    - npm-test
 # deploy:
 #   steps:
 #     - compass-compile@1.0:
