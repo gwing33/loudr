@@ -2,6 +2,7 @@ express = require "express"
 http = require "http"
 path = require "path"
 routes = require "./app/routes"
+config = require "./config"
 
 RedisStore = require("connect-redis")(express)
 
@@ -19,10 +20,9 @@ app.use express.bodyParser()
 app.use express.methodOverride()
 app.use express.cookieParser()
 app.use express.session
+
   secret: "s3cr3ts3cr3t1v3g0t4s3cr3t"
-  store: new RedisStore
-    host: 'localhost'
-    port: 6379
+  store: new RedisStore config.settings.redis
 
 app.use app.router
 app.use express.static path.join(__dirname, "app/static")

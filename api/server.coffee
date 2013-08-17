@@ -12,10 +12,7 @@ server.use express.bodyParser()
 server.use express.cookieParser()
 server.use express.session
   secret: "s3cr3ts3cr3t1v3g0t4s3cr3t"
-  store: new RedisStore
-    host: 'localhost'
-    port: 6379
-    #client: redis
+  store: new RedisStore config.settings.redis
 
 db = mongoose.connect config.settings.conn_str
   # , (err) ->
