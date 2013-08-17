@@ -10,7 +10,7 @@ settings =
     conn_str: process.env.MONGO_URI
     main_api_key: 'asdf'
     api_host: 'localhost'
-    api_port: '3001'
+    api_port: '15001'
   staging:
     redis:
       host: 'crestfish.redistogo.com'
@@ -19,7 +19,7 @@ settings =
     conn_str: process.env.MONGO_URI
     main_api_key: 'asdf'
     api_host: 'localhost'
-    api_port: '3001'
+    api_port: '15001'
   development:
     redis:
       host: 'localhost'
@@ -27,6 +27,6 @@ settings =
     conn_str: 'mongodb://localhost/loudr'
     main_api_key: 'asdf'
     api_host: 'localhost'
-    api_port: '3001'
+    api_port: '15001'
 
 module.exports.settings = settings[env]
