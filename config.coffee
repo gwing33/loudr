@@ -1,12 +1,12 @@
 env = process.env.NODE_ENV or "development"
+redis_pw = process.env.REDIS_PW
 
 settings =
   production:
     redis:
       host: 'crestfish.redistogo.com'
       port: 9872
-      pass: 'faea961e4f9c8b0ba7472429880e48e0'
-      
+      pass: redis_pw
     conn_str: process.env.MONGO_URI
     main_api_key: 'asdf'
     api_host: 'localhost'
@@ -15,7 +15,7 @@ settings =
     redis:
       host: 'crestfish.redistogo.com'
       port: 9872
-      pass: 'faea961e4f9c8b0ba7472429880e48e0'
+      pass: redis_pw
     conn_str: process.env.MONGO_URI
     main_api_key: 'asdf'
     api_host: 'localhost'
