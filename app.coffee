@@ -10,7 +10,7 @@ RedisStore = require("connect-redis")(express)
 app = express()
 
 # all environments
-app.set "port", process.env.PORT or 3000
+app.set "port", process.env.PORT or process.env.OPENSHIFT_INTERNAL_PORT or 3000
 app.set "views", __dirname + "/app/views"
 app.set "view engine", "ejs"
 
