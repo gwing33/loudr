@@ -11,6 +11,13 @@ Another goal is to help with usability, sending notifications out based on maint
 
 See my [Evernote Notebook](https://www.evernote.com/pub/geraldroy/loudr) to see all notes/sketches.
 
+### Services / Hosting
+- [OpenShift](https://openshift.redhat.com)
+- [iwantmyname](iwantmyname.com)
+- [RedisToGo](https://redistogo.com)
+- [MongoHQ](https://www.mongohq.com/home)
+
+
 ### Compteitor list
 - [Intercom.io](https://www.intercom.io): This is where I got my initial idea, the reason why I want to push forward instead of using them is because I feel they don't have an easy installation/setup process and it needs to be a bit more simplistic functionality.
 - [Intercom.io Site overview](https://www.evernote.com/shard/s55/sh/a2a31538-db37-4fb8-9cc3-a8a977684792/5ddcb63599aeb28b8e1edf9b43adcf3e)
