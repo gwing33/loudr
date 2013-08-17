@@ -14,9 +14,5 @@ source "$OPENSHIFT_REPO_DIR/.openshift/lib/utils"
 #  installed.
 ensure_node_is_installed
 
-echo "ENV's"
-echo $PORT
-echo $NODE_ENV
-
 #npm install -g node-dev
 #npm install -g coffee-script
