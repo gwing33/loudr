@@ -10,7 +10,7 @@ RedisStore = require("connect-redis")(express)
 app = express()
 
 # all environments
-app.set "port", process.env.PORT or process.env.OPENSHIFT_INTERNAL_PORT or 3000
+app.set "port", process.env.OPENSHIFT_INTERNAL_PORT or 3000
 app.set "views", __dirname + "/app/views"
 app.set "view engine", "ejs"
 
@@ -31,6 +31,8 @@ app.use express.static path.join(__dirname, "app/static")
 app.use express.errorHandler()  if "development" is app.get("env")
 
 routes.add app
+
+console.log "awesome port is:", app.get "port"
 
 http.createServer(app).listen app.get("port"), ->
   console.log "Express server listening on port " + app.get("port")
