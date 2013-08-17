@@ -18,6 +18,4 @@ build/
 .sass-cache/
 .DS_Store
 
-config.coffee
-
 .vagrant
