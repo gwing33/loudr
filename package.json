@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "grunt simplemocha",
-    "start": "node-dev app.coffee & node-dev api.coffee",
+    "start": "node_modules/coffee-script/bin/coffee app.coffee & node_modules/coffee-script/bin/coffee api.coffee",
     "start-dev": "grunt watch & compass watch & node-dev --debug=5858 app.coffee & node-dev --debug=5859 api.coffee & node-inspector --web-port=3002"
   },
   "dependencies": {
@@ -23,7 +23,8 @@
     "redis": "~0.8.3",
     "hiredis": "~0.1.15",
     "node-uuid": "~1.4.0",
-    "marked": "~0.2.9"
+    "marked": "~0.2.9",
+    "coffee-script": "*"
   },
   "devDependencies": {
     "grunt": "*",
