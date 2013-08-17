@@ -14,4 +14,6 @@ source "$OPENSHIFT_REPO_DIR/.openshift/lib/utils"
 #  installed.
 ensure_node_is_installed
 
-echo "npm install -g node-dev"
+echo "Install Globals"
+npm install -g node-dev
+npm install -g coffee-script
