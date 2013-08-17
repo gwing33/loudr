@@ -9,7 +9,7 @@ RedisStore = require("connect-redis")(express)
 
 server = express()
 server.set "ipaddr", process.env.OPENSHIFT_NODEJS_IP or "127.0.0.1"
-server.set "port", process.env.OPENSHIFT_NODEJS_PORT or 3001
+server.set "port", 15001
 
 server.use express.bodyParser()
 server.use express.cookieParser()
