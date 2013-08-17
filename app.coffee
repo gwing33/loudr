@@ -36,4 +36,4 @@ routes.add app
 console.log "awesome port is:", app.get "port"
 
 http.createServer(app).listen app.get("port"), app.get("ipaddr"), ->
-  console.log "Express server listening on port " + app.get("port")
+  console.log "APP server listening on port " + app.get("port")

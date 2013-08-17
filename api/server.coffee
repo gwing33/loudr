@@ -8,6 +8,9 @@ RedisStore = require("connect-redis")(express)
 # redis = require("redis").createClient()
 
 server = express()
+server.set "ipaddr", process.env.OPENSHIFT_NODEJS_IP or "127.0.0.1"
+server.set "port", process.env.OPENSHIFT_NODEJS_PORT or 3001
+
 server.use express.bodyParser()
 server.use express.cookieParser()
 server.use express.session
@@ -27,4 +30,5 @@ Schema = mongoose.Schema
 # Add Routes
 routes.add server
 
-server.listen 3001
+server.listen server.get("port"),server.get("ipaddr"), ()->
+  console.log "API server listening on port " + server.get("port")
