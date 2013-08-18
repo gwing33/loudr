@@ -16,6 +16,8 @@ See my [Evernote Notebook](https://www.evernote.com/pub/geraldroy/loudr) to see 
 - [iwantmyname](iwantmyname.com)
 - [RedisToGo](https://redistogo.com)
 - [MongoHQ](https://www.mongohq.com/home)
+- [Staging Server](http://staging-loudr.rhcloud.com/): will be staging.loudr.io
+- [Production Server](http://prod-loudr.rhcloud.com/): will be loudr.io
 
 
 ### Compteitor list

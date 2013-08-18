@@ -10,33 +10,28 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/landing.css">
 
     <script src="/js/vendor/modernizr-2.6.2.min.js"></script>
   </head>
   <body class='index'>
-    <!--[if lt IE 7]>
-      <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-    <![endif]-->
-
     <header>
-      <nav id='page_header'>
-        <div>
-          Blah blah blah
-        </div>
-      </nav>
-
       <nav id='header'>
         <h1><a href='/'>LOUD<b>R</b></a></h1>
         
-        <ul id='main_nav'></ul>
+        <ul id="main_nav">
+          <li><a href="/app/login">Sign In</a></li>
+        </ul>
       </nav>
     </header>
 
-    <div id='main' class='container'></div>
+    <div id='main' class='container'>
+      <h2>Notification System, built for the admin.</h2>
+      <h4>Enhance your outreach to your users</h4>
+    </div>
 
     <footer>
-      &copy; Loudr <a href='#terms'>Terms</a> <a href='#privacy'>Privacy</a>
+      &copy;Loudr <%= new Date().getFullYear() %> | <a href='#terms'>Terms</a> | <a href='#privacy'>Privacy</a>
     </footer>
 
     <!--
