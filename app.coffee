@@ -21,7 +21,6 @@ app.use express.bodyParser()
 app.use express.methodOverride()
 app.use express.cookieParser()
 app.use express.session
-
   secret: "s3cr3ts3cr3t1v3g0t4s3cr3t"
   store: new RedisStore config.settings.redis
 

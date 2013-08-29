@@ -9,29 +9,36 @@
     <title>Loudr</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-
-    <link rel="stylesheet" href="/css/landing.css">
+    
+    <link rel="stylesheet" href="/css/main.css">
 
     <script src="/js/vendor/modernizr-2.6.2.min.js"></script>
   </head>
   <body class='index'>
     <header>
+      <nav id='page_header'>
+        <div>
+          API Documents
+        </div>
+      </nav>
+
       <nav id='header'>
         <h1><a href='/'>LOUD<b>R</b></a></h1>
+
+        <a href='#main_nav' id='header_dd'><i class='icon-reorder'></i></a>
         
-        <ul id="main_nav">
-          <li><a href="/app/login">Sign In</a></li>
-        </ul>
+        <div id='main_nav'>
+          <ul>
+            <li><a href="/docs/users">Users</a></li>
+            <li><a href="/docs/projects">Projects</a></li>
+            <li><a href="/docs/fans">Fans</a></li>
+            <li><a href="/docs/notifications">Notifications</a></li>
+          </ul>
+        </div>
       </nav>
     </header>
 
-    <div id='main' class='container'>
-      <h2>Notification System, built for the admin.</h2>
-      <h4>Enhance your outreach to your users</h4>
-    </div>
 
-    <footer>
-      &copy;Loudr <%= new Date().getFullYear() %> | <a href='#terms'>Terms</a> | <a href='#privacy'>Privacy</a>
-    </footer>
+    <div id='main' class='container'></div>
   </body>
 </html>
