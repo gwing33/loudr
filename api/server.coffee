@@ -9,7 +9,7 @@ RedisStore = require("connect-redis")(express)
 
 server = express()
 server.set "ipaddr", process.env.OPENSHIFT_NODEJS_IP or "127.0.0.1"
-server.set "port", 15001
+server.set "port", config.api_port
 
 server.use express.bodyParser()
 server.use express.cookieParser()
@@ -23,7 +23,7 @@ db = mongoose.connect config.settings.conn_str
   #   console.log 'DropDB Error:', err if err?
 
 mongoose.connection.on "error", (errorObject) ->
-  console.log 'Connection Error:', errorObject
+  console.log 'API DB Connection Error:', errorObject
 
 Schema = mongoose.Schema
 
