@@ -1,7 +1,7 @@
 config = require "../config"
 request = require "request"
 
-exports.api_url = config.settings.api_host + ':' + config.settings.api_port
+exports.api_url = config.settings.api_protocol + config.settings.api_host + ':' + config.settings.api_port
 
 exports.post = (url, options, api_key, cb) ->
   console.log @api_url

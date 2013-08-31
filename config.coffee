@@ -9,6 +9,7 @@ settings =
       pass: redis_pw
     conn_str: process.env.MONGO_URI
     main_api_key: 'asdf'
+    api_protocol: 'http://'
     api_host: process.env.OPENSHIFT_NODEJS_IP
     api_port: '15001'
   staging:
@@ -18,6 +19,7 @@ settings =
       pass: redis_pw
     conn_str: process.env.MONGO_URI
     main_api_key: 'asdf'
+    api_protocol: 'http://'
     api_host: process.env.OPENSHIFT_NODEJS_IP
     api_port: '15001'
   development:
@@ -26,6 +28,7 @@ settings =
       port: 6379
     conn_str: 'mongodb://localhost/loudr'
     main_api_key: 'asdf'
+    api_protocol: 'http://'
     api_host: 'localhost'
     api_port: '15001'
 
