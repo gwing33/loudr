@@ -4,6 +4,7 @@ request = require "request"
 exports.api_url = config.settings.api_host + ':' + config.settings.api_port
 
 exports.post = (url, options, api_key, cb) ->
+  console.log @api_url
   options = @set_loudr_auth_token options, api_key
   
   request.post @api_url + url, options, cb
