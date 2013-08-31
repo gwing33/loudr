@@ -14,4 +14,5 @@ exports.add = (app) ->
   app.post "/project", project_controller.create
 
   app.get "/docs", docs_controller.index
-  app.get "/docs/:page", docs_controller.render_md
+  app.get "/docs/:page", docs_controller.index
+  app.get "/docs/partial/:page", docs_controller.render_partial_md

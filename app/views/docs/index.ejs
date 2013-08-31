@@ -29,6 +29,7 @@
         
         <div id='main_nav'>
           <ul>
+            <li><a href="/docs">Overview</a></li>
             <li><a href="/docs/users">Users</a></li>
             <li><a href="/docs/projects">Projects</a></li>
             <li><a href="/docs/fans">Fans</a></li>
@@ -38,7 +39,10 @@
       </nav>
     </header>
 
+    <div id='main' class='container'>
+      <%- view %>
+    </div>
 
-    <div id='main' class='container'></div>
+    <script data-main="/js/docs" src="/js/vendor/require.js"></script>
   </body>
 </html>
