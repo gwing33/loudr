@@ -1,7 +1,7 @@
 config = require "../config"
 request = require "request"
 
-exports.api_url = 'http://' + config.settings.api_host + ':' + config.settings.api_port
+exports.api_url = config.settings.api_host + ':' + config.settings.api_port
 
 exports.post = (url, options, api_key, cb) ->
   options = @set_loudr_auth_token options, api_key

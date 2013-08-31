@@ -26,7 +26,7 @@ settings =
       port: 6379
     conn_str: 'mongodb://localhost/loudr'
     main_api_key: 'asdf'
-    api_host: 'localhost'
+    api_host: '127.0.0.1'
     api_port: '15001'
 
 module.exports.settings = settings[env]
