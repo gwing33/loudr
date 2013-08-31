@@ -7,6 +7,7 @@ exports.add = (app) ->
   app.get "/", site_controller.index
   app.get /^(\/app){1}(.*)$/, site_controller.app
 
+  app.post "/register", user_controller.register
   app.post "/login", user_controller.login
   app.get "/logout", user_controller.logout
 

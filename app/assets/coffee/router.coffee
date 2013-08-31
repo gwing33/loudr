@@ -1,4 +1,4 @@
-define ["marionette", "views/dashboard", "views/login"], (Marionette, DashboardView, LoudrLogin) ->
+define ["marionette", "views/dashboard", "views/login", "views/register"], (Marionette, DashboardView, LoudrLogin, LoudrRegister) ->
   class LoudrRouter extends Marionette.AppRouter
     controller:
       home: () ->
@@ -22,6 +22,11 @@ define ["marionette", "views/dashboard", "views/login"], (Marionette, DashboardV
       project: (project_id) ->
         console.log project_id
 
+      register: () ->
+        login = new LoudrRegister
+          app: @app
+        @app.mainRegion.show login
+
       login: () ->
         login = new LoudrLogin
           app: @app
@@ -40,6 +45,7 @@ define ["marionette", "views/dashboard", "views/login"], (Marionette, DashboardV
     appRoutes:
       "": "home"
       "project/:project_id": "project"
+      "register": "register"
       "login": "login"
       "logout": "logout"
 

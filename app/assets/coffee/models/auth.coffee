@@ -28,7 +28,22 @@ define ["marionette"], (Marionette) ->
         error: (err, blah, doh) ->
           console.log err, blah, doh
 
-    register: (email, password, cb) ->
-      cb()
+    register: (full_name, email, password, cb) ->
+      $.ajax
+        url: '/register',
+        data:
+          full_name: full_name
+          email: email
+          password: password
+        type: 'POST',
+        dataType: 'json',
+        success: (json) ->
+          # if json.success
+          # else
+          # Aww shit son, you messed up
+
+          cb json.success
+        error: (err, blah, doh) ->
+          console.log err, blah, doh
       
   return LoudrAuth

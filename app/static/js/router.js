@@ -2,7 +2,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(["marionette", "views/dashboard", "views/login"], function(Marionette, DashboardView, LoudrLogin) {
+  define(["marionette", "views/dashboard", "views/login", "views/register"], function(Marionette, DashboardView, LoudrLogin, LoudrRegister) {
     var LoudrRouter, _ref;
 
     LoudrRouter = (function(_super) {
@@ -40,6 +40,14 @@
         project: function(project_id) {
           return console.log(project_id);
         },
+        register: function() {
+          var login;
+
+          login = new LoudrRegister({
+            app: this.app
+          });
+          return this.app.mainRegion.show(login);
+        },
         login: function() {
           var login;
 
@@ -67,6 +75,7 @@
       LoudrRouter.prototype.appRoutes = {
         "": "home",
         "project/:project_id": "project",
+        "register": "register",
         "login": "login",
         "logout": "logout"
       };

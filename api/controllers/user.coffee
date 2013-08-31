@@ -93,11 +93,17 @@ exports.create_user = (req, res, next) ->
   # Because only the loudr site should be able to access this
   return res.send(401) unless auth.auth_loudr_header req.headers.authorization
   
+  name = {}
+
+  if req.body.full_name?
+    name.full = req.body.full_name
+  else
+    name.first = req.body.first_name
+    name.last = req.body.last_name
+
   new_user = new User
     email: req.body.email
-    name:
-      first: req.body.first_name
-      last: req.body.last_name
+    name: name
     password: req.body.password
  
   # save user to database

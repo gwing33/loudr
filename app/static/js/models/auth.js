@@ -45,8 +45,23 @@
         });
       };
 
-      LoudrAuth.prototype.register = function(email, password, cb) {
-        return cb();
+      LoudrAuth.prototype.register = function(full_name, email, password, cb) {
+        return $.ajax({
+          url: '/register',
+          data: {
+            full_name: full_name,
+            email: email,
+            password: password
+          },
+          type: 'POST',
+          dataType: 'json',
+          success: function(json) {
+            return cb(json.success);
+          },
+          error: function(err, blah, doh) {
+            return console.log(err, blah, doh);
+          }
+        });
       };
 
       return LoudrAuth;
