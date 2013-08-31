@@ -7,7 +7,7 @@ define ["marionette", "backbone"], (Marionette, Backbone) ->
       @add
         icon: '<i class="icon-file-alt"></i>'
         name: 'API Docs'
-        src: 'http://localhost:3003/'
+        src: '/docs'
         class_name: 'api-docs-nav'
 
       @add

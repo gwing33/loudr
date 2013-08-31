@@ -31,7 +31,7 @@
         this.add({
           icon: '<i class="icon-file-alt"></i>',
           name: 'API Docs',
-          src: 'http://localhost:3003/',
+          src: '/docs',
           class_name: 'api-docs-nav'
         });
         return this.add({
