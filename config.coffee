@@ -24,7 +24,7 @@ settings =
     api_port: '15001'
   development:
     redis:
-      host: 'http://localhost'
+      host: 'localhost'
       port: 6379
     conn_str: 'mongodb://localhost/loudr'
     main_api_key: 'asdf'
