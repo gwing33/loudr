@@ -9,7 +9,7 @@ settings =
       pass: redis_pw
     conn_str: process.env.MONGO_URI
     main_api_key: 'asdf'
-    api_host: 'localhost'
+    api_host: '127.0.0.1'
     api_port: '15001'
   staging:
     redis:
@@ -18,7 +18,7 @@ settings =
       pass: redis_pw
     conn_str: process.env.MONGO_URI
     main_api_key: 'asdf'
-    api_host: 'localhost'
+    api_host: '127.0.0.1'
     api_port: '15001'
   development:
     redis:
