@@ -14,6 +14,7 @@ See my [Evernote Notebook](https://www.evernote.com/pub/geraldroy/loudr) to see 
 ### Services / Hosting
 - [OpenShift](https://openshift.redhat.com)
 - [iwantmyname](iwantmyname.com)
+- [cloudflare.com](https://www.cloudflare.com)
 - [RedisToGo](https://redistogo.com)
 - [MongoHQ](https://www.mongohq.com/home)
 - [Staging Server](http://staging-loudr.rhcloud.com/): will be staging.loudr.io
