@@ -54,7 +54,8 @@
           login = new LoudrLogin({
             app: this.app
           });
-          return this.app.mainRegion.show(login);
+          this.app.mainRegion.show(login);
+          return this.app.nav.collection.show_logged_out_nav();
         },
         logout: function() {
           var $this;

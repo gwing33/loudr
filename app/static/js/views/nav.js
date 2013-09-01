@@ -28,6 +28,29 @@
       })(Backbone.Model);
 
       LoudrNavCollection.prototype.show_logged_in_nav = function() {
+        this.reset();
+        this.add({
+          icon: '<i class="icon-file-alt"></i>',
+          name: 'API Docs',
+          src: '/docs',
+          class_name: 'api-docs-nav'
+        });
+        this.add({
+          icon: '<i class="icon-signout"></i>',
+          name: 'Logout',
+          src: '/app/logout',
+          class_name: 'logout-nav'
+        });
+        return this.add({
+          icon: '<i class="icon-remove"></i>',
+          name: 'Hide Menu',
+          src: 'http://localhost:3003/',
+          class_name: 'hide-responsive-nav'
+        });
+      };
+
+      LoudrNavCollection.prototype.show_logged_out_nav = function() {
+        this.reset();
         this.add({
           icon: '<i class="icon-file-alt"></i>',
           name: 'API Docs',

@@ -14,7 +14,8 @@
       }
 
       LoudrLogin.prototype.initialize = function(options) {
-        return this.app = options.app;
+        this.app = options.app;
+        return this.app.displayTitle("Login");
       };
 
       LoudrLogin.prototype.events = {

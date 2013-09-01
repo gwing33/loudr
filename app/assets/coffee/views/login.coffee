@@ -3,6 +3,7 @@ define ["marionette"], (Marionette) ->
   class LoudrLogin extends Marionette.Layout
     initialize: (options) ->
       @app = options.app
+      @app.displayTitle "Login"
 
     events:
       "submit form": "attempt_login"

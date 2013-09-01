@@ -19,9 +19,7 @@
 
     <header>
       <nav id='page_header'>
-        <div>
-          Page Header
-        </div>
+        <div>&nbsp;</div>
       </nav>
 
       <nav id='header'>
@@ -37,11 +35,13 @@
 
     <div id='main' class='container'></div>
 
+    <!--
     <div class='unmain'>
       <div class='well well-smal'>
         Not sure what to put here yet...
       </div>
     </div>
+    -->
 
 
     <script type='text/html' id='nav_item_template'>
@@ -52,9 +52,11 @@
       <div class='project-view'>
         <div id='project_list'></div>
         <div id='new_project'>
-          <form class='form-inline'>
+          <form>
+            <label for='name'>Create New Project</label>
             <input class="form-control" type='text' name='name' id='project_name'>
-            <button class='btn btn-primary'>Create Project</button>
+            <br>
+            <button class='btn btn-primary pull-right'>Create Project</button>
           </form>
         </div>
       </div>

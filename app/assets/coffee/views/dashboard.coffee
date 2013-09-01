@@ -1,10 +1,17 @@
 define ["marionette"], (Marionette) ->
 
   class LoudrProjectModel extends Backbone.Model
+    parse: (json) ->
+      if json.success
+        return json.project
+      
+      return json
 
   class LoudrProjectCollection extends Backbone.Collection
     model: LoudrProjectModel
     url: '/project'
+    parse: (json) ->
+      return json.projects
 
   class LoudrProjectItem extends Marionette.ItemView
     tagName: 'li'
@@ -23,6 +30,7 @@ define ["marionette"], (Marionette) ->
 
     initialize: (options) ->
       @app = options.app
+      @app.displayTitle "Select a Project"
 
     events:
       'submit form': 'new_project',
@@ -30,15 +38,19 @@ define ["marionette"], (Marionette) ->
 
     open_project: (e) ->
       e.preventDefault()
-      
-      # Unload Collection
-      # Load in Project view
+      @app.router.navigate $(e.currentTarget).attr('href'), {trigger: true}
 
     new_project: (e) ->
       e.preventDefault()
 
-      @projectsRegion.currentView.collection.create
-        name: @$('#project_name').val()
+      @projectsRegion.currentView.collection.create { name: @$('#project_name').val() }, 
+        wait: true
+        success: (json) ->
+          # Reset Value
+          @$('#project_name').val ''
+        error: (grr, blah, doh) ->
+          # TODO
+          console.log grr, blah, doh
 
   return {
     Collection: LoudrProjectCollection

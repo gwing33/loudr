@@ -3,6 +3,7 @@ define ["marionette", "views/dashboard", "views/login", "views/register"], (Mari
     controller:
       home: () ->
         $this = @
+        
         # Load Dashboard
         dash = new DashboardView.Layout
           app: $this.app
@@ -14,7 +15,11 @@ define ["marionette", "views/dashboard", "views/login", "views/register"], (Mari
         
         dash_collection.fetch
           error: (err, blah, doh) ->
+            # If they aren't logged in
             $this.app.router.navigate 'login', {trigger: true} if doh.xhr.status == 401
+
+            # Other Error...
+            # TODO
 
         $this.app.mainRegion.show dash
         dash.projectsRegion.show dash_collection_view
@@ -31,6 +36,7 @@ define ["marionette", "views/dashboard", "views/login", "views/register"], (Mari
         login = new LoudrLogin
           app: @app
         @app.mainRegion.show login
+        @app.nav.collection.show_logged_out_nav()
 
       logout: () ->
         $this = @

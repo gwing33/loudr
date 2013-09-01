@@ -13,6 +13,13 @@
         return _ref;
       }
 
+      LoudrProjectModel.prototype.parse = function(json) {
+        if (json.success) {
+          return json.project;
+        }
+        return json;
+      };
+
       return LoudrProjectModel;
 
     })(Backbone.Model);
@@ -27,6 +34,10 @@
       LoudrProjectCollection.prototype.model = LoudrProjectModel;
 
       LoudrProjectCollection.prototype.url = '/project';
+
+      LoudrProjectCollection.prototype.parse = function(json) {
+        return json.projects;
+      };
 
       return LoudrProjectCollection;
 
@@ -76,7 +87,8 @@
       };
 
       LoudrDashboard.prototype.initialize = function(options) {
-        return this.app = options.app;
+        this.app = options.app;
+        return this.app.displayTitle("Select a Project");
       };
 
       LoudrDashboard.prototype.events = {
@@ -85,13 +97,24 @@
       };
 
       LoudrDashboard.prototype.open_project = function(e) {
-        return e.preventDefault();
+        e.preventDefault();
+        return this.app.router.navigate($(e.currentTarget).attr('href'), {
+          trigger: true
+        });
       };
 
       LoudrDashboard.prototype.new_project = function(e) {
         e.preventDefault();
         return this.projectsRegion.currentView.collection.create({
           name: this.$('#project_name').val()
+        }, {
+          wait: true,
+          success: function(json) {
+            return this.$('#project_name').val('');
+          },
+          error: function(grr, blah, doh) {
+            return console.log(grr, blah, doh);
+          }
         });
       };
 
