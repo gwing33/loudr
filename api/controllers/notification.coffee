@@ -27,13 +27,20 @@ exports.get_all_notes = (req, res, next) ->
 exports.get_all_notes_by_email = (req, res, next) ->
   async.parallel
     auth: (cb) ->
-      # This needs to validate both Header and API Key
-      console.log req.headers.authorization
-      auth.auth_header_key req.headers.authorization, cb
+      if req.headers.authorization?
+        # Technically, this should never get called
+        # Because the api key is always passed in as a param
+        auth.auth_header_key req.headers.authorization, cb
+      else if req.params.key?
+        console.log 'Has Key..', req.params.key
+        auth.valid_api_key req.params.key, cb
+      else
+        cb null, false
     fan: (cb) ->
       Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
         cb err, fan
   , (err, results) ->
+    console.log results.auth
     return res.send(401) unless results.auth
     return res.send helper.fail err if err? and err isnt 'Not Found'
 
@@ -52,7 +59,7 @@ exports.get_all_notes_by_email = (req, res, next) ->
       new_fan.save (err, fan) ->
         return res.send helper.fail err if err?
 
-        if req.query.callbalck?
+        if req.query.callback?
           return res.jsonp helper.success 'notifications', new_fan.notifications
         else
           return res.send helper.success 'notifications', new_fan.notifications
@@ -84,8 +91,15 @@ exports.get_note = (req, res, next) ->
 exports.get_note_by_email = (req, res, next) ->
   async.parallel
     auth: (cb) ->
-      # This needs to validate both Header and API Key
-      auth.auth_header_key req.headers.authorization, cb
+      if req.headers.authorization?
+        # Technically, this should never get called
+        # Because the api key is always passed in as a param
+        auth.auth_header_key req.headers.authorization, cb
+      else if req.params.key?
+        console.log 'Has Key..', req.params.key
+        auth.valid_api_key req.params.key, cb
+      else
+        cb null, false
     fan: (cb) ->
       Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
         cb err, fan
@@ -130,8 +144,15 @@ exports.create_note = (req, res, next) ->
 exports.create_note_by_email = (req, res, next) ->
   async.parallel
     auth: (cb) ->
-      # This needs to validate both Header and API Key
-      auth.auth_header_key req.headers.authorization, cb
+      if req.headers.authorization?
+        # Technically, this should never get called
+        # Because the api key is always passed in as a param
+        auth.auth_header_key req.headers.authorization, cb
+      else if req.params.key?
+        console.log 'Has Key..', req.params.key
+        auth.valid_api_key req.params.key, cb
+      else
+        cb null, false
     fan: (cb) ->
       Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
         cb err, fan
@@ -190,8 +211,15 @@ exports.update_note = (req, res, next) ->
 exports.update_note_by_email = (req, res, next) ->
   async.parallel
     auth: (cb) ->
-      # This needs to validate both Header and API Key
-      auth.auth_header_key req.headers.authorization, cb
+      if req.headers.authorization?
+        # Technically, this should never get called
+        # Because the api key is always passed in as a param
+        auth.auth_header_key req.headers.authorization, cb
+      else if req.params.key?
+        console.log 'Has Key..', req.params.key
+        auth.valid_api_key req.params.key, cb
+      else
+        cb null, false
     fan: (cb) ->
       Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
         cb err, fan
@@ -242,8 +270,15 @@ exports.delete_note = (req, res, next) ->
 exports.delete_note_by_email = (req, res, next) ->
   async.parallel
     auth: (cb) ->
-      # This needs to validate both Header and API Key
-      auth.auth_header_key req.headers.authorization, cb
+      if req.headers.authorization?
+        # Technically, this should never get called
+        # Because the api key is always passed in as a param
+        auth.auth_header_key req.headers.authorization, cb
+      else if req.params.key?
+        console.log 'Has Key..', req.params.key
+        auth.valid_api_key req.params.key, cb
+      else
+        cb null, false
     fan: (cb) ->
       Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
         cb err, fan
