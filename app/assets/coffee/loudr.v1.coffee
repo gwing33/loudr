@@ -138,7 +138,7 @@ if typeof window.Loudr isnt "function"
     @ajax = (e) ->
       # e = Loudr.extend(Loudr.dup(e), Loudr.ajax_opts)
       return  if typeof e.url is "undefined"
-      e.url = 'http://localhost:3001' + e.url
+      e.url = 'http://localhost:15001' + e.url
       dt = (new Date).getTime()
       n = "Loudr" + dt
 
@@ -163,7 +163,7 @@ if typeof window.Loudr isnt "function"
         # This will pass up every attribute
         # It will create the user if it doesn't exist.
         @ajax
-          url: '/app/' + @settings.api_key + '/fan/' + @settings.email + '/notes'
+          url: '/app/' + @settings.api_key + '/fan/' + @settings.email + '/note'
           success: (j) ->
             console.log j
 

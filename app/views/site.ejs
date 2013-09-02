@@ -94,52 +94,45 @@
 
     <script data-main="/js/app" src="/js/vendor/require.js"></script>
 
+    <% if(logged_in) { %>
     <script>
       window.loudrSettings = {
         email: "gerald.leenerts@gmail.com",
-        api_key: "8f2fd8f41de97710288a2ee90e42f8e74706a666"
+        api_key: "b10d6e77be8428d95bae34e1f6057b02c51df0925146fd2f79ba2a7a519917fa"
       };
     </script>
     <script>
-//      (function(){
-//        var w=window;
-//        var lo=w.Loudr;
-//        if(typeof lo==="function"){
-//          console.log(lo);
-//        }else{
-//          var d=document;
-//          // var l=function(){
-//          //   l.c(arguments)
-//          // };
-//          // l.q=[];
-//          // l.c=function(args){
-//          //   l.q.push(args)
-//          // };
-//          // w.Loudr=l;
-//          function ld(){
-//            var s=d.createElement('script');
-//            s.type='text/javascript';
-//            s.async=true;
-//            s.src='/js/loudr.v1.js';
-//            var x=d.getElementsByTagName('script')[0];
-//            x.parentNode.insertBefore(s,x);
-//          }
-//          if(w.attachEvent){
-//            w.attachEvent('onload',ld);
-//          }else{
-//            w.addEventListener('load',ld,false);
-//          }
-//        };
-//      })()
+      (function(){
+        var w=window;
+        var lo=w.Loudr;
+        if(typeof lo === "function"){
+          console.log(lo);
+        } else {
+          var d=document;
+          // var l=function(){
+          //   l.c(arguments)
+          // };
+          // l.q=[];
+          // l.c=function(args){
+          //   l.q.push(args)
+          // };
+          // w.Loudr=l;
+          function ld(){
+            var s=d.createElement('script');
+            s.type='text/javascript';
+            s.async=true;
+            s.src='/js/loudr.v1.js';
+            var x=d.getElementsByTagName('script')[0];
+            x.parentNode.insertBefore(s,x);
+          }
+          if(w.attachEvent){
+            w.attachEvent('onload',ld);
+          }else{
+            w.addEventListener('load',ld,false);
+          }
+        };
+      })()
     </script>
-
-    <!--
-    <script>
-      // var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-      // (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-      // g.src='//www.google-analytics.com/ga.js';
-      // s.parentNode.insertBefore(g,s)}(document,'script'));
-    </script>
-    -->
+    <% } %>
   </body>
 </html>

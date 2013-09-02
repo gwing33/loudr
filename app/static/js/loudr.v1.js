@@ -218,7 +218,7 @@
         if (typeof e.url === "undefined") {
           return;
         }
-        e.url = 'http://localhost:3001' + e.url;
+        e.url = 'http://localhost:15001' + e.url;
         dt = (new Date).getTime();
         n = "Loudr" + dt;
         window[n] = function(t) {
@@ -236,7 +236,7 @@
       if (typeof this.settings === "object") {
         if ((this.settings.api_key != null) && (this.settings.email != null)) {
           return this.ajax({
-            url: '/app/' + this.settings.api_key + '/fan/' + this.settings.email + '/notes',
+            url: '/app/' + this.settings.api_key + '/fan/' + this.settings.email + '/note',
             success: function(j) {
               return console.log(j);
             }

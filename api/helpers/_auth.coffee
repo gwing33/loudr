@@ -5,26 +5,30 @@ async = require "async"
 Auth = {}
 # Validate the Header, regular or loudr
 Auth.auth_header = (header) ->
+  return false unless header?
   return true if Auth.auth_loudr_header header
 
   return header.indexOf("Loudr :") != -1
 
 # Validate just the Admin Loudr Header
 Auth.auth_loudr_header = (header) ->
+  return false unless header?
   return header.indexOf("Loudr asdf:") != -1
 
 # Validates both Header and API Key
 Auth.auth_header_key = (header, cb) ->
   valid_header = Auth.auth_header header
-  Auth.valid_api_key header, valid_header, cb
+  return cb null, false unless valid_header
+  Auth.valid_api_key header, cb
 
 # Validate both Loudr Header and API Key
 Auth.auth_loudr_header_key = (header, cb) ->
   valid_header = Auth.auth_loudr_header header
-  Auth.valid_api_key header, valid_header, cb
+  return cb null, false unless valid_header
+  Auth.valid_api_key header, cb
 
 # Validates just API Key
-Auth.valid_api_key = (token, is_valid_header, cb) ->
+Auth.valid_api_key = (token, cb) ->
   key = Auth.get_api_key token
 
   Project.find

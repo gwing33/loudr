@@ -28,6 +28,7 @@ exports.get_all_notes_by_email = (req, res, next) ->
   async.parallel
     auth: (cb) ->
       # This needs to validate both Header and API Key
+      console.log req.headers.authorization
       auth.auth_header_key req.headers.authorization, cb
     fan: (cb) ->
       Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
