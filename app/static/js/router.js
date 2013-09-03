@@ -2,7 +2,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(["marionette", "views/dashboard", "views/login", "views/register"], function(Marionette, DashboardView, LoudrLogin, LoudrRegister) {
+  define(["marionette", "views/dashboard", "views/project", "views/login", "views/register"], function(Marionette, DashboardView, ProjectView, LoudrLogin, LoudrRegister) {
     var LoudrRouter, _ref;
 
     LoudrRouter = (function(_super) {
@@ -38,7 +38,30 @@
           return dash.projectsRegion.show(dash_collection_view);
         },
         project: function(project_id) {
-          return console.log(project_id);
+          var $this, fan_colleciton_view, fan_collection, layout;
+
+          $this = this;
+          layout = new ProjectView.Layout({
+            app: $this.app
+          });
+          fan_collection = new ProjectView.FanCollection({
+            project_id: project_id
+          });
+          fan_colleciton_view = new ProjectView.FanCollectionView({
+            collection: fan_collection
+          });
+          return fan_collection.fetch({
+            success: function(json) {
+              return console.log('success:', json);
+            },
+            error: function(obj, err, doh) {
+              if (doh.xhr.status === 401) {
+                return $this.app.router.navigate('login', {
+                  trigger: true
+                });
+              }
+            }
+          });
         },
         register: function() {
           var login;

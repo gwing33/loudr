@@ -7,7 +7,7 @@ Auth = {}
 Auth.auth_header = (header) ->
   return false unless header?
   return true if Auth.auth_loudr_header header
-
+  
   return header.indexOf("Loudr :") != -1
 
 # Validate just the Admin Loudr Header

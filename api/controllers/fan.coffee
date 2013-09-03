@@ -19,6 +19,7 @@ exports.get_all_fans = (req, res, next) ->
         , (err, fans) ->
           cb err, fans
   , (err, results) ->
+    console.log results.auth
     return res.send(401) unless results.auth
     return res.send helper.fail err if err?
 
@@ -43,8 +44,14 @@ exports.get_fan = (req, res, next) ->
 exports.get_fan_by_email = (req, res, next) ->
   async.parallel
     auth: (cb) ->
-      # This needs to validate both Header and API Key
-      auth.auth_header_key req.headers.authorization, cb
+      if req.headers.authorization?
+        # Technically, this should never get called
+        # Because the api key is always passed in as a param
+        auth.auth_header_key req.headers.authorization, cb
+      else if req.params.key?
+        auth.valid_api_key req.params.key, cb
+      else
+        cb null, false
     fan: (cb) ->
       Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
         cb err, fan
@@ -91,8 +98,14 @@ exports.update_fan = (req, res, next) ->
 exports.update_fan_by_email = (req, res, next) ->
   async.parallel
     auth: (cb) ->
-      # This needs to validate both Header and API Key
-      auth.auth_header_key req.headers.authorization, cb
+      if req.headers.authorization?
+        # Technically, this should never get called
+        # Because the api key is always passed in as a param
+        auth.auth_header_key req.headers.authorization, cb
+      else if req.params.key?
+        auth.valid_api_key req.params.key, cb
+      else
+        cb null, false
     fan: (cb) ->
       Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
         return res.send helper.fail err if err
@@ -123,8 +136,14 @@ exports.update_fan_by_email = (req, res, next) ->
 exports.create_fan = (req, res, next) ->
   async.parallel
     auth: (cb) ->
-      # This needs to validate both Header and API Key
-      auth.auth_header_key req.headers.authorization, cb
+      if req.headers.authorization?
+        # Technically, this should never get called
+        # Because the api key is always passed in as a param
+        auth.auth_header_key req.headers.authorization, cb
+      else if req.params.key?
+        auth.valid_api_key req.params.key, cb
+      else
+        cb null, false
     fan: (cb) ->
       fan_groups = if req.body.groups? then req.body.groups else []
 

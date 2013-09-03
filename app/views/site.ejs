@@ -63,8 +63,25 @@
     </script>
 
     <script type='text/html' id='project_list_template'>
-      <a href="project/{{ api.key }}">{{ name }}</a>
+      <a href="project/{{ _id }}">{{ name }}</a>
     </script>
+
+
+    <script type='text/html' id='fan_list_template'>
+      <div class='fan-list-view'>
+        <h3>Fans</h3>
+        <div class='fan-searchability'>
+          Sorting, Filtering, Searching go here.
+        </div>
+        <ul id='fan_list'></ul>
+        <div class='pagination'></div>
+      </div>
+    </script>
+
+    <script type='text/html' id='fan_list_template'>
+      <a href="#">Placeholder</a>
+    </script>
+    
 
     <script type='text/html' id='login_template'>
       <form class='login-form'>

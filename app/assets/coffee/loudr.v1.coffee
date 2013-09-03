@@ -165,7 +165,7 @@ if typeof window.Loudr isnt "function"
         @ajax
           url: '/app/' + @settings.api_key + '/fan/' + @settings.email + '/note'
           success: (j) ->
-            console.log j
+            console.log 'JS Plugin:', j
 
 
   window.Loudr()

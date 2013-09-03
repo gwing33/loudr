@@ -1,4 +1,4 @@
-define ["marionette", "views/dashboard", "views/login", "views/register"], (Marionette, DashboardView, LoudrLogin, LoudrRegister) ->
+define ["marionette", "views/dashboard", "views/project", "views/login", "views/register"], (Marionette, DashboardView, ProjectView, LoudrLogin, LoudrRegister) ->
   class LoudrRouter extends Marionette.AppRouter
     controller:
       home: () ->
@@ -25,7 +25,25 @@ define ["marionette", "views/dashboard", "views/login", "views/register"], (Mari
         dash.projectsRegion.show dash_collection_view
 
       project: (project_id) ->
-        console.log project_id
+        $this = @
+
+        layout = new ProjectView.Layout
+          app: $this.app
+
+        fan_collection = new ProjectView.FanCollection
+          project_id: project_id
+
+        fan_colleciton_view = new ProjectView.FanCollectionView
+          collection: fan_collection
+
+        fan_collection.fetch
+          success: (json) ->
+            console.log 'success:', json
+          error: (obj, err, doh) ->
+            # console.log 'fail', err, err, doh
+            # If they aren't logged in
+            $this.app.router.navigate 'login', {trigger: true} if doh.xhr.status == 401
+
 
       register: () ->
         login = new LoudrRegister

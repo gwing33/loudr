@@ -17,12 +17,12 @@ define ["marionette"], (Marionette) ->
     tagName: 'li'
     template: "#project_list_template"
 
-  # I left it as 'LoudrDashboard' because it's the landing page.
-  # There could be more things than just a list of projects.
   class LoudrProjectCollectionView extends Marionette.CollectionView
     tagName: 'ul'
     itemView: LoudrProjectItem
 
+  # I left it as 'LoudrDashboard' because it's the landing page.
+  # There could be more things than just a list of projects.
   class LoudrDashboard extends Marionette.Layout
     template: "#dashboard_template"
     regions:

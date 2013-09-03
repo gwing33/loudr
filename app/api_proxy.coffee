@@ -34,7 +34,7 @@ exports.get_loudr_signed_token = (api_key) ->
   # This token should be different from what everyone else uses
   # That way I can restrict access for everyone but this application
   token = 'Loudr asdf:'
-  token += api_key if api_key?
+  token += api_key unless api_key
   return token
 
 
