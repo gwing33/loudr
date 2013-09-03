@@ -32,7 +32,6 @@ exports.get_all_notes_by_email = (req, res, next) ->
         # Because the api key is always passed in as a param
         auth.auth_header_key req.headers.authorization, cb
       else if req.params.key?
-        console.log 'Has Key..', req.params.key
         auth.valid_api_key req.params.key, cb
       else
         cb null, false
@@ -40,7 +39,6 @@ exports.get_all_notes_by_email = (req, res, next) ->
       Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
         cb err, fan
   , (err, results) ->
-    console.log results.auth
     return res.send(401) unless results.auth
     return res.send helper.fail err if err? and err isnt 'Not Found'
 
@@ -96,7 +94,6 @@ exports.get_note_by_email = (req, res, next) ->
         # Because the api key is always passed in as a param
         auth.auth_header_key req.headers.authorization, cb
       else if req.params.key?
-        console.log 'Has Key..', req.params.key
         auth.valid_api_key req.params.key, cb
       else
         cb null, false
@@ -149,7 +146,6 @@ exports.create_note_by_email = (req, res, next) ->
         # Because the api key is always passed in as a param
         auth.auth_header_key req.headers.authorization, cb
       else if req.params.key?
-        console.log 'Has Key..', req.params.key
         auth.valid_api_key req.params.key, cb
       else
         cb null, false
@@ -216,7 +212,6 @@ exports.update_note_by_email = (req, res, next) ->
         # Because the api key is always passed in as a param
         auth.auth_header_key req.headers.authorization, cb
       else if req.params.key?
-        console.log 'Has Key..', req.params.key
         auth.valid_api_key req.params.key, cb
       else
         cb null, false
@@ -275,7 +270,6 @@ exports.delete_note_by_email = (req, res, next) ->
         # Because the api key is always passed in as a param
         auth.auth_header_key req.headers.authorization, cb
       else if req.params.key?
-        console.log 'Has Key..', req.params.key
         auth.valid_api_key req.params.key, cb
       else
         cb null, false
