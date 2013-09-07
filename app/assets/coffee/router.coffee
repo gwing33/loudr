@@ -30,20 +30,19 @@ define ["marionette", "views/dashboard", "views/project", "views/login", "views/
         layout = new ProjectView.Layout
           app: $this.app
 
-        fan_collection = new ProjectView.FanCollection
+        fan_collection = new ProjectView.FanCollection [],
           project_id: project_id
 
-        fan_colleciton_view = new ProjectView.FanCollectionView
+        fan_collection_view = new ProjectView.FanCollectionView
           collection: fan_collection
 
         fan_collection.fetch
-          success: (json) ->
-            console.log 'success:', json
           error: (obj, err, doh) ->
-            # console.log 'fail', err, err, doh
             # If they aren't logged in
             $this.app.router.navigate 'login', {trigger: true} if doh.xhr.status == 401
 
+        $this.app.mainRegion.show layout
+        layout.fansRegion.show fan_collection_view
 
       register: () ->
         login = new LoudrRegister

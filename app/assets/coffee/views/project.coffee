@@ -1,4 +1,5 @@
 define ["marionette"], (Marionette) ->
+
   class LoudrFanModel extends Backbone.Model
     parse: (json) ->
       if json.success
@@ -6,15 +7,14 @@ define ["marionette"], (Marionette) ->
       
       return json
 
+
   class LoudrFanCollection extends Backbone.Collection
-    model: LoudrFanModel
-    
     project_id: ''
-    
+    model: LoudrFanModel
     url: () ->
       return '/fan/' + @project_id
 
-    initialize: (options) ->
+    initialize: (models, options) ->
       @project_id = options.project_id
 
     parse: (json) ->
@@ -23,13 +23,15 @@ define ["marionette"], (Marionette) ->
   class LoudrFanItem extends Marionette.ItemView
     tagName: 'li'
     template: "#fan_list_template"
+    onBeforeRender: () ->
+      console.log this
 
   class LoudrFanCollectionView extends Marionette.CollectionView
     tagName: 'ul'
     itemView: LoudrFanItem
 
   class LoudrProject extends Marionette.Layout
-    template: "#fan_list_template"
+    template: "#project_fans_template"
     regions:
       fansRegion: '#fan_list'
 

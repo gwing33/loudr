@@ -38,22 +38,19 @@
           return dash.projectsRegion.show(dash_collection_view);
         },
         project: function(project_id) {
-          var $this, fan_colleciton_view, fan_collection, layout;
+          var $this, fan_collection, fan_collection_view, layout;
 
           $this = this;
           layout = new ProjectView.Layout({
             app: $this.app
           });
-          fan_collection = new ProjectView.FanCollection({
+          fan_collection = new ProjectView.FanCollection([], {
             project_id: project_id
           });
-          fan_colleciton_view = new ProjectView.FanCollectionView({
+          fan_collection_view = new ProjectView.FanCollectionView({
             collection: fan_collection
           });
-          return fan_collection.fetch({
-            success: function(json) {
-              return console.log('success:', json);
-            },
+          fan_collection.fetch({
             error: function(obj, err, doh) {
               if (doh.xhr.status === 401) {
                 return $this.app.router.navigate('login', {
@@ -62,6 +59,8 @@
               }
             }
           });
+          $this.app.mainRegion.show(layout);
+          return layout.fansRegion.show(fan_collection_view);
         },
         register: function() {
           var login;

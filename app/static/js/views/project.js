@@ -31,15 +31,15 @@
         return _ref1;
       }
 
-      LoudrFanCollection.prototype.model = LoudrFanModel;
-
       LoudrFanCollection.prototype.project_id = '';
+
+      LoudrFanCollection.prototype.model = LoudrFanModel;
 
       LoudrFanCollection.prototype.url = function() {
         return '/fan/' + this.project_id;
       };
 
-      LoudrFanCollection.prototype.initialize = function(options) {
+      LoudrFanCollection.prototype.initialize = function(models, options) {
         return this.project_id = options.project_id;
       };
 
@@ -61,6 +61,10 @@
       LoudrFanItem.prototype.tagName = 'li';
 
       LoudrFanItem.prototype.template = "#fan_list_template";
+
+      LoudrFanItem.prototype.onBeforeRender = function() {
+        return console.log(this);
+      };
 
       return LoudrFanItem;
 
@@ -88,7 +92,7 @@
         return _ref4;
       }
 
-      LoudrProject.prototype.template = "#fan_list_template";
+      LoudrProject.prototype.template = "#project_fans_template";
 
       LoudrProject.prototype.regions = {
         fansRegion: '#fan_list'
