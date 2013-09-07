@@ -7,14 +7,11 @@ api_proxy = require "../api_proxy"
 ###
   Fan Tests
 
-  get /app/fan/:id
-  post /app/fan
-  put /app/fan/:id
-  del /app/fan/:id
-
   get /app/:key/fan
+  post /app/:key/fan
   get /app/:key/fan/:email
   put /app/:key/fan/:email
+  del /app/:key/fan/:id
 ###
 
 user = {}
@@ -46,14 +43,6 @@ describe 'Fan API', () ->
         project = json.projects[0]
         done()
 
-  # Should 401
-  it "Should 401", (done) ->
-    api_proxy.get '/app/fan/' + fan._id, {}, 'blah', (err, resp, body) ->
-      assert !err
-      assert.equal resp.statusCode, 401
-      
-      done()
-
   # Should Create Fan
   it "Should Create Fan", (done) ->
     post_data =
@@ -65,8 +54,9 @@ describe 'Fan API', () ->
         last_name: "Steval"
         registered_date: "2013-05-17T17:32:00.171Z"
 
-    api_proxy.post '/app/fan/', post_data, project.api.key, (err, resp, body) ->
+    api_proxy.post '/app/' + project.api.key + '/fan/', post_data, project.api.key, (err, resp, body) ->
       assert !err
+      assert.notEqual body, 'Unauthorized'
 
       json = JSON.parse body
       assert.equal json.success, true
@@ -84,16 +74,6 @@ describe 'Fan API', () ->
 
       done()
 
-  # Should Get Fan By ID
-  it "Should Get Fan By ID", (done) ->
-    api_proxy.get '/app/fan/' + fan._id, {}, project.api.key, (err, resp, body) ->
-      assert !err
-
-      json = JSON.parse body
-      assert.equal json.success, true
-
-      done()
-
   # Should Get Fan By Key/Email
   it "Should Get Fan By Key/Email", (done) ->
     api_proxy.get '/app/' + project.api.key + '/fan/' + fan.email, {}, project.api.key, (err, resp, body) ->
@@ -104,28 +84,11 @@ describe 'Fan API', () ->
 
       done()
 
-  # Should Update Fan
-  it "Should Update Fan", (done) ->
-    post_data =
-      form:
-        groups: ['New Group', 'Gold Membership']
-        remove_groups: ['Cicyle in Cirlces']
-        registered_date: "2013-04-17T17:32:00.171Z"
-        first_name: "Stever"
-
-    api_proxy.put '/app/fan/' + fan._id, post_data, project.api.key, (err, resp, body) ->
-      assert !err
-      json = JSON.parse body
-
-      assert.equal json.fan.groups.length, 2
-      assert.equal json.success, true
-      done()
-
   # Should Update Fan by Key/Email
   it "Should Update Fan by Key/Email", (done) ->
     post_data =
       form:
-        remove_groups: ['New Group']
+        remove_groups: ['Gold Membership']
 
     api_proxy.put '/app/' + project.api.key + '/fan/' + fan.email, post_data, project.api.key, (err, resp, body) ->
       assert !err
@@ -137,7 +100,7 @@ describe 'Fan API', () ->
 
   # Should Delete Fan
   it "Should Delete Fan", (done) ->
-    api_proxy.del '/app/fan/' + fan._id, {}, project.api.key, (err, resp, body) ->
+    api_proxy.del '/app/' + project.api.key + '/fan/' + fan._id, {}, project.api.key, (err, resp, body) ->
       assert !err
 
       json = JSON.parse body

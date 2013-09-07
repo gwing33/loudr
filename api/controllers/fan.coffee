@@ -25,23 +25,8 @@ exports.get_all_fans = (req, res, next) ->
 
     res.send helper.success 'fans', results.fans
 
-# Get Fan By ID
-exports.get_fan = (req, res, next) ->
-  async.parallel
-    auth: (cb) ->
-      # This needs to validate both Header and API Key
-      auth.auth_header_key req.headers.authorization, cb
-    fan: (cb) ->
-      Fan.findById req.params.id, (err, fan) ->
-        cb err, fan
-  , (err, results) ->
-    return res.send(401) unless results.auth
-    return res.send helper.fail err if err?
-
-    res.send helper.success 'fan', results.fan
-
 # Get Fan By Email
-exports.get_fan_by_email = (req, res, next) ->
+exports.get_fan = (req, res, next) ->
   async.parallel
     auth: (cb) ->
       if req.headers.authorization?
@@ -61,41 +46,8 @@ exports.get_fan_by_email = (req, res, next) ->
 
     res.send helper.success 'fan', results.fan
 
-# Update Fan By ID
-exports.update_fan = (req, res, next) ->
-  async.parallel
-    auth: (cb) ->
-      # This needs to validate both Header and API Key
-      auth.auth_header_key req.headers.authorization, cb
-    fan: (cb) ->
-      Fan.findById req.params.id, (err, fan) ->
-        cb err, null if err
-
-        if req.body.groups?
-          fan.groups = _.union fan.groups, req.body.groups
-          # Remove unique params
-          _.uniq fan.groups
-
-        if req.body.remove_groups?
-          fan.groups = _.difference fan.groups, req.body.remove_groups
-
-        fan.name.first = req.body.first_name if req.body.first_name?
-        fan.name.last = req.body.last_name if req.body.last_name?
-        fan.info.registered = req.body.registered_date if req.body.registered_date?
-          
-        cb null, fan
-  , (err, results) ->
-    return res.send(401) unless results.auth
-    return res.send helper.fail err if err?
-
-    results.fan.save (err, fan) ->
-      return res.send helper.fail err if err?
-      
-      res.send helper.success 'fan', fan
-
-
 # Update Fan By Email
-exports.update_fan_by_email = (req, res, next) ->
+exports.update_fan = (req, res, next) ->
   async.parallel
     auth: (cb) ->
       if req.headers.authorization?

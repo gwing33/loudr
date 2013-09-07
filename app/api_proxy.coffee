@@ -4,7 +4,6 @@ request = require "request"
 exports.api_url = config.settings.api_protocol + config.settings.api_host + ':' + config.settings.api_port
 
 exports.post = (url, options, api_key, cb) ->
-  console.log @api_url
   options = @set_loudr_auth_token options, api_key
   
   request.post @api_url + url, options, cb
@@ -34,7 +33,7 @@ exports.get_loudr_signed_token = (api_key) ->
   # This token should be different from what everyone else uses
   # That way I can restrict access for everyone but this application
   token = 'Loudr asdf:'
-  token += api_key unless api_key
+  token += api_key if api_key
   return token
 
 

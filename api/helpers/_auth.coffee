@@ -30,9 +30,9 @@ Auth.auth_loudr_header_key = (header, cb) ->
 # Validates just API Key
 Auth.valid_api_key = (token, cb) ->
   key = token
-  if token.indexOf(":") is not -1
+  if token.indexOf(":") > -1
     key = Auth.get_api_key token
-
+  
   Project.find
     api:
       key: key

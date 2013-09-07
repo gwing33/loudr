@@ -62,7 +62,7 @@ describe 'Fan Notificaiton API', () ->
             last_name: "Steval"
             registered_date: "2013-05-17T17:32:00.171Z"
 
-        api_proxy.post '/app/fan/', post_data, project.api.key, (err, resp, body) ->
+        api_proxy.post '/app/' + project.api.key + '/fan/', post_data, project.api.key, (err, resp, body) ->
           assert !err
 
           json = JSON.parse body
@@ -188,7 +188,7 @@ describe 'Fan Notificaiton API', () ->
 
   # Cleanup
   it "Should Cleanup", (done) ->
-    api_proxy.del '/app/fan/' + fan._id, {}, project.api.key, (err, resp, body) ->
+    api_proxy.del '/app/' + project.api.key + '/fan/' + fan._id, {}, project.api.key, (err, resp, body) ->
       assert !err
 
       json = JSON.parse body

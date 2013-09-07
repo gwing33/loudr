@@ -30,16 +30,11 @@ exports.add = (server) ->
   server.del '/user/:user_id/project/:id', project_controller.delete_project
   
   # Fans - I use "app" here instead of project to shorten urls
-  # This is all fucked up, Needs project_id...
-  server.get '/app/fan/:id', fan_controller.get_fan
-  server.post '/app/fan', fan_controller.create_fan
-  server.put '/app/fan/:id', fan_controller.update_fan
-  server.del '/app/fan/:id', fan_controller.delete_fan
-
   server.get '/app/:key/fan/', fan_controller.get_all_fans
-  server.get '/app/:key/fan/:email', fan_controller.get_fan_by_email
-  server.put '/app/:key/fan/:email', fan_controller.update_fan_by_email
-
+  server.post '/app/:key/fan/', fan_controller.create_fan
+  server.get '/app/:key/fan/:email', fan_controller.get_fan
+  server.put '/app/:key/fan/:email', fan_controller.update_fan
+  server.del '/app/:key/fan/:id', fan_controller.delete_fan
 
   # Fan Notifications
   server.get '/app/fan/:fan_id/note', notification_controller.get_all_notes
