@@ -10,8 +10,14 @@ helper = require "../helpers/_controller_helper"
 exports.get_all_fans = (req, res, next) ->
   async.parallel
     auth: (cb) ->
-      # This needs to validate both Header and API Key
-      auth.auth_header_key req.headers.authorization, cb
+      if req.headers.authorization?
+        # Technically, this should never get called
+        # Because the api key is always passed in as a param
+        auth.auth_header_key req.headers.authorization, cb
+      else if req.params.key?
+        auth.valid_api_key req.params.key, cb
+      else
+        cb null, false
     fans: (cb) ->
       Fan.find
         api:
