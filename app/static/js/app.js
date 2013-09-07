@@ -1,13 +1,12 @@
 (function() {
   require.config({
     paths: {
-      backbone: '/js/vendor/backbone',
-      underscore: '/js/vendor/underscore',
-      jquery: '/js/vendor/jquery-1.10.2.min',
-      marionette: '/js/vendor/backbone.marionette',
-      'backbone.wreqr': '/js/vendor/backbone.wreqr',
-      'backbone.babysitter': '/js/vendor/backbone.babysitter',
-      loudr: '/js/loudr'
+      backbone: 'vendor/backbone',
+      underscore: 'vendor/underscore',
+      jquery: 'vendor/jquery-1.10.2.min',
+      marionette: 'vendor/backbone.marionette',
+      'backbone.wreqr': 'vendor/backbone.wreqr',
+      'backbone.babysitter': 'vendor/backbone.babysitter'
     },
     shim: {
       jquery: {
