@@ -84,6 +84,16 @@ describe 'Fan API', () ->
 
       done()
 
+  # Should Get Fan By ID Instead
+  it "Should Get Fan By ID Instead", (done) ->
+    api_proxy.get '/project/' + project._id + '/fan/' + fan._id, {}, project.api.key, (err, resp, body) ->
+      assert !err
+
+      json = JSON.parse body
+      assert.equal json.success, true
+
+      done()
+
   # Should Update Fan by Email
   it "Should Update Fan by Email", (done) ->
     post_data =

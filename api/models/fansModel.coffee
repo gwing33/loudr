@@ -68,11 +68,18 @@ FanSchema.virtual('name.full').get(() ->
 
 # This will search for a fan by project_id and fan_id or Email
 FanSchema.statics.findByIdOrEmail = (project_id, id_or_email, cb) ->
+
+  checkIfIdOrEmail = new RegExp "^[0-9a-fA-F]{24}$"
+
+  options = { project_id: project_id }
+
+  if checkIfIdOrEmail.test id_or_email
+    options._id = id_or_email
+  else
+    options.email = id_or_email
+
   # Set the Project ID
-  @findOne
-    project_id: project_id
-    $or: [ { fan_id: id_or_email }, { email: id_or_email } ]
-  , (err, fan) ->
+  @findOne options, (err, fan) ->
     return cb err if err
     return cb 'Not Found', null unless fan
 
