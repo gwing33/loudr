@@ -31,7 +31,7 @@ Auth.validateRequest = (headers, options, cb) ->
   # If it is loudr authorized and there is no project ID, proceed.
   # The idea behind this:
   # You'd have to know the special loudr auth token in order to access this
-  if used_loudr_header and !options.project_id?
+  if options.loudr_only and !options.project_id?
     return cb(null, true)
 
   # Parse out the Auth Token passed in
@@ -44,12 +44,12 @@ Auth.validateRequest = (headers, options, cb) ->
     hashed_key = project.api.key
 
     # If it's a Loudr header and the token === the api key, return successfully
-    if options.loudr_only and token is hashed_key
+    if used_loudr_header and token is hashed_key
       return cb(null, project)
 
     # If it's set up as secure then I want to hash the api key
     if project.api.is_secure
-      hashed_key = Auth.hashKey project.api.key, headers.Date
+      hashed_key = Auth.hashKey project.api.key, headers.date
     
     if token is hashed_key
       return cb(null, project)
@@ -77,53 +77,9 @@ Auth.validateInternalAuthToken = (authorization) ->
 
 # Hash the key and update it with the date
 Auth.hashKey = (key, header_date) ->
-  key_hash = crypto.createHmac('sha256', key)
-
-  if header_date?
-    key_hash.update header_date
+  return false unless header_date?
+  key_hash = crypto.createHmac('sha256', key).update(header_date)
 
   return key_hash.digest('hex')
 
-###
-# Validate the Header, regular or loudr
-Auth.auth_header = (header) ->
-  return false unless header?
-  
-  return header.indexOf("Loudr :") != -1
-
-# Validate just the Admin Loudr Header
-Auth.auth_loudr_header = (header) ->
-  return false unless header?
-  return header.indexOf("Loudr asdf:") != -1
-
-# Validates both Header and API Key
-Auth.auth_header_key = (header, cb) ->
-  valid_header = Auth.auth_header header
-  return cb null, false unless valid_header
-  Auth.valid_api_key header, cb
-
-# Validate both Loudr Header and API Key
-Auth.auth_loudr_header_key = (header, cb) ->
-  valid_header = Auth.auth_loudr_header header
-  return cb null, false unless valid_header
-  Auth.valid_api_key header, cb
-
-# Validates just API Key
-Auth.valid_api_key = (token, cb) ->
-  key = token
-  if token.indexOf(":") > -1
-    key = Auth.get_api_key token
-  
-  Project.find
-    api:
-      key: key
-    , (err, projects) ->
-      cb null, false if err?
-      cb null, projects.length is 1
-
-# Returns Just the API Key portion of the token
-Auth.get_api_key = (token) ->
-  tokens = token.split ':'
-  return tokens[1]
-###
 module.exports = Auth

@@ -40,6 +40,8 @@ describe 'Project API', () ->
     post_data =
       form:
         name: 'Test Project'
+        api:
+          is_secure: true
     # request.post
     api_proxy.post '/user/' + user._id + '/project', post_data, "", (err, resp, body) ->
       assert !err
@@ -67,7 +69,16 @@ describe 'Project API', () ->
       json = JSON.parse body
       
       assert.equal json.success, true
-      done()  
+      done()
+
+  # Should Find Project by ID *AUTH*
+  it "Should Find Project by ID *AUTH*", (done) ->
+    api_proxy.unsigned_get '/user/' + user._id + '/project/' + project._id, {}, project.api.key, (err, resp, body) ->
+      assert !err
+      json = JSON.parse body
+      
+      assert.equal json.success, true
+      done()
 
   # Should Update project
   it "Should Update a project", (done) ->

@@ -48,7 +48,7 @@ exports.unsigned_post = (url, options, api_key, cb) ->
 
 exports.unsigned_get = (url, options, api_key, cb) ->
   options = @set_auth_token options, api_key
-  
+
   request.get @api_url + url, options, cb
 
 exports.unsigned_put = (url, options, api_key, cb) ->
@@ -62,10 +62,20 @@ exports.unsigned_del = (url, options, api_key, cb) ->
   request.del @api_url + url, options, cb
 
 exports.set_auth_token = (options, api_key) ->
+  d = new Date().toString()
+  key_hash = @sign_token api_key, d
+  
   options.headers = {} unless options.headers?
-  options.headers.Authorization = @get_signed_token api_key
+  options.headers.Authorization = @get_signed_token key_hash
+  options.headers.date = d
 
   return options
+
+exports.sign_token = (api_key, auth_date) ->
+  crypto = require 'crypto'
+  auth_hash = crypto.createHmac('sha256', api_key).update(auth_date)
+  return auth_hash.digest('hex')
+
 
 exports.get_signed_token = (api_key) ->
   # This token should be different from what everyone else uses

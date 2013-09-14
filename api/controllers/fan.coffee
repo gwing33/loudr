@@ -10,14 +10,14 @@ helper = require "../helpers/_controller_helper"
 exports.get_all_fans = (req, res, next) ->
   async.parallel
     auth: (cb) ->
-      auth.auth_header_key req.headers.authorization, cb
+      auth.validateRequest req.headers, { project_id: req.params.project_id }, cb
     fans: (cb) ->
       Fan.find
         id: req.params.project_id
         , (err, fans) ->
           cb err, fans
   , (err, results) ->
-    return res.send(401) unless results.auth
+    return res.send(401) unless results.auth?
     return res.send helper.fail err if err?
 
     res.send helper.success 'fans', results.fans
@@ -26,12 +26,12 @@ exports.get_all_fans = (req, res, next) ->
 exports.get_fan = (req, res, next) ->
   async.parallel
     auth: (cb) ->
-      auth.auth_header_key req.headers.authorization, cb
+      auth.validateRequest req.headers, { project_id: req.params.project_id }, cb
     fan: (cb) ->
       Fan.findByIdOrEmail req.params.project_id, req.params.fan_handle, (err, fan) ->
         cb err, fan
   , (err, results) ->
-    return res.send(401) unless results.auth
+    return res.send(401) unless results.auth?
     return res.send helper.fail err if err?
 
     res.send helper.success 'fan', results.fan
@@ -40,7 +40,7 @@ exports.get_fan = (req, res, next) ->
 exports.update_fan = (req, res, next) ->
   async.parallel
     auth: (cb) ->
-      auth.auth_header_key req.headers.authorization, cb
+      auth.validateRequest req.headers, { project_id: req.params.project_id }, cb
     fan: (cb) ->
       Fan.findByIdOrEmail req.params.project_id, req.params.fan_handle, (err, fan) ->
         return res.send helper.fail err if err
@@ -59,7 +59,7 @@ exports.update_fan = (req, res, next) ->
         
         cb null, fan
   , (err, results) ->
-    return res.send(401) unless results.auth
+    return res.send(401) unless results.auth?
     return res.send helper.fail err if err?
 
     results.fan.save (err, fan) ->
@@ -71,7 +71,7 @@ exports.update_fan = (req, res, next) ->
 exports.create_fan = (req, res, next) ->
   async.parallel
     auth: (cb) ->
-      auth.auth_header_key req.headers.authorization, cb
+      auth.validateRequest req.headers, { project_id: req.params.project_id }, cb
     fan: (cb) ->
       fan_groups = if req.body.groups? then req.body.groups else []
 
@@ -88,7 +88,7 @@ exports.create_fan = (req, res, next) ->
 
       cb null, new_fan
   , (err, results) ->
-    return res.send(401) unless results.auth
+    return res.send(401) unless results.auth?
     return res.send helper.fail err if err?
 
     results.fan.save (err, fan) ->
@@ -99,13 +99,12 @@ exports.create_fan = (req, res, next) ->
 exports.delete_fan = (req, res, next) ->
   async.parallel
     auth: (cb) ->
-      # This needs to validate both Header and API Key
-      auth.auth_header_key req.headers.authorization, cb
+      auth.validateRequest req.headers, { project_id: req.params.project_id }, cb
     fan: (cb) ->
       Fan.findByIdOrEmail req.params.project_id, req.params.fan_handle, (err, fan) ->
         cb err, fan
   , (err, results) ->
-    return res.send(401) unless results.auth
+    return res.send(401) unless results.auth?
     return res.send helper.fail err if err?
 
     results.fan.remove()

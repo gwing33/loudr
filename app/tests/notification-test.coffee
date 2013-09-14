@@ -44,9 +44,8 @@ describe 'Fan Notificaiton API', () ->
       assert.equal json.success, true
       
       user = json.user
-
       
-      api_proxy.get '/user/' + user._id + '/project/', {}, "", (err, resp, body) ->
+      api_proxy.get '/user/' + user._id + '/project', {}, "", (err, resp, body) ->
         assert !err
 
         json = JSON.parse body
@@ -55,15 +54,16 @@ describe 'Fan Notificaiton API', () ->
         project = json.projects[0]
         post_data =
           form:
-            api_key: project.api.key
-            email: 'gerald.leenerts+fan2@gmail.com'
+            project_id: project._id
+            email: 'gerald.leenerts+fan1@gmail.com'
             groups: ["Gold Membership", "Cicyle in Cirlces"]
             first_name: "Steve"
             last_name: "Steval"
             registered_date: "2013-05-17T17:32:00.171Z"
 
-        api_proxy.post '/app/' + project.api.key + '/fan/', post_data, project.api.key, (err, resp, body) ->
+        api_proxy.post '/project/' + project._id + '/fan/', post_data, project.api.key, (err, resp, body) ->
           assert !err
+          assert.notEqual body, 'Unauthorized'
 
           json = JSON.parse body
           assert.equal json.success, true
@@ -79,42 +79,18 @@ describe 'Fan Notificaiton API', () ->
         url: 'http://www.google.com'
         format: Notification.formats.TEXT
 
-    api_proxy.post '/app/fan/' + fan._id + '/note', post_data, project.api.key, (err, resp, body) ->
+    api_proxy.post '/project/' + project._id + '/fan/' + fan._id + '/note', post_data, project.api.key, (err, resp, body) ->
       assert !err
       json = JSON.parse body
+
       note = json.notification
-      
-      assert.equal json.success, true
-      done()
-
-  # Should Create Notification By Key/Email
-  it "Should Create Notification By Key/Email", (done) ->
-    post_data =
-      form:
-        text: 'Hello World 2'
-        url: 'http://www.google.com'
-        format: Notification.formats.TEXT
-
-    api_proxy.post '/app/' + project.api.key + '/fan/' + fan.email + '/note', post_data, project.api.key, (err, resp, body) ->
-      assert !err
-      json = JSON.parse body
-      note2 = json.notification
       
       assert.equal json.success, true
       done()
 
   # Should Get all Notifications
   it "Should Get all Notifications", (done) ->
-    api_proxy.get '/app/fan/' + fan._id + '/note/', {}, project.api.key, (err, resp, body) ->
-      assert !err
-      json = JSON.parse body
-
-      assert.equal json.success, true
-      done()
-
-  # Should Get all Notifications By Key/Email
-  it "Should Get all Notifications By Key/Email", (done) ->
-    api_proxy.get '/app/' + project.api.key + '/fan/' + fan.email + '/note/', {}, project.api.key, (err, resp, body) ->
+    api_proxy.get '/project/' + project._id + '/fan/' + fan._id + '/note/', {}, project.api.key, (err, resp, body) ->
       assert !err
       json = JSON.parse body
 
@@ -123,16 +99,7 @@ describe 'Fan Notificaiton API', () ->
 
   # Should Get a Notification
   it "Should Get a Notification", (done) ->
-    api_proxy.get '/app/fan/' + fan._id + '/note/' + note._id, {}, project.api.key, (err, resp, body) ->
-      assert !err
-      json = JSON.parse body
-
-      assert.equal json.success, true
-      done()
-
-  # Should Get a Notification By Key/Email
-  it "Should Get a Notification By Key/Email", (done) ->
-    api_proxy.get '/app/' + project.api.key + '/fan/' + fan.email + '/note/' + note._id, {}, project.api.key, (err, resp, body) ->
+    api_proxy.get '/project/' + project._id + '/fan/' + fan._id + '/note/' + note._id, {}, project.api.key, (err, resp, body) ->
       assert !err
       json = JSON.parse body
 
@@ -146,7 +113,7 @@ describe 'Fan Notificaiton API', () ->
         text: 'Hell World'
         url: 'http://www.twitter.com'
 
-    api_proxy.put '/app/fan/' + fan._id + '/note/' + note._id, post_data, project.api.key, (err, resp, body) ->
+    api_proxy.put '/project/' + project._id + '/fan/' + fan._id + '/note/' + note._id, post_data, project.api.key, (err, resp, body) ->
       assert !err
       json = JSON.parse body
 
@@ -154,32 +121,9 @@ describe 'Fan Notificaiton API', () ->
       assert.equal json.notification.text, 'Hell World'
       done()
 
-  # Should Update Notification By Key/Email
-  it "Should Update Notification By Key/Email", (done) ->
-    post_data =
-      form:
-        text: 'Hell World 3'
-
-    api_proxy.put '/app/' + project.api.key + '/fan/' + fan.email + '/note/' + note._id, post_data, project.api.key, (err, resp, body) ->
-      assert !err
-      json = JSON.parse body
-
-      assert.equal json.success, true
-      assert.equal json.notification.text, 'Hell World 3'
-      done()
-
   # Should Delete a Notification
   it "Should Delete a Notification", (done) ->
-    api_proxy.del '/app/fan/' + fan._id + '/note/' + note._id, {}, project.api.key, (err, resp, body) ->
-      assert !err
-      json = JSON.parse body
-      
-      assert.equal json.success, true
-      done()
-  
-  # Should Delete a Notification By Key/Email
-  it "Should Delete a Notification By Key/Email", (done) ->
-    api_proxy.del '/app/' + project.api.key + '/fan/' + fan.email + '/note/' + note._id, {}, project.api.key, (err, resp, body) ->
+    api_proxy.del '/project/' + project._id + '/fan/' + fan._id + '/note/' + note._id, {}, project.api.key, (err, resp, body) ->
       assert !err
       json = JSON.parse body
       
@@ -188,10 +132,11 @@ describe 'Fan Notificaiton API', () ->
 
   # Cleanup
   it "Should Cleanup", (done) ->
-    api_proxy.del '/app/' + project.api.key + '/fan/' + fan._id, {}, project.api.key, (err, resp, body) ->
+    api_proxy.del '/project/' + project._id + '/fan/' + fan.email, {}, project.api.key, (err, resp, body) ->
       assert !err
 
       json = JSON.parse body
+      console.log 
       assert.equal json.success, true
 
       done()
