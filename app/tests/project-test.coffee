@@ -62,7 +62,7 @@ describe 'Project API', () ->
 
   # Should Find Project by ID
   it "Should Find Project by ID", (done) ->
-    api_proxy.get '/user/' + user._id + '/project/' + project._id, {}, "", (err, resp, body) ->
+    api_proxy.get '/user/' + user._id + '/project/' + project._id, {}, project.api.key, (err, resp, body) ->
       assert !err
       json = JSON.parse body
       
@@ -75,7 +75,7 @@ describe 'Project API', () ->
       form:
         name: 'My AWESOME Application'
 
-    api_proxy.put '/user/' + user._id + '/project/' + project._id, post_data, "", (err, resp, body) ->
+    api_proxy.put '/user/' + user._id + '/project/' + project._id, post_data, project.api.key, (err, resp, body) ->
       assert !err
       json = JSON.parse body
 
@@ -89,7 +89,7 @@ describe 'Project API', () ->
       form:
         emails: ['gerald.leenerts+peon@gmail.com']
 
-    api_proxy.put '/user/' + user._id + '/project/' + project._id, post_data, "", (err, resp, body) ->
+    api_proxy.put '/user/' + user._id + '/project/' + project._id, post_data, project.api.key, (err, resp, body) ->
       assert !err
       json = JSON.parse body
       
@@ -99,7 +99,7 @@ describe 'Project API', () ->
 
   # Should Delete Project
   it "Should Delete the Project", (done) ->
-    api_proxy.del '/user/' + user._id + '/project/' + project._id, {}, "", (err, resp, body) ->
+    api_proxy.del '/user/' + user._id + '/project/' + project._id, {}, project.api.key, (err, resp, body) ->
       assert !err
       json = JSON.parse body
 

@@ -16,6 +16,9 @@ ProjectSchema = new Schema(
   ]
 
   api:
+    is_secure:
+      type: Boolean
+      default: false
     key:
       type: String
       required: true

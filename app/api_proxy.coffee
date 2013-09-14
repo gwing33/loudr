@@ -70,6 +70,6 @@ exports.set_auth_token = (options, api_key) ->
 exports.get_signed_token = (api_key) ->
   # This token should be different from what everyone else uses
   # That way I can restrict access for everyone but this application
-  token = 'Loudr :'
+  token = 'Loudr:'
   token += api_key if api_key?
   return token

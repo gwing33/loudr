@@ -9,49 +9,51 @@ helper = require "../helpers/_controller_helper"
 exports.get_all = (req, res, next) ->
   # This only needs to validate the loudr header
   # Because only the loudr site should be able to access this
-  return res.send(401) unless auth.auth_loudr_header req.headers.authorization
+  auth.validateRequest req.headers, { loudr_only: true }, (err, is_valid) ->
+    console.log('Get All Projects Auth Error:', err) if err?
+    return res.send(401) unless is_valid
   
-  Project.getAll req.params.user_id, (err, projects) ->
-    return res.send helper.fail err if err
+    Project.getAll req.params.user_id, (err, projects) ->
+      return res.send helper.fail(err) if err
 
-    res.send helper.success 'projects', projects
+      res.send helper.success 'projects', projects
   
 
 exports.get_by_id = (req, res, next) ->
   # This only needs to validate the loudr header
   # Because only the loudr site should be able to access this
-  return res.send(401) unless auth.auth_loudr_header req.headers.authorization
-
-  Project.findById req.body.id, (err, project) ->
-    return res.send herlper.fail err if err
+  auth.validateRequest req.headers, { project_id: req.params.id }, (err, project) ->
+    return res.send(401) if err?
+    # return res.send helper.fail(err) if err
     res.send helper.success 'project', project
 
 exports.create_project = (req, res, next) ->
   # This only needs to validate the loudr header
   # Because only the loudr site should be able to access this
-  return res.send(401) unless auth.auth_loudr_header req.headers.authorization
+  auth.validateRequest req.headers, { loudr_only: true }, (err, is_valid) ->
+    console.log('Create Project Auth Error:', err) if err?
+    return res.send(401) unless is_valid
   
-  new_project = new Project
-    name: req.body.name
-    users: [
-      user_id: req.params.user_id
-      permission: Project.permissions.ADMIN
-    ]
-    info:
-      creator: req.params.user_id
-  
-  new_project.api.key = Project.generateApiKey req.params.user_id
-  new_project.save (err, project) ->
-    return res.send herlper.fail err if err
-    res.send helper.success 'project', project
+    new_project = new Project
+      name: req.body.name
+      users: [
+        user_id: req.params.user_id
+        permission: Project.permissions.ADMIN
+      ]
+      info:
+        creator: req.params.user_id
+    
+    new_project.api.key = Project.generateApiKey req.params.user_id
+    new_project.save (err, project) ->
+      return res.send helper.fail(err) if err
+      res.send helper.success 'project', project
 
 exports.update_project = (req, res, next) ->
   # This only needs to validate the loudr header
   # Because only the loudr site should be able to access this
-  return res.send(401) unless auth.auth_loudr_header req.headers.authorization
-  
-  Project.findById req.params.id, (err, project) ->
-    return res.send herlper.fail err if err
+  auth.validateRequest req.headers, { project_id: req.params.id }, (err, project) ->
+    return res.send(401) if err?
+    # return res.send helper.fail(err) if err
 
     # Must be an authed user to edit the project
     return res.send(401) unless project.authed_user req.params.user_id
@@ -70,23 +72,22 @@ exports.update_project = (req, res, next) ->
             permission: Project.permissions.MODERATOR
     
         project.save (err, project) ->
-          return res.send herlper.fail err if err
+          return res.send helper.fail(err) if err
           res.send helper.success 'project', project
     else # Because it wont save the users
       project.save (err, project) ->
-        return res.send herlper.fail err if err
+        return res.send helper.fail err if err
         res.send helper.success 'project', project
 
 exports.delete_project = (req, res, next) ->
   # This only needs to validate the loudr header
   # Because only the loudr site should be able to access this
-  return res.send(401) unless auth.auth_loudr_header req.headers.authorization
+  auth.validateRequest req.headers, { project_id: req.params.id }, (err, project) ->
+    return res.send(401) if err?
+    # return res.send helper.fail(err) if err
 
-  Project.findById req.params.id, (err, project) ->
-    return res.send helper.fail err if err
-
-    # Must be an authed user to delete the project
-    return res.send(401) unless project.authed_user req.params.user_id
+    # TODO: Must be an authed user to delete the project?
+    # return res.send(401) unless project.authed_user req.params.user_id
     
     project.remove()
     res.send

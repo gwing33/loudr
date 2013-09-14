@@ -10,41 +10,25 @@ helper = require "../helpers/_controller_helper"
 exports.get_all_fans = (req, res, next) ->
   async.parallel
     auth: (cb) ->
-      if req.headers.authorization?
-        # Technically, this should never get called
-        # Because the api key is always passed in as a param
-        auth.auth_header_key req.headers.authorization, cb
-      else if req.params.key?
-        auth.valid_api_key req.params.key, cb
-      else
-        cb null, false
+      auth.auth_header_key req.headers.authorization, cb
     fans: (cb) ->
       Fan.find
-        api:
-          key: req.params.key
+        id: req.params.project_id
         , (err, fans) ->
           cb err, fans
   , (err, results) ->
-    console.log results.auth
     return res.send(401) unless results.auth
     return res.send helper.fail err if err?
 
     res.send helper.success 'fans', results.fans
 
-# Get Fan By Email
+# Get Fan By ID or Email
 exports.get_fan = (req, res, next) ->
   async.parallel
     auth: (cb) ->
-      if req.headers.authorization?
-        # Technically, this should never get called
-        # Because the api key is always passed in as a param
-        auth.auth_header_key req.headers.authorization, cb
-      else if req.params.key?
-        auth.valid_api_key req.params.key, cb
-      else
-        cb null, false
+      auth.auth_header_key req.headers.authorization, cb
     fan: (cb) ->
-      Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
+      Fan.findByIdOrEmail req.params.project_id, req.params.fan_handle, (err, fan) ->
         cb err, fan
   , (err, results) ->
     return res.send(401) unless results.auth
@@ -56,16 +40,9 @@ exports.get_fan = (req, res, next) ->
 exports.update_fan = (req, res, next) ->
   async.parallel
     auth: (cb) ->
-      if req.headers.authorization?
-        # Technically, this should never get called
-        # Because the api key is always passed in as a param
-        auth.auth_header_key req.headers.authorization, cb
-      else if req.params.key?
-        auth.valid_api_key req.params.key, cb
-      else
-        cb null, false
+      auth.auth_header_key req.headers.authorization, cb
     fan: (cb) ->
-      Fan.findByKeyAndEmail req.params.key, req.params.email, (err, fan) ->
+      Fan.findByIdOrEmail req.params.project_id, req.params.fan_handle, (err, fan) ->
         return res.send helper.fail err if err
 
         if req.body.groups?
@@ -94,20 +71,12 @@ exports.update_fan = (req, res, next) ->
 exports.create_fan = (req, res, next) ->
   async.parallel
     auth: (cb) ->
-      if req.headers.authorization?
-        # Technically, this should never get called
-        # Because the api key is always passed in as a param
-        auth.auth_header_key req.headers.authorization, cb
-      else if req.params.key?
-        auth.valid_api_key req.params.key, cb
-      else
-        cb null, false
+      auth.auth_header_key req.headers.authorization, cb
     fan: (cb) ->
       fan_groups = if req.body.groups? then req.body.groups else []
 
       new_fan = new Fan
-        api:
-          key: req.body.api_key # Named api_key to distinquish between url param and body
+        project_id: req.body.project_id
         email:  req.body.email
         name:
           first: if req.body.first_name? then req.body.first_name else ''
@@ -133,7 +102,7 @@ exports.delete_fan = (req, res, next) ->
       # This needs to validate both Header and API Key
       auth.auth_header_key req.headers.authorization, cb
     fan: (cb) ->
-      Fan.findById req.params.id, (err, fan) ->
+      Fan.findByIdOrEmail req.params.project_id, req.params.fan_handle, (err, fan) ->
         cb err, fan
   , (err, results) ->
     return res.send(401) unless results.auth

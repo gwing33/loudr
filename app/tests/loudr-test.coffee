@@ -28,7 +28,7 @@ describe 'Loudr API', () ->
   # Should Update Fan 
   # Should Update Fan by Key/Email 
   # Should Delete Fan 
-  require './fan-test'
+  # require './fan-test'
 
   # Should prep
   # Should Create Notification 
@@ -42,4 +42,4 @@ describe 'Loudr API', () ->
   # Should Delete a Notification 
   # Should Delete a Notification By Key/Email 
   # Should Cleanup 
-  require './notification-test'
+  # require './notification-test'

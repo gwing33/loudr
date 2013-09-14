@@ -3,14 +3,12 @@
 # controller classes
 exports.add = (server) ->
   # Define Controllers
-  site_controller = require './controllers/site'
   user_controller = require './controllers/user'
   project_controller = require './controllers/project'
   fan_controller = require './controllers/fan'
   notification_controller = require './controllers/notification'
 
-  # Define Routes
-  server.get '/', site_controller.index
+  # # # Define Routes # # #
 
   # Authing
   server.post '/auth/login', user_controller.login
@@ -29,22 +27,16 @@ exports.add = (server) ->
   server.put '/user/:user_id/project/:id', project_controller.update_project
   server.del '/user/:user_id/project/:id', project_controller.delete_project
   
-  # Fans - I use "app" here instead of project to shorten urls
-  server.get '/app/:key/fan/', fan_controller.get_all_fans
-  server.post '/app/:key/fan/', fan_controller.create_fan
-  server.get '/app/:key/fan/:email', fan_controller.get_fan
-  server.put '/app/:key/fan/:email', fan_controller.update_fan
-  server.del '/app/:key/fan/:id', fan_controller.delete_fan
+  # Fans
+  server.get '/project/:project_id/fan/', fan_controller.get_all_fans
+  server.post '/project/:project_id/fan/', fan_controller.create_fan
+  server.get '/project/:project_id/fan/:fan_handle', fan_controller.get_fan
+  server.put '/project/:project_id/fan/:fan_handle', fan_controller.update_fan
+  server.del '/project/:project_id/fan/:fan_handle', fan_controller.delete_fan
 
   # Fan Notifications
-  server.get '/app/fan/:fan_id/note', notification_controller.get_all_notes
-  server.get '/app/fan/:fan_id/note/:id', notification_controller.get_note
-  server.post '/app/fan/:fan_id/note', notification_controller.create_note
-  server.put '/app/fan/:fan_id/note/:id', notification_controller.update_note
-  server.del '/app/fan/:fan_id/note/:id', notification_controller.delete_note
-
-  server.get '/app/:key/fan/:email/note', notification_controller.get_all_notes_by_email
-  server.get '/app/:key/fan/:email/note/:id', notification_controller.get_note_by_email
-  server.post '/app/:key/fan/:email/note', notification_controller.create_note_by_email
-  server.put '/app/:key/fan/:email/note/:id', notification_controller.update_note_by_email
-  server.del '/app/:key/fan/:email/note/:id', notification_controller.delete_note_by_email
+  server.get '/project/:project_id/fan/:fan_handle/note', notification_controller.get_all_notes
+  server.get '/project/:project_id/fan/:fan_handle/note/:id', notification_controller.get_note
+  server.post '/project/:project_id/fan/:fan_handle/note', notification_controller.create_note
+  server.put '/project/:project_id/fan/:fan_handle/note/:id', notification_controller.update_note
+  server.del '/project/:project_id/fan/:fan_handle/note/:id', notification_controller.delete_note

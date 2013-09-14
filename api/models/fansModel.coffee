@@ -2,6 +2,7 @@ mongoose = require("mongoose")
 NotificationSchema = require("./notificationsSchema")
 
 Schema = mongoose.Schema
+ObjectId = Schema.ObjectId
 
 # Named them fans to avoid something like having "users" and "application users" confusion
 FanSchema = new Schema(
@@ -15,6 +16,11 @@ FanSchema = new Schema(
     type: String
     required: true
 
+  # This is a user entered param
+  # This is a string, not an 'ObjectId'
+  fan_id:
+    type: String
+
   social:
     facebook:
       type: String
@@ -24,10 +30,9 @@ FanSchema = new Schema(
       type: String
 
   # Reference to the APP
-  api:
-    key:
-      type: String
-      required: true
+  project_id:
+    type: ObjectId
+    required: true
 
   notifications: [NotificationSchema.model]
 
@@ -61,11 +66,12 @@ FanSchema.virtual('name.full').get(() ->
     else
       @.name.last = split[1]
 
-FanSchema.statics.findByKeyAndEmail = (key, email, cb) ->
+# This will search for a fan by project_id and fan_id or Email
+FanSchema.statics.findByIdOrEmail = (project_id, id_or_email, cb) ->
+  # Set the Project ID
   @findOne
-    api:
-      key: key
-    email: email
+    project_id: project_id
+    $or: [ { fan_id: id_or_email }, { email: id_or_email } ]
   , (err, fan) ->
     return cb err if err
     return cb 'Not Found', null unless fan
