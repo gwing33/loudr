@@ -10,7 +10,6 @@ exports.get_all = (req, res, next) ->
   # This only needs to validate the loudr header
   # Because only the loudr site should be able to access this
   auth.validateRequest req.headers, { loudr_only: true }, (err, is_valid) ->
-    console.log('Get All Projects Auth Error:', err) if err?
     return res.send(401) unless is_valid
   
     Project.getAll req.params.user_id, (err, projects) ->
@@ -34,7 +33,6 @@ exports.create_project = (req, res, next) ->
   # This only needs to validate the loudr header
   # Because only the loudr site should be able to access this
   auth.validateRequest req.headers, { loudr_only: true }, (err, is_valid) ->
-    console.log('Create Project Auth Error:', err) if err?
     return res.send(401) unless is_valid
     
     new_project = new Project
@@ -67,6 +65,8 @@ exports.update_project = (req, res, next) ->
 
     project.disabled = req.body.disabled if req.body.disabled?
 
+    new_project.api.is_secure = req.body.api.is_secure if req.body.api.is_secure?
+    
     if req.body.emails?
       User.getAllByEmails req.body.emails, (err, users) ->
         return res.send helper.fail err if err
