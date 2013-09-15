@@ -10,7 +10,6 @@ exports.get_user = (req, res, next) ->
   # This only needs to validate the loudr header
   # Because only the loudr site should be able to access this
   auth.validateRequest req.headers, { loudr_only: true }, (err, is_valid) ->
-    console.log('Get User Auth Error:', err) if err?
     return res.send(401) unless is_valid
 
     User.findById req.params.id, (err, user) ->
@@ -23,7 +22,6 @@ exports.get_all_users = (req, res, next) ->
   # This only needs to validate the loudr header
   # Because only the loudr site should be able to access this
   auth.validateRequest req.headers, { loudr_only: true }, (err, is_valid) ->
-    console.log('Get All User Auth Error:', err) if err?
     return res.send(401) unless is_valid
 
     User.find {}, (err, users) ->
@@ -37,7 +35,6 @@ exports.login = (req, res, next) ->
   # This only needs to validate the loudr header
   # Because only the loudr site should be able to access this
   auth.validateRequest req.headers, { loudr_only: true }, (err, is_valid) ->
-    console.log('Login Error:', err) if err?
     return res.send(401) unless is_valid
 
     # With email and password, validate user
@@ -66,7 +63,6 @@ exports.update_user = (req, res, next) ->
   # This only needs to validate the loudr header
   # Because only the loudr site should be able to access this
   auth.validateRequest req.headers, { loudr_only: true }, (err, is_valid) ->
-    console.log('Update User Error:', err) if err?
     return res.send(401) unless is_valid
 
     User.findById req.params.id, (err, user) ->
@@ -75,7 +71,7 @@ exports.update_user = (req, res, next) ->
       # Start checking what has changed
       async.waterfall [
         (cb) ->
-          if req.body.new_password
+          if req.body.new_password?
             user.comparePassword req.body.password, (err, isMatch) ->
               cb err if err
 
@@ -84,7 +80,11 @@ exports.update_user = (req, res, next) ->
           else
             cb null, user
         , (user, cb) ->
-          user.set('name.full', req.body.full_name) if req.body.full_name
+          if req.body.full_name?
+            user.set('name.full', req.body.full_name)
+          else
+            name.first = req.body.first_name if req.body.first_name?
+            name.last = req.body.last_name if req.body.last_name?
 
           user.save (err, user) ->
             cb err if err
@@ -100,7 +100,6 @@ exports.create_user = (req, res, next) ->
   # This only needs to validate the loudr header
   # Because only the loudr site should be able to access this
   auth.validateRequest req.headers, { loudr_only: true }, (err, is_valid) ->
-    console.log('Create User Error:', err) if err?
     return res.send(401) unless is_valid
   
     name = {}
@@ -127,7 +126,6 @@ exports.delete_user = (req, res, next) ->
   # This only needs to validate the loudr header
   # Because only the loudr site should be able to access this
   auth.validateRequest req.headers, { loudr_only: true }, (err, is_valid) ->
-    console.log('Delete User Error:', err) if err?
     return res.send(401) unless is_valid
 
     User.removeById req.params.id, (err, success) ->

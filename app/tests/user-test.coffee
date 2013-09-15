@@ -60,7 +60,7 @@ describe 'User API', () ->
     api_proxy.get '/user/', {}, "", (err, resp, body) ->
       assert !err
       json = JSON.parse body
-
+      
       assert.equal json.success, true
       done()
   
@@ -85,5 +85,6 @@ describe 'User API', () ->
     api_proxy.del '/user/' + tmp_user.user._id, {}, "", (err, resp, body) ->
       assert !err
       json = JSON.parse body
+
       assert.equal json.success, true
       done()
