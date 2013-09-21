@@ -13,7 +13,7 @@ exports.get_all_fans = (req, res, next) ->
       auth.validateRequest req.headers, { project_id: req.params.project_id }, cb
     fans: (cb) ->
       Fan.find
-        id: req.params.project_id
+        project_id: req.params.project_id
         , (err, fans) ->
           cb err, fans
   , (err, results) ->

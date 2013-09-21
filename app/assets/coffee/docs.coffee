@@ -3,7 +3,7 @@ require.config
   paths:
     backbone: '/js/vendor/backbone'
     underscore: '/js/vendor/underscore'
-    jquery: '/js/vendor/jquery-1.9.1.min'
+    jquery: '/js/vendor/jquery-1.10.2.min'
   shim:
     jquery:
       exports: 'jQuery'

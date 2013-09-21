@@ -65,8 +65,8 @@ exports.update_project = (req, res, next) ->
 
     project.disabled = req.body.disabled if req.body.disabled?
 
-    new_project.api.is_secure = req.body.api.is_secure if req.body.api.is_secure?
-    
+    new_project.api.is_secure = req.body.api.is_secure if req.body.api? and req.body.api.is_secure?
+
     if req.body.emails?
       User.getAllByEmails req.body.emails, (err, users) ->
         return res.send helper.fail err if err

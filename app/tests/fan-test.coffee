@@ -70,6 +70,8 @@ describe 'Fan API', () ->
       assert !err
 
       json = JSON.parse body
+      console.log json
+      assert.equal json.success, true
       assert.equal json.success, true
 
       done()

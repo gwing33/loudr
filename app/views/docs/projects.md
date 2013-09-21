@@ -47,18 +47,15 @@ Return a single Project.
 ```
 {
   success: true,
-  project: [
-    {
-      name: '',
-      _id: ObjectId,
-      __v: 0,
-      info: [Object],
-      disabled: false,
-      api: [Object],
-      users: [Object]
-    },
-    ...
-  ]
+  project: {
+    name: '',
+    _id: ObjectId,
+    __v: 0,
+    info: [Object],
+    disabled: false,
+    api: [Object],
+    users: [Object]
+  }
 }
 ```
 
@@ -81,18 +78,15 @@ Creates and returns the project.
 ```
 {
   success: true,
-  project: [
-    {
-      name: '',
-      _id: ObjectId,
-      __v: 0,
-      info: [Object],
-      disabled: false,
-      api: [Object],
-      users: [Object]
-    },
-    ...
-  ]
+  project: {
+    name: '',
+    _id: ObjectId,
+    __v: 0,
+    info: [Object],
+    disabled: false,
+    api: [Object],
+    users: [Object]
+  }
 }
 ```
 
@@ -115,18 +109,15 @@ Update and return updated Project.
 ```
 {
   success: true,
-  project: [
-    {
-      name: '',
-      _id: ObjectId,
-      __v: 0,
-      info: [Object],
-      disabled: false,
-      api: [Object],
-      users: [Object]
-    },
-    ...
-  ]
+  project: {
+    name: '',
+    _id: ObjectId,
+    __v: 0,
+    info: [Object],
+    disabled: false,
+    api: [Object],
+    users: [Object]
+  }
 }
 ```
 
