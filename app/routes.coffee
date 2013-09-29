@@ -15,7 +15,7 @@ exports.add = (app) ->
   app.get "/project", project_controller.index
   app.post "/project", project_controller.create
 
-  app.get "/fan/:api_key", fan_controller.index
+  app.get "/fan/:id", fan_controller.index
 
   app.get "/docs", docs_controller.index
   app.get "/docs/:page", docs_controller.index

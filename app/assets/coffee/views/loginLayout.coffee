@@ -1,4 +1,4 @@
-define ["marionette"], (Marionette) ->
+define ["backbone", "marionette"], (Backbone, Marionette) ->
 
   class LoudrLogin extends Marionette.Layout
     initialize: (options) ->
@@ -21,7 +21,7 @@ define ["marionette"], (Marionette) ->
       @app.auth.login email, password, (success) ->
 
         if success
-          $this.app.router.navigate '/',
+          Backbone.history.navigate '/',
             trigger: true
           return
 

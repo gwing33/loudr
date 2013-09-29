@@ -2,7 +2,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(["marionette"], function(Marionette) {
+  define(["backbone", "marionette"], function(Backbone, Marionette) {
     var LoudrLogin, _ref;
 
     LoudrLogin = (function(_super) {
@@ -33,7 +33,7 @@
         $this = this;
         return this.app.auth.login(email, password, function(success) {
           if (success) {
-            $this.app.router.navigate('/', {
+            Backbone.history.navigate('/', {
               trigger: true
             });
           }
