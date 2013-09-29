@@ -12,9 +12,10 @@
 
 **GET** `/user`
 
-Returns a list of all Loudr Users.
+### Optional Arguments
+- limit: defaults to All Users
 
-**TODO:** Add Pagination at some point.
+Returns a list of all Loudr Users.
 
 ### Response Structure
 

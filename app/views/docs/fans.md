@@ -14,9 +14,8 @@
 
 Returns a list of all Fans for a project as well as all their notifications.
 
-TODO: Paging
-
-TODO: Limit number of notifications returned
+### Optional Arguments
+- limit: defaults to All Users
 
 ### Response Structure
 
@@ -36,7 +35,10 @@ TODO: Limit number of notifications returned
       },
       groups: [String],
       notifications: [ NotificationObject ],
-      name: [Object] 
+      name: {
+        first: '',
+        last: ''
+      }
     },
     ...
   ]
@@ -67,7 +69,10 @@ Return a single Fan.
     },
     groups: [String],
     notifications: [ NotificationObject ],
-    name: [Object] 
+    name: {
+      first: '',
+      last: ''
+    }
   }
 }
 ```
@@ -79,13 +84,12 @@ Return a single Fan.
 
 Creates and returns the fan.
 
-TODO: Add in Full Name ability
-
 ### Arguments
 ##### Required
 - **email**: String
 
 ##### Optional
+- **full_name**: String (will auto convert to first_name and last_name name)
 - **first_name**: String
 - **last_name**: String
 - **fan_groups**: Comma seperated String
@@ -108,7 +112,10 @@ TODO: Add in Full Name ability
     },
     groups: [String],
     notifications: [ NotificationObject ],
-    name: [Object] 
+    name: {
+      first: '',
+      last: ''
+    }
   }
 }
 ```
@@ -120,11 +127,10 @@ TODO: Add in Full Name ability
 
 Update and return updated Fan.
 
-TODO: Add in Full Name ability
-
 ### Arguments
 ##### Optional
 - **email**: String
+- **full_name**: String (will auto convert to first_name and last_name name)
 - **first_name**: String
 - **last_name**: String
 - **fan_groups**: Comma seperated String
@@ -147,7 +153,10 @@ TODO: Add in Full Name ability
     },
     groups: [String],
     notifications: [ NotificationObject ],
-    name: [Object] 
+    name: {
+      first: '',
+      last: ''
+    }
   }
 }
 ```

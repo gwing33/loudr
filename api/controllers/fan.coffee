@@ -12,10 +12,14 @@ exports.get_all_fans = (req, res, next) ->
     auth: (cb) ->
       auth.validateRequest req.headers, { project_id: req.params.project_id }, cb
     fans: (cb) ->
-      Fan.find
+      q = Fan.find 
         project_id: req.params.project_id
-        , (err, fans) ->
-          cb err, fans
+
+      if req.query.limit?
+        q.limit(req.query.limit)
+      
+      q.execFind (err, fans) ->
+        cb err, fans
   , (err, results) ->
     return res.send(401) unless results.auth?
     return res.send helper.fail err if err?
@@ -53,8 +57,12 @@ exports.update_fan = (req, res, next) ->
         if req.body.remove_groups?
           fan.groups = _.difference fan.groups, req.body.remove_groups
 
-        fan.name.first = req.body.first_name if req.body.first_name?
-        fan.name.last = req.body.last_name if req.body.last_name?
+        if req.body.full_name?
+          fan.set('name.full', req.body.full_name)
+        else
+          fan.name.first = req.body.first_name if req.body.first_name?
+          fan.name.last = req.body.last_name if req.body.last_name?
+        
         fan.info.registered = req.body.registered_date if req.body.registered_date?
         
         cb null, fan
@@ -78,13 +86,16 @@ exports.create_fan = (req, res, next) ->
       new_fan = new Fan
         project_id: req.body.project_id
         email:  req.body.email
-        name:
-          first: if req.body.first_name? then req.body.first_name else ''
-          last: if req.body.last_name? then req.body.last_name else ''
         notifications: []
         groups: fan_groups
         info:
           registered: if req.body.registered_date? then req.body.registered_date else Date.now()
+
+      if req.body.full_name?
+        new_fan.set('name.full', req.body.full_name)
+      else
+        new_fan.name.first = req.body.first_name if req.body.first_name?
+        new_fan.name.last = req.body.last_name if req.body.last_name?
 
       cb null, new_fan
   , (err, results) ->

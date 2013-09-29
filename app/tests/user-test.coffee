@@ -63,6 +63,16 @@ describe 'User API', () ->
       
       assert.equal json.success, true
       done()
+
+  # It Should find all users with a limit
+  it "Should find all users with a limit", (done) ->
+    api_proxy.get '/user/?limit=1', {}, "", (err, resp, body) ->
+      assert !err
+      json = JSON.parse body
+      
+      assert.equal json.users.length, 1
+      assert.equal json.success, true
+      done()
   
   # It Should update a user
   it "Should update a user", (done) ->

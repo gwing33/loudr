@@ -64,16 +64,43 @@ describe 'Fan API', () ->
       fan = json.fan
       done()
 
+  # Should Create Another Fan
+  it "Should Create Another Fan with full_name", (done) ->
+    post_data =
+      form:
+        project_id: project._id
+        email: 'gerald.leenerts+fan2@gmail.com'
+        groups: ["Gold Membership"]
+        full_name: "Frank Fronkel"
+        registered_date: "2013-05-17T17:32:00.171Z"
+
+    api_proxy.post '/project/' + project._id + '/fan/', post_data, project.api.key, (err, resp, body) ->
+      assert !err
+      assert.notEqual body, 'Unauthorized'
+
+      json = JSON.parse body
+      assert.equal json.success, true
+
+      done()
+
   # Should Get all Fans by Key
   it "Should Get all Fans", (done) ->
     api_proxy.get '/project/' + project._id + '/fan/', {}, project.api.key, (err, resp, body) ->
       assert !err
 
       json = JSON.parse body
-      
       assert.equal json.success, true
-      assert.equal json.success, true
+      assert.equal json.fans.length, 2
+      done()
 
+  # Should Get all Fans by Key
+  it "Should Get all Fans with limit", (done) ->
+    api_proxy.get '/project/' + project._id + '/fan/?limit=1', {}, project.api.key, (err, resp, body) ->
+      assert !err
+
+      json = JSON.parse body
+      assert.equal json.success, true
+      assert.equal json.fans.length, 1
       done()
 
   # Should Get Fan By Email
@@ -101,6 +128,7 @@ describe 'Fan API', () ->
     post_data =
       form:
         remove_groups: ['Gold Membership']
+        full_name: 'Joe Smith'
 
     api_proxy.put '/project/' + project._id + '/fan/' + fan.email, post_data, project.api.key, (err, resp, body) ->
       assert !err
@@ -108,11 +136,23 @@ describe 'Fan API', () ->
 
       assert.equal json.fan.groups.length, 1
       assert.equal json.success, true
+      assert.equal json.fan.name.first, "Joe"
+      assert.equal json.fan.name.last, "Smith"
       done()
 
   # Should Delete Fan
   it "Should Delete Fan", (done) ->
     api_proxy.del '/project/' + project._id + '/fan/' + fan.email, {}, project.api.key, (err, resp, body) ->
+      assert !err
+
+      json = JSON.parse body
+      assert.equal json.success, true
+
+      done()
+
+  # Should Delete 2nd Fan
+  it "Should Delete 2nd Fan", (done) ->
+    api_proxy.del '/project/' + project._id + '/fan/gerald.leenerts+fan2@gmail.com', {}, project.api.key, (err, resp, body) ->
       assert !err
 
       json = JSON.parse body

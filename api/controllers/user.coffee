@@ -24,7 +24,12 @@ exports.get_all_users = (req, res, next) ->
   auth.validateRequest req.headers, { loudr_only: true }, (err, is_valid) ->
     return res.send(401) unless is_valid
 
-    User.find {}, (err, users) ->
+    q = User.find({})
+    
+    if req.query.limit?
+      q.limit(req.query.limit)
+
+    q.execFind (err, users) ->
       return res.send helper.fail err if err?
 
       res.send helper.success 'users', users
