@@ -44,7 +44,7 @@ exports.create_project = (req, res, next) ->
       info:
         creator: req.params.user_id
     
-    new_project.api.is_secure = req.body.api.is_secure if req.body.api.is_secure?
+    new_project.api.is_secure = req.body.api.is_secure if req.body.api? and req.body.api.is_secure?
     
     new_project.api.key = Project.generateApiKey req.params.user_id
     new_project.save (err, project) ->
