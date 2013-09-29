@@ -10,17 +10,11 @@ api_proxy = require "../api_proxy"
 ###
   Notification Tests
 
-  get /app/fan/:fan_id/note
-  get /app/fan/:fan_id/note/:id
-  post /app/fan/:fan_id/note
-  put /app/fan/:fan_id/note/:id
-  del /app/fan/:fan_id/note/:id
-
-  get /app/:key/fan/:email/note
-  get /app/:key/fan/:email/note/:id
-  post /app/:key/fan/:email/note
-  put /app/:key/fan/:email/note/:id
-  del /app/:key/fan/:email/note/:id
+  GET /project/:project_id/fan/:fan_handle/note
+  GET /project/:project_id/fan/:fan_handle/note/:id
+  POST /project/:project_id/fan/:fan_handle/note
+  PUT /project/:project_id/fan/:fan_handle/note/:id
+  DEL /project/:project_id/fan/:fan_handle/note/:id
 ###
 
 user = {}
@@ -93,7 +87,7 @@ describe 'Fan Notificaiton API', () ->
     api_proxy.get '/project/' + project._id + '/fan/' + fan._id + '/note/', {}, project.api.key, (err, resp, body) ->
       assert !err
       json = JSON.parse body
-
+      
       assert.equal json.success, true
       done()
 

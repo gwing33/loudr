@@ -118,7 +118,7 @@ TODO: Add in Full Name ability
 
 **PUT** `/project/:project_id/fan/:fan_handle`
 
-Update and return updated Project.
+Update and return updated Fan.
 
 TODO: Add in Full Name ability
 
