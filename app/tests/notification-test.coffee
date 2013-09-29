@@ -1,4 +1,3 @@
-
 assert = require "assert"
 should = require "should"
 mongoose = require "mongoose"
@@ -80,6 +79,20 @@ describe 'Fan Notificaiton API', () ->
       note = json.notification
       
       assert.equal json.success, true
+      done()
+
+  # Should Not Create Notification
+  it "Should Not Create Notification", (done) ->
+    post_data =
+      form:
+        format: Notification.formats.TEXT
+
+    api_proxy.post '/project/' + project._id + '/fan/' + fan._id + '/note', post_data, project.api.key, (err, resp, body) ->
+      console.log err, body
+      assert !err
+      json = JSON.parse body
+      
+      assert.equal json.success, false
       done()
 
   # Should Get all Notifications

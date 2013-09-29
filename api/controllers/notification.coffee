@@ -20,7 +20,17 @@ exports.get_all_notes = (req, res, next) ->
     return res.send(401) unless results.auth
     return res.send helper.fail err if err?
 
-    res.send helper.success 'notifications', results.fan.notifications
+    limit = if req.query.limit? then req.query.limit else 10
+    page = if req.query.page? then req.query.page else 1
+
+    start_range = (page-1) * limit
+    end_range = page * limit
+
+    # Fix ranges if they are over exposed
+    start_range = 0 if start_range < 0
+    end_range = results.fan.notifications.length if end_range > results.fan.notifications.length
+
+    res.send helper.success 'notifications', results.fan.notifications.splice start_range, end_range
 
 # Get all Notifications by Email
 exports.get_all_notes_by_email = (req, res, next) ->
@@ -97,8 +107,15 @@ exports.create_note = (req, res, next) ->
 
     new_notification = new Notification
 
-    new_notification.html = req.body.html if req.body.html?
-    new_notification.text = req.body.text if req.body.text?
+    if req.body.html?
+      new_notification.html = req.body.html
+      new_notification.format = Notification.formats.HTML
+    else if req.body.text?
+      new_notification.text = req.body.text
+      new_notification.format = Notification.formats.TEXT
+    else if !req.body.url?
+      res.send 403, helper.fail('Note must have HTML, Text or a URL.')
+
     new_notification.url = req.body.url if req.body.url?
     new_notification.kind = req.body.kind if req.body.kind?
     new_notification.format = req.body.format if req.body.format?
