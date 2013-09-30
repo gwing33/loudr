@@ -88,7 +88,6 @@ describe 'Fan Notificaiton API', () ->
         format: Notification.formats.TEXT
 
     api_proxy.post '/project/' + project._id + '/fan/' + fan._id + '/note', post_data, project.api.key, (err, resp, body) ->
-      console.log err, body
       assert !err
       json = JSON.parse body
       

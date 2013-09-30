@@ -146,7 +146,7 @@ if typeof window.Loudr isnt "function"
         typeof t is "string" and (t = JSON.parse(t))
         e.success(t)
 
-      r = document.createElement("SCRIPT")
+      r = document.createElement("script")
       r.id = n
       r.setAttribute("charset", "utf-8")
       r.setAttribute("type", "text/javascript")
@@ -158,12 +158,18 @@ if typeof window.Loudr isnt "function"
 
     if typeof @settings == "object"
       # The only 2 required fields
-      if @settings.api_key? and @settings.email?
+      if @settings.project_id? and @settings.email?
+        url = '/p/' + @settings.project_id
+        
+        if @settings.hash?
+          url += '/h/' + @settings.hash + '/' + @settings.hash_date
+
+        url += '/f/' + @settings.email
         # Retreive User Notification list
         # This will pass up every attribute
         # It will create the user if it doesn't exist.
         @ajax
-          url: '/app/' + @settings.api_key + '/fan/' + @settings.email + '/note'
+          url: url
           success: (j) ->
             console.log 'JS Plugin:', j
 

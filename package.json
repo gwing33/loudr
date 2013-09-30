@@ -7,7 +7,7 @@
   "scripts": {
     "test": "grunt simplemocha",
     "start": "coffee app.coffee & coffee api.coffee",
-    "start-dev": "grunt watch & compass watch & node-dev --debug=5858 app.coffee & node-dev --debug=5859 api.coffee & node-inspector --web-port=3002"
+    "start-dev": "grunt watch & compass watch & node-dev --debug=5859 api.coffee & node-dev --debug=5858 app.coffee & node-inspector --web-port=3001"
   },
   "engines": {
     "node": ">= 0.10.10",

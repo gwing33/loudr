@@ -14,7 +14,7 @@
       }
 
       FanRouter.prototype.controller = {
-        create_fan: function(project_id) {}
+        fan: function(project_id) {}
       };
 
       FanRouter.prototype.initialize = function(options) {
@@ -22,7 +22,7 @@
       };
 
       FanRouter.prototype.appRoutes = {
-        "project/:project_id/fan": "create_fan"
+        "project/:project_id/fan": "fan"
       };
 
       return FanRouter;

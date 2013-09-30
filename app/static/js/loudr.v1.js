@@ -212,6 +212,8 @@
 
   if (typeof window.Loudr !== "function") {
     window.Loudr = function() {
+      var url;
+
       this.ajax = function(e) {
         var dt, n, r;
 
@@ -225,7 +227,7 @@
           typeof t === "string" && (t = JSON.parse(t));
           return e.success(t);
         };
-        r = document.createElement("SCRIPT");
+        r = document.createElement("script");
         r.id = n;
         r.setAttribute("charset", "utf-8");
         r.setAttribute("type", "text/javascript");
@@ -234,9 +236,14 @@
       };
       this.settings = window.loudrSettings;
       if (typeof this.settings === "object") {
-        if ((this.settings.api_key != null) && (this.settings.email != null)) {
+        if ((this.settings.project_id != null) && (this.settings.email != null)) {
+          url = '/p/' + this.settings.project_id;
+          if (this.settings.hash != null) {
+            url += '/h/' + this.settings.hash + '/' + this.settings.hash_date;
+          }
+          url += '/f/' + this.settings.email;
           return this.ajax({
-            url: '/app/' + this.settings.api_key + '/fan/' + this.settings.email + '/note',
+            url: url,
             success: function(j) {
               return console.log('JS Plugin:', j);
             }

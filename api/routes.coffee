@@ -13,6 +13,7 @@ exports.add = (server) ->
   # Authing
   server.post '/auth/login', user_controller.login
 
+
   # Users
   server.get '/user', user_controller.get_all_users
   server.get '/user/:id', user_controller.get_user
@@ -26,6 +27,10 @@ exports.add = (server) ->
   server.post '/user/:user_id/project', project_controller.create_project
   server.put '/user/:user_id/project/:id', project_controller.update_project
   server.del '/user/:user_id/project/:id', project_controller.delete_project
+
+  # This will generate a usable hash for the project
+  server.get '/get/auth/hash/:project_id', project_controller.generate_hash
+  server.get '/get/auth/hash/:project_id/:date', project_controller.generate_hash_date
   
   # Fans
   server.get '/project/:project_id/fan/', fan_controller.get_all_fans
@@ -40,3 +45,7 @@ exports.add = (server) ->
   server.post '/project/:project_id/fan/:fan_handle/note', notification_controller.create_note
   server.put '/project/:project_id/fan/:fan_handle/note/:id', notification_controller.update_note
   server.del '/project/:project_id/fan/:fan_handle/note/:id', notification_controller.delete_note
+
+  # Fan Script Notification Calls
+  server.get '/p/:project_id/f/:fan_handle', notification_controller.unsecure_all_notes
+  server.get '/p/:project_id/h/:hash/:date/f/:fan_handle', notification_controller.secure_all_notes

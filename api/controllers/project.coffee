@@ -97,3 +97,24 @@ exports.delete_project = (req, res, next) ->
     project.remove()
     res.send
       success: true
+
+
+exports.generate_hash = (req, res, next) ->
+  Project.findById req.params.project_id, (err, project) ->
+    obj = {
+      api_key: project.api.key
+      date: +new Date
+    }
+    obj.hash = auth.hashKey project.api.key, obj.date.toString()
+
+    res.send obj
+
+exports.generate_hash_date = (req, res, next) ->
+  Project.findById req.params.project_id, (err, project) ->
+    obj = {
+      api_key: project.api.key
+      date: req.params.date
+    }
+    obj.hash = auth.hashKey project.api.key, obj.date
+
+    res.send obj

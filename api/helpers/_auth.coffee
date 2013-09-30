@@ -48,9 +48,10 @@ Auth.validateRequest = (headers, options, cb) ->
       return cb(null, project)
 
     # If it's set up as secure then I want to hash the api key
+    console.log headers.date, project.api.key
     if project.api.is_secure
       hashed_key = Auth.hashKey project.api.key, headers.date
-    
+    console.log token, hashed_key
     if token is hashed_key
       return cb(null, project)
     else
