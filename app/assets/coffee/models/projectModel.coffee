@@ -1,4 +1,4 @@
-define ["backbone", "marionette"], (Backbone, Marionette) ->
+define ["backbone"], (Backbone) ->
 
   class LoudrProjectModel extends Backbone.Model
     parse: (json) ->

@@ -1,4 +1,4 @@
-define ['marionette', 'routers/dashboardRouter', 'routers/projectRouter', 'views/nav', 'models/auth'], (Marionette, DashboardRouter, ProjectRouter, LoudrNav, LoudrAuth) ->
+define ['marionette', 'routers/dashboardRouter', 'routers/projectRouter', 'routers/fanRouter', 'views/nav', 'models/auth'], (Marionette, DashboardRouter, ProjectRouter, FanRouter, LoudrNav, LoudrAuth) ->
 
   Loudr = new Marionette.Application()
 
@@ -17,19 +17,21 @@ define ['marionette', 'routers/dashboardRouter', 'routers/projectRouter', 'views
     @auth = new LoudrAuth()
 
     # Init Navigation
-    nav_collection = new LoudrNav.Collection()
     @nav = new LoudrNav.Layout
-      collection: nav_collection
+      collection: new LoudrNav.Collection()
 
   # After...
   Loudr.on 'initialize:after', () ->
-    @router = {}
+    @routers = {}
 
     # Init Routers
-    @router.dash = new DashboardRouter
+    @routers.dash = new DashboardRouter
       app: @
 
-    @router.project = new ProjectRouter
+    @routers.project = new ProjectRouter
+      app: @
+
+    @routers.fan = new FanRouter
       app: @
 
     @navRegion.show @nav

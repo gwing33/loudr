@@ -1,5 +1,5 @@
 (function() {
-  define(['marionette', 'routers/dashboardRouter', 'routers/projectRouter', 'views/nav', 'models/auth'], function(Marionette, DashboardRouter, ProjectRouter, LoudrNav, LoudrAuth) {
+  define(['marionette', 'routers/dashboardRouter', 'routers/projectRouter', 'routers/fanRouter', 'views/nav', 'models/auth'], function(Marionette, DashboardRouter, ProjectRouter, FanRouter, LoudrNav, LoudrAuth) {
     var Loudr;
 
     Loudr = new Marionette.Application();
@@ -11,20 +11,20 @@
       return $('#page_header div').html(text);
     };
     Loudr.addInitializer(function() {
-      var nav_collection;
-
       this.auth = new LoudrAuth();
-      nav_collection = new LoudrNav.Collection();
       return this.nav = new LoudrNav.Layout({
-        collection: nav_collection
+        collection: new LoudrNav.Collection()
       });
     });
     Loudr.on('initialize:after', function() {
-      this.router = {};
-      this.router.dash = new DashboardRouter({
+      this.routers = {};
+      this.routers.dash = new DashboardRouter({
         app: this
       });
-      this.router.project = new ProjectRouter({
+      this.routers.project = new ProjectRouter({
+        app: this
+      });
+      this.routers.fan = new FanRouter({
         app: this
       });
       this.navRegion.show(this.nav);

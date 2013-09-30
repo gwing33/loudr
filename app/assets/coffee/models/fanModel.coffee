@@ -1,4 +1,4 @@
-define ["marionette"], (Marionette) ->
+define ["backbone"], (Backbone) ->
   class LoudrFanModel extends Backbone.Model
     parse: (json) ->
       if json.success

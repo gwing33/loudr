@@ -1,4 +1,4 @@
-define ["backbone", "marionette"], (Backbone, Marionette) ->
+define ["marionette"], (Marionette) ->
 
   class ProjectItem extends Marionette.ItemView
     tagName: 'li'

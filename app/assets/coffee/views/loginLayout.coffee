@@ -21,8 +21,7 @@ define ["backbone", "marionette"], (Backbone, Marionette) ->
       @app.auth.login email, password, (success) ->
 
         if success
-          Backbone.history.navigate '/',
-            trigger: true
+          Backbone.history.navigate '/', { trigger: true }
           return
 
   return LoudrLogin
