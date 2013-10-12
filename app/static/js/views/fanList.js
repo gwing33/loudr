@@ -17,10 +17,6 @@
 
       LoudrFanItem.prototype.template = "#fan_list_template";
 
-      LoudrFanItem.prototype.onBeforeRender = function() {
-        return console.log(this);
-      };
-
       return LoudrFanItem;
 
     })(Marionette.ItemView);

@@ -33,14 +33,20 @@
 
       LoudrFanCollection.prototype.project_id = '';
 
+      LoudrFanCollection.prototype.key = '';
+
       LoudrFanCollection.prototype.model = LoudrFanModel;
 
       LoudrFanCollection.prototype.url = function() {
-        return '/fan/' + this.project_id;
+        var qs;
+
+        qs = this.key !== '' ? '?key=' + this.key : '';
+        return '/project/' + this.project_id + '/fan/' + qs;
       };
 
       LoudrFanCollection.prototype.initialize = function(models, options) {
-        return this.project_id = options.project_id;
+        this.project_id = options.project_id;
+        return this.key = options.key;
       };
 
       LoudrFanCollection.prototype.parse = function(json) {

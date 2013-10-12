@@ -29,7 +29,7 @@
 
   } else if (typeof define === 'function' && define.amd) {
 
-    define(['underscore', 'backbone', 'backbone.wreqr', 'backbone.babysitter'], factory);
+    define(['underscore', 'backbone', 'backbone.queryparams', 'backbone.wreqr', 'backbone.babysitter'], factory);
 
   }
 }(this, function (_, Backbone) {

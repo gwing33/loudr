@@ -2,7 +2,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(["backbone", "marionette", "models/fanModel"], function(Backbone, Marionette, FanCollection) {
+  define(["backbone", "marionette", "loudr.config", "models/fanModel"], function(Backbone, Marionette, LoudrConfig, FanCollection) {
     var FanRouter, _ref;
 
     FanRouter = (function(_super) {
@@ -14,15 +14,17 @@
       }
 
       FanRouter.prototype.controller = {
-        fan: function(project_id) {}
-      };
-
-      FanRouter.prototype.initialize = function(options) {
-        return this.controller.app = options.app;
+        fan: function(project_id) {
+          return console.log(project_id);
+        },
+        get_fan: function(project_id, id) {
+          return console.log(project_id, id);
+        }
       };
 
       FanRouter.prototype.appRoutes = {
-        "project/:project_id/fan": "fan"
+        "project/:project_id/fan": "fan",
+        "project/:project_id/fan/:id": "fan"
       };
 
       return FanRouter;

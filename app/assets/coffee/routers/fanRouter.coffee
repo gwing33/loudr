@@ -1,14 +1,16 @@
-define ["backbone", "marionette", "models/fanModel"], (Backbone, Marionette, FanCollection) ->
+define ["backbone", "marionette", "loudr.config", "models/fanModel"], (Backbone, Marionette, LoudrConfig, FanCollection) ->
 
   class FanRouter extends Marionette.AppRouter
     controller:
       fan: (project_id) ->
+        console.log project_id
         # TODO
-    
-    initialize: (options) ->
-      @controller.app = options.app
+      
+      get_fan: (project_id, id) ->
+        console.log project_id, id
 
     appRoutes:
       "project/:project_id/fan": "fan"
+      "project/:project_id/fan/:id": "fan"
 
   return FanRouter

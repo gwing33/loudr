@@ -1,10 +1,8 @@
-define ["backbone", "marionette", "views/dashboardLayout", "models/projectModel", "views/projectList", "views/loginLayout", "views/registerLayout"], (Backbone, Marionette, DashboardLayout, ProjectCollection, ProjectCollectionView, LoginLayout, RegisterLayout) ->
+define ["backbone", "marionette", 'loudr.config', "views/dashboardLayout", "models/projectModel", "views/projectList", "views/loginLayout", "views/registerLayout"], (Backbone, Marionette, LoudrConfig, DashboardLayout, ProjectCollection, ProjectCollectionView, LoginLayout, RegisterLayout) ->
 
   class DashboardRouter extends Marionette.AppRouter
     controller:
       home: () ->
-        $this = @
-        
         # Load Dashboard
         dash = new DashboardLayout()
 
@@ -21,27 +19,22 @@ define ["backbone", "marionette", "views/dashboardLayout", "models/projectModel"
             # Other Error...
             # TODO
 
-        $this.app.mainRegion.show dash
+        LoudrConfig.app.mainRegion.show dash
         dash.projectsRegion.show project_collection_view
 
       register: () ->
-        login = new RegisterLayout
-          app: @app
-        @app.mainRegion.show login
+        login = new RegisterLayout()
+        LoudrConfig.app.mainRegion.show login
 
       login: () ->
-        login = new LoginLayout
-          app: @app
-        @app.mainRegion.show login
-        @app.nav.collection.show_logged_out_nav()
+        login = new LoginLayout()
+        
+        LoudrConfig.app.mainRegion.show login
+        LoudrConfig.app.nav.collection.show_logged_out_nav()
 
       logout: () ->
-        $this = @
-        @app.auth.logout () ->
+        LoudrConfig.app.auth.logout () ->
           Backbone.history.navigate 'login', {trigger: true}
-
-    initialize: (options) ->
-      @controller.app = options.app
 
     appRoutes:
       "": "home"

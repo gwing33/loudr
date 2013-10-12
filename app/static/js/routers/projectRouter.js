@@ -2,7 +2,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(["backbone", "marionette", "views/projectLayout", "models/fanModel", "views/fanList"], function(Backbone, Marionette, ProjectLayout, FanCollection, FanCollectionView) {
+  define(["backbone", "marionette", "loudr.config", "views/projectLayout", "models/fanModel", "views/fanList"], function(Backbone, Marionette, LoudrConfig, ProjectLayout, FanCollection, FanCollectionView) {
     var ProjectRouter, _ref;
 
     ProjectRouter = (function(_super) {
@@ -13,18 +13,29 @@
         return _ref;
       }
 
-      ProjectRouter.prototype.controller = {
-        project: function(project_id) {
-          var $this, fan_collection, fan_collection_view, layout;
+      ProjectRouter.prototype.project_page_rendered = false;
 
-          $this = this;
-          layout = new ProjectLayout({
-            app: $this.app
-          });
-          fan_collection = new FanCollection([], {
+      ProjectRouter.prototype.layout = {};
+
+      ProjectRouter.prototype.fan_collection_view = {};
+
+      ProjectRouter.prototype.controller = {
+        project: function(project_id, params) {
+          var fan_collection, key;
+
+          key = '';
+          if ((params != null) && params.key) {
+            key = params.key;
+          }
+          this.project_page_rendered = true;
+          this.layout = new ProjectLayout({
             project_id: project_id
           });
-          fan_collection_view = new FanCollectionView({
+          fan_collection = new FanCollection([], {
+            project_id: project_id,
+            key: key
+          });
+          this.fan_collection_view = new FanCollectionView({
             collection: fan_collection
           });
           fan_collection.fetch({
@@ -36,17 +47,20 @@
               }
             }
           });
-          $this.app.mainRegion.show(layout);
-          return layout.fansRegion.show(fan_collection_view);
+          LoudrConfig.app.mainRegion.show(this.layout);
+          return this.layout.fansRegion.show(this.fan_collection_view);
+        },
+        new_note: function(project_id) {
+          if (!this.project_page_rendered) {
+            this.project(project_id);
+          }
+          return console.log('new note via controller...');
         }
       };
 
-      ProjectRouter.prototype.initialize = function(options) {
-        return this.controller.app = options.app;
-      };
-
       ProjectRouter.prototype.appRoutes = {
-        "project/:project_id": "project"
+        "project/:project_id/": "project",
+        "project/:project_id/note": "new_note"
       };
 
       return ProjectRouter;

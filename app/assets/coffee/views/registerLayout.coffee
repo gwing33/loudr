@@ -1,9 +1,6 @@
-define ["backbone", "marionette"], (Backbone, Marionette) ->
+define ["backbone", "marionette", 'loudr.config'], (Backbone, Marionette, LoudrConfig) ->
 
   class LoudrRegister extends Marionette.Layout
-    initialize: (options) ->
-      @app = options.app
-
     events:
       "submit form": "attempt_register"
 
@@ -18,7 +15,7 @@ define ["backbone", "marionette"], (Backbone, Marionette) ->
 
       # Submit to auth model
       $this = @
-      @app.auth.register full_name, email, password, (success) ->
+      LoudrConfig.app.auth.register full_name, email, password, (success) ->
         if success
           Backbone.history.navigate '/', { trigger: true }
           return

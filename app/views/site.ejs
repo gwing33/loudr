@@ -15,8 +15,6 @@
     <script src="/js/vendor/modernizr-2.6.2.min.js"></script>
   </head>
   <body class='index'>
-
-
     <header>
       <nav id='page_header'>
         <div>&nbsp;</div>
@@ -31,8 +29,6 @@
       </nav>
     </header>
 
-
-
     <div id='main' class='container'></div>
 
     <!--
@@ -40,75 +36,12 @@
       <div class='well well-smal'>
         Not sure what to put here yet...
       </div>
-    </div>
-    -->
-
-
-    <script type='text/html' id='nav_item_template'>
-      <a href='{{ src }}' class='{{ class_name }}'>{{ icon }} {{ name }}</a>
-    </script>
-
-    <script type='text/html' id='dashboard_template'>
-      <div class='project-view'>
-        <div id='project_list'></div>
-        <div id='new_project'>
-          <form>
-            <label for='name'>Create New Project</label>
-            <input class="form-control" type='text' name='name' id='project_name'>
-            <br>
-            <button class='btn btn-primary pull-right'>Create Project</button>
-          </form>
-        </div>
-      </div>
-    </script>
-
-    <script type='text/html' id='project_list_template'>
-      <a href="project/{{ _id }}?key={{ api.key }}">{{ name }}</a>
-    </script>
-
-
-    <script type='text/html' id='project_fans_template'>
-      <div class='fan-list-view'>
-        <h3>Fans</h3>
-        <div class='fan-searchability'>
-          Sorting, Filtering, Searching go here.
-        </div>
-        <ul id='fan_list'></ul>
-        <div class='pagination'></div>
-      </div>
-    </script>
-
-    <script type='text/html' id='fan_list_template'>
-      <a href="{{ _id }}">{{ email }}</a>
-    </script>
+    </div> -->
     
-
-    <script type='text/html' id='login_template'>
-      <form class='login-form'>
-        <label for='email'>Email:</label>
-        <input class="form-control" tabindex='1' name='email' type='text'>
-        <label for='password'>Password:</label>
-        <input class="form-control" tabindex='2' name='password' type='password'>
-        <br>
-        <button tabindex='3' class='pull-right btn btn-primary'>Login</button>
-        <a class='pull-right forgot-pw-btn' href='#forgot-pw'>Forgot Password</a>
-      </form>
-    </script>
-
-    <script type='text/html' id='register_template'>
-      <form class='register-form'>
-        <label for='full_name'>Full Name:</label>
-        <input class="form-control" tabindex='1' name='full_name' type='text'>
-        <label for='email'>Email:</label>
-        <input class="form-control" tabindex='1' name='email' type='text'>
-        <label for='password'>Password:</label>
-        <input class="form-control" tabindex='2' name='password' type='password'>
-        <br>
-        <button tabindex='3' class='pull-right btn btn-primary'>Register</button>
-        <a class='pull-right forgot-pw-btn' href='/app/login'>Already a Member?</a>
-      </form>
-    </script>
-
+    <% include _main %>
+    <% include _auth %>
+    <% include _project %>
+    
     <script data-main="/js/app" src="/js/vendor/require.js"></script>
 
     <% if(logged_in) { %>

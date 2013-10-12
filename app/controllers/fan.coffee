@@ -6,7 +6,7 @@ exports.index = (req, res) ->
   
   req.session.user.current_key = req.query.key if req.query.key?
 
-  api_proxy.get '/project/' + req.params.id + '/fan/', {}, req.session.user.current_key, (err, resp, body) ->
+  api_proxy.get '/project/' + req.params.project_id + '/fan/', {}, req.session.user.current_key, (err, resp, body) ->
     return res.status(500).send 'error' if err
 
     res.status(resp.statusCode).send body

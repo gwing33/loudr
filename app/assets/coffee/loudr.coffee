@@ -1,4 +1,4 @@
-define ['marionette', 'routers/dashboardRouter', 'routers/projectRouter', 'routers/fanRouter', 'views/nav', 'models/auth'], (Marionette, DashboardRouter, ProjectRouter, FanRouter, LoudrNav, LoudrAuth) ->
+define ['marionette', 'loudr.config', 'routers/dashboardRouter', 'routers/projectRouter', 'routers/fanRouter', 'views/nav', 'models/auth'], (Marionette, LoudrConfig, DashboardRouter, ProjectRouter, FanRouter, LoudrNav, LoudrAuth) ->
 
   Loudr = new Marionette.Application()
 
@@ -14,29 +14,22 @@ define ['marionette', 'routers/dashboardRouter', 'routers/projectRouter', 'route
   # On Init
   Loudr.addInitializer () ->
     # New Auth Lib
-    @auth = new LoudrAuth()
+    LoudrConfig.auth = new LoudrAuth()
 
     # Init Navigation
-    @nav = new LoudrNav.Layout
+    LoudrConfig.nav = new LoudrNav.Layout
       collection: new LoudrNav.Collection()
 
   # After...
   Loudr.on 'initialize:after', () ->
-    @routers = {}
-
     # Init Routers
-    @routers.dash = new DashboardRouter
-      app: @
+    LoudrConfig.routers.dash = new DashboardRouter()
+    LoudrConfig.routers.project = new ProjectRouter()
+    LoudrConfig.routers.fan = new FanRouter()
 
-    @routers.project = new ProjectRouter
-      app: @
+    @navRegion.show LoudrConfig.nav
 
-    @routers.fan = new FanRouter
-      app: @
-
-    @navRegion.show @nav
-
-    @nav.collection.show_logged_in_nav()
+    LoudrConfig.nav.collection.show_logged_in_nav()
     
     # Before app history start, should check for login?
     Backbone.history.start

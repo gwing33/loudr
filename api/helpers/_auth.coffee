@@ -40,6 +40,7 @@ Auth.validateRequest = (headers, options, cb) ->
   # Find the project so I can validate the api key against it.
   Project.findById options.project_id, (err, project) ->
     return cb(err, null) if err?
+    return cb("Not Found", null) unless project?
     
     hashed_key = project.api.key
 
