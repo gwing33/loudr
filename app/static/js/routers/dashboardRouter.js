@@ -45,7 +45,7 @@
 
           login = new LoginLayout();
           LoudrConfig.app.mainRegion.show(login);
-          return LoudrConfig.app.nav.collection.show_logged_out_nav();
+          return LoudrConfig.nav.collection.show_logged_out_nav();
         },
         logout: function() {
           return LoudrConfig.app.auth.logout(function() {

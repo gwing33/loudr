@@ -30,7 +30,7 @@ define ["backbone", "marionette", 'loudr.config', "views/dashboardLayout", "mode
         login = new LoginLayout()
         
         LoudrConfig.app.mainRegion.show login
-        LoudrConfig.app.nav.collection.show_logged_out_nav()
+        LoudrConfig.nav.collection.show_logged_out_nav()
 
       logout: () ->
         LoudrConfig.app.auth.logout () ->
