@@ -1,4 +1,4 @@
-define ["backbone", "marionette"], (Backbone, Marionette) ->
+define ["backbone", "marionette", "loudr.config"], (Backbone, Marionette, LoudrConfig) ->
 
   class LoudrProject extends Marionette.Layout
     project_id: false
@@ -12,6 +12,7 @@ define ["backbone", "marionette"], (Backbone, Marionette) ->
       'click .new-note': 'new_note'
 
     initialize: (options) ->
+      LoudrConfig.app.displayTitle "Project Fans"
       @project_id = options.project_id
 
     # Because I don't need to pass in a model really, I just need the project_id

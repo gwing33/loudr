@@ -16,9 +16,7 @@ define ["backbone", "marionette", "loudr.config"], (Backbone, Marionette, LoudrC
       password = @.$('input[name="password"]').val()
 
       # Submit to auth model
-      $this = @
       LoudrConfig.auth.login email, password, (success) ->
-
         if success
           Backbone.history.navigate '/', { trigger: true }
           return

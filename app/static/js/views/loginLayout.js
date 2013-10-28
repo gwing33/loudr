@@ -24,12 +24,11 @@
       LoudrLogin.prototype.template = "#login_template";
 
       LoudrLogin.prototype.attempt_login = function(e) {
-        var $this, email, password;
+        var email, password;
 
         e.preventDefault();
         email = this.$('input[name="email"]').val();
         password = this.$('input[name="password"]').val();
-        $this = this;
         return LoudrConfig.auth.login(email, password, function(success) {
           if (success) {
             Backbone.history.navigate('/', {

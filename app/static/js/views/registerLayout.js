@@ -20,13 +20,12 @@
       LoudrRegister.prototype.template = "#register_template";
 
       LoudrRegister.prototype.attempt_register = function(e) {
-        var $this, email, full_name, password;
+        var email, full_name, password;
 
         e.preventDefault();
         full_name = this.$('input[name="full_name"]').val();
         email = this.$('input[name="email"]').val();
         password = this.$('input[name="password"]').val();
-        $this = this;
         return LoudrConfig.app.auth.register(full_name, email, password, function(success) {
           if (success) {
             Backbone.history.navigate('/', {

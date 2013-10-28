@@ -9,7 +9,6 @@ helper = require "../helpers/_controller_helper"
 Notification = mongoose.model 'Notification', NotificationSchema.model
 
 
-
 ### 
   Fan Notifications via Script Call
 ###
@@ -17,7 +16,7 @@ exports.unsecure_all_notes = (req, res, next) ->
   async.parallel
     auth: (cb) ->
       Project.findById req.params.project_id, (err, project) ->
-        console.log project.api.is_secure
+        # console.log project.api.is_secure
         cb err, project? and project.api? and !project.api.is_secure
     fan: (cb) ->
       Fan.findByIdOrEmail req.params.project_id, req.params.fan_handle, (err, fan) ->
@@ -88,15 +87,8 @@ get_all_notes_or_create = (err, fan, req, res, next) ->
 
 # Get all Notifications
 exports.get_all_notes = (req, res, next) ->
-  async.parallel
-    auth: (cb) ->
-      auth.validateRequest req.headers, { project_id: req.params.project_id }, cb
-    fan: (cb) ->
-      Fan.findByIdOrEmail req.params.project_id, req.params.fan_handle, (err, fan) ->
-        cb err, fan
-  , (err, results) ->
-    return res.send(401) unless results.auth
-    return res.send 403, helper.fail err if err?
+  Fan.findByIdOrEmail req.params.project_id, req.params.fan_handle, (err, fan) ->
+    return res.send 403, helper.fail err  if err?
 
     limit = if req.query.limit? then req.query.limit else 10
     page = if req.query.page? then req.query.page else 1
@@ -106,38 +98,24 @@ exports.get_all_notes = (req, res, next) ->
 
     # Fix ranges if they are over exposed
     start_range = 0 if start_range < 0
-    end_range = results.fan.notifications.length if end_range > results.fan.notifications.length
+    end_range = fan.notifications.length if end_range > fan.notifications.length
 
-    res.send helper.success 'notifications', results.fan.notifications.splice start_range, end_range
+    res.send helper.success 'notifications', fan.notifications.splice start_range, end_range
 
 # Get Notification by ID
 exports.get_note = (req, res, next) ->
-  async.parallel
-    auth: (cb) ->
-      auth.validateRequest req.headers, { project_id: req.params.project_id }, cb
-    fan: (cb) ->
-      Fan.findByIdOrEmail req.params.project_id, req.params.fan_handle, (err, fan) ->
-        cb err, fan
-  , (err, results) ->
-    return res.send(401) unless results.auth
-    return res.send 403, helper.fail err if err?
+  Fan.findByIdOrEmail req.params.project_id, req.params.fan_handle, (err, fan) ->
+    return res.send 403, helper.fail err  if err?
 
-    notification = results.fan.notifications.id req.params.id
+    notification = fan.notifications.id req.params.id
     
     return res.send helper.fail 'Not Found' unless notification
     res.send helper.success 'notification', notification
 
 # Create Notification
 exports.create_note = (req, res, next) ->
-  async.parallel
-    auth: (cb) ->
-      auth.validateRequest req.headers, { project_id: req.params.project_id }, cb
-    fan: (cb) ->
-      Fan.findByIdOrEmail req.params.project_id, req.params.fan_handle, (err, fan) ->
-        cb err, fan
-  , (err, results) ->
-    return res.send(401) unless results.auth
-    return res.send 403, helper.fail err if err?
+  Fan.findByIdOrEmail req.params.project_id, req.params.fan_handle, (err, fan) ->
+    return res.send 403, helper.fail err  if err?
 
     new_notification = new Notification
 
@@ -154,26 +132,19 @@ exports.create_note = (req, res, next) ->
     new_notification.kind = req.body.kind if req.body.kind?
     new_notification.format = req.body.format if req.body.format?
 
-    results.fan.notifications.push new_notification
+    fan.notifications.push new_notification
 
-    results.fan.save (err, fan) ->
+    fan.save (err, fan) ->
       return res.send helper.fail err if err
 
       res.send helper.success 'notification', new_notification
 
 # Update Notification
 exports.update_note = (req, res, next) ->
-  async.parallel
-    auth: (cb) ->
-      auth.validateRequest req.headers, { project_id: req.params.project_id }, cb
-    fan: (cb) ->
-      Fan.findByIdOrEmail req.params.project_id, req.params.fan_handle, (err, fan) ->
-        cb err, fan
-  , (err, results) ->
-    return res.send(401) unless results.auth
-    return res.send 403, helper.fail err if err?
+  Fan.findByIdOrEmail req.params.project_id, req.params.fan_handle, (err, fan) ->
+    return res.send 403, helper.fail err  if err?
     
-    notification = results.fan.notifications.id(req.params.id)
+    notification = fan.notifications.id(req.params.id)
 
     return res.send helper.fail 'Not Found' unless notification
 
@@ -187,26 +158,19 @@ exports.update_note = (req, res, next) ->
     notification.dissmissed = req.body.dissmissed if req.body.dissmissed?
     notification.updated = Date.now()
 
-    results.fan.save (err, fan) ->
+    fan.save (err, fan) ->
       return res.send helper.fail err if err
 
       res.send helper.success 'notification', notification
 
 # Delete Notification
 exports.delete_note = (req, res, next) ->
-  async.parallel
-    auth: (cb) ->
-      auth.validateRequest req.headers, { project_id: req.params.project_id }, cb
-    fan: (cb) ->
-      Fan.findByIdOrEmail req.params.project_id, req.params.fan_handle, (err, fan) ->
-        cb err, fan
-  , (err, results) ->
-    return res.send(401) unless results.auth
-    return res.send 403, helper.fail err if err?
+  Fan.findByIdOrEmail req.params.project_id, req.params.fan_handle, (err, fan) ->
+    return res.send 403, helper.fail err  if err?
     
-    results.fan.notifications.pull
+    fan.notifications.pull
       _id: req.params.id
 
-    results.fan.save (err, fan) ->
+    fan.save (err, fan) ->
       res.send
         success: !err

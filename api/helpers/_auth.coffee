@@ -19,44 +19,49 @@ used_loudr_header = false
 # Make sure it was specified for Loudr usage
 # Get the Auth Hash out and validate it against the project
 #
-# options is an object that can accept different values
-#   loudr_only = bool
-#   project_id = ID
-Auth.validateRequest = (headers, options, cb) ->
-  options.loudr_only = false unless options.loudr_only?
-
+# OLD: Auth.validateRequest = (headers, options, cb) ->
+Auth.loudrValidateReq = (req, res, next) ->
   # Validate auth token
-  return cb('Not Authorized', null) unless Auth.validateAuthToken headers.authorization, options.loudr_only
+  return res.send(401)  unless Auth.validateAuthToken req.headers.authorization, true
+  
+  next()
 
-  # If it is loudr authorized and there is no project ID, proceed.
-  # The idea behind this:
-  # You'd have to know the special loudr auth token in order to access this
-  if options.loudr_only and !options.project_id?
-    return cb(null, true)
 
+Auth.validateRequest = (req, res, next) ->
+  # Validate auth token
+  return res.send(401)  unless Auth.validateAuthToken req.headers.authorization, false
+
+  Auth.finishValidation req, res, next
+
+Auth.finishValidation = (req, res, next) ->
   # Parse out the Auth Token passed in
-  token = Auth.getToken headers.authorization
+  token = Auth.getToken req.headers.authorization
+
+  project_id = req.params.id
+  project_id = req.params.project_id  if req.params.project_id?
 
   # Find the project so I can validate the api key against it.
-  Project.findById options.project_id, (err, project) ->
-    return cb(err, null) if err?
-    return cb("Not Found", null) unless project?
+  Project.findById project_id, (err, project) ->
+    # console.log err, project
+    return res.send(401)  if err?
+    return res.send(404)  unless project?
     
+    req.project = project
     hashed_key = project.api.key
 
     # If it's a Loudr header and the token === the api key, return successfully
     if used_loudr_header and token is hashed_key
-      return cb(null, project)
+      return next()
 
     # If it's set up as secure then I want to hash the api key
-    console.log headers.date, project.api.key
     if project.api.is_secure
-      hashed_key = Auth.hashKey project.api.key, headers.date
-    console.log token, hashed_key
+      hashed_key = Auth.hashKey project.api.key, req.headers.date
+
     if token is hashed_key
-      return cb(null, project)
-    else
-      return cb("Not Authorized", null)
+      return next()
+
+    return res.send(401)
+
 
 # Returns the hashed secret key
 Auth.getToken = (token) ->
