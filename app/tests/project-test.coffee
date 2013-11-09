@@ -6,6 +6,7 @@ api_proxy = require "../api_proxy"
 
 project = {}
 user = {}
+peon_user = {}
 
 ###
   Project Tests
@@ -18,7 +19,6 @@ user = {}
 ###
 
 describe 'Project API', () ->
-  
 
   # Prep
   it "Should Prep", (done) ->
@@ -27,13 +27,27 @@ describe 'Project API', () ->
         email: "gerald.leenerts@gmail.com"
         password: "glee123"
 
+    peon_user_data =
+      form:
+        email: "gerald.leenerts+peon@gmail.com"
+        first_name: "Peon"
+        last_name: "Pooper"
+        password: "glee123"
+
     api_proxy.post '/auth/login', user_data, "", (err, resp, body) ->
       assert !err
       json = JSON.parse body
 
       user = json.user
       assert.equal json.success, true
-      done()
+      
+      # Create User after Login
+      api_proxy.post '/user', peon_user_data, "", (err, resp, body) ->
+        assert !err
+        peon_user = JSON.parse body
+        
+        assert.equal peon_user.success, true
+        done()
 
   # Should Create Project
   it "Should Create a Project", (done) ->
@@ -111,6 +125,14 @@ describe 'Project API', () ->
   # Should Delete Project
   it "Should Delete the Project", (done) ->
     api_proxy.del '/user/' + user._id + '/project/' + project._id, {}, project.api.key, (err, resp, body) ->
+      assert !err
+      json = JSON.parse body
+
+      assert.equal json.success, true
+      done()
+
+  it "Should Cleanup (Delete Peon)", (done) ->
+    api_proxy.del '/user/' + peon_user.user._id, {}, "", (err, resp, body) ->
       assert !err
       json = JSON.parse body
 
