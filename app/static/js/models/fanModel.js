@@ -4,7 +4,6 @@
 
   define(["backbone"], function(Backbone) {
     var LoudrFanCollection, LoudrFanModel, _ref, _ref1;
-
     LoudrFanModel = (function(_super) {
       __extends(LoudrFanModel, _super);
 
@@ -39,7 +38,6 @@
 
       LoudrFanCollection.prototype.url = function() {
         var qs;
-
         qs = this.key !== '' ? '?key=' + this.key : '';
         return '/project/' + this.project_id + '/fan/' + qs;
       };

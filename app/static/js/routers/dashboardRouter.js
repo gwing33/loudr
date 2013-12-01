@@ -4,7 +4,6 @@
 
   define(["backbone", "marionette", 'loudr.config', "views/dashboardLayout", "models/projectModel", "views/projectList", "views/loginLayout", "views/registerLayout"], function(Backbone, Marionette, LoudrConfig, DashboardLayout, ProjectCollection, ProjectCollectionView, LoginLayout, RegisterLayout) {
     var DashboardRouter, _ref;
-
     DashboardRouter = (function(_super) {
       __extends(DashboardRouter, _super);
 
@@ -16,7 +15,6 @@
       DashboardRouter.prototype.controller = {
         home: function() {
           var dash, project_collection, project_collection_view;
-
           dash = new DashboardLayout();
           project_collection = new ProjectCollection;
           project_collection_view = new ProjectCollectionView({
@@ -36,13 +34,11 @@
         },
         register: function() {
           var login;
-
           login = new RegisterLayout();
           return LoudrConfig.app.mainRegion.show(login);
         },
         login: function() {
           var login;
-
           login = new LoginLayout();
           LoudrConfig.app.mainRegion.show(login);
           return LoudrConfig.nav.collection.show_logged_out_nav();

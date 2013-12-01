@@ -4,7 +4,6 @@
 
   define(["backbone", "marionette", "loudr.config"], function(Backbone, Marionette, LoudrConfig) {
     var LoudrProject, _ref;
-
     LoudrProject = (function(_super) {
       __extends(LoudrProject, _super);
 
@@ -38,7 +37,6 @@
 
       LoudrProject.prototype.new_note = function(e) {
         var href;
-
         e.preventDefault();
         href = $(e.currentTarget).attr('href').replace('/app', '');
         return Backbone.history.navigate(href, {

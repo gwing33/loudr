@@ -4,7 +4,6 @@
 
   define(["backbone", "marionette", "loudr.config"], function(Backbone, Marionette, LoudrConfig) {
     var LoudrLogin, _ref;
-
     LoudrLogin = (function(_super) {
       __extends(LoudrLogin, _super);
 
@@ -25,7 +24,6 @@
 
       LoudrLogin.prototype.attempt_login = function(e) {
         var email, password;
-
         e.preventDefault();
         email = this.$('input[name="email"]').val();
         password = this.$('input[name="password"]').val();

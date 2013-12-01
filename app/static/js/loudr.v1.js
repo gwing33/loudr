@@ -18,7 +18,6 @@
     if (escapable.test(string)) {
       return "\"" + string.replace(escapable, function(a) {
         var c;
-
         c = meta[a];
         if (typeof c === "string") {
           return c;
@@ -33,7 +32,6 @@
 
   str = function(key, holder) {
     var gap, i, k, length, mind, partial, v, value;
-
     i = void 0;
     k = void 0;
     v = void 0;
@@ -143,7 +141,6 @@
   if (typeof JSON.stringify !== "function") {
     JSON.stringify = function(value, replacer, space) {
       var i;
-
       i = void 0;
       gap = "";
       indent = "";
@@ -171,10 +168,8 @@
   if (typeof JSON.parse !== "function") {
     JSON.parse = function(text, reviver) {
       var j, walk;
-
       walk = function(holder, key) {
         var k, v, value;
-
         k = void 0;
         v = void 0;
         value = holder[key];
@@ -213,10 +208,8 @@
   if (typeof window.Loudr !== "function") {
     window.Loudr = function() {
       var url;
-
       this.ajax = function(e) {
         var dt, n, r;
-
         if (typeof e.url === "undefined") {
           return;
         }

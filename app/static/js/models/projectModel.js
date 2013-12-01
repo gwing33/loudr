@@ -4,7 +4,6 @@
 
   define(["backbone"], function(Backbone) {
     var LoudrProjectCollection, LoudrProjectModel, _ref, _ref1;
-
     LoudrProjectModel = (function(_super) {
       __extends(LoudrProjectModel, _super);
 

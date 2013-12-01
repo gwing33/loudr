@@ -21,7 +21,6 @@
 
   define(['jquery', 'backbone'], function($, Backbone) {
     var DocNav, DocRouter, cached_pages, doc_router, nav;
-
     doc_router = {};
     nav = {};
     cached_pages = {};
@@ -57,7 +56,6 @@
       },
       goToPage: function(e) {
         var el, href;
-
         e.preventDefault();
         el = $(e.currentTarget);
         href = el.attr('href');

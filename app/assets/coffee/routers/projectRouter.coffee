@@ -1,4 +1,11 @@
-define ["backbone", "marionette", "loudr.config", "views/projectLayout", "models/fanModel", "views/fanList"], (Backbone, Marionette, LoudrConfig, ProjectLayout, FanCollection, FanCollectionView) ->
+define [
+  "backbone",
+  "marionette",
+  "loudr.config",
+  "views/projectLayout",
+  "models/fanModel",
+  "views/fanList"
+], (Backbone, Marionette, LoudrConfig, ProjectLayout, FanCollection, FanCollectionView) ->
 
   class ProjectRouter extends Marionette.AppRouter
     project_page_rendered: false,
@@ -35,7 +42,7 @@ define ["backbone", "marionette", "loudr.config", "views/projectLayout", "models
       new_note: (project_id) ->
         @project(project_id)  unless @project_page_rendered
         
-        console.log 'new note via controller...'
+
 
     appRoutes:
       "project/:project_id/": "project"

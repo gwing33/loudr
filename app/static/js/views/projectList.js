@@ -4,7 +4,6 @@
 
   define(["marionette"], function(Marionette) {
     var ProjectCollectionView, ProjectItem, _ref, _ref1;
-
     ProjectItem = (function(_super) {
       __extends(ProjectItem, _super);
 

@@ -4,7 +4,6 @@
 
   define(["marionette"], function(Marionette) {
     var LoudrAuth, _ref;
-
     LoudrAuth = (function(_super) {
       __extends(LoudrAuth, _super);
 

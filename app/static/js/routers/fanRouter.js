@@ -4,7 +4,6 @@
 
   define(["backbone", "marionette", "loudr.config", "models/fanModel"], function(Backbone, Marionette, LoudrConfig, FanCollection) {
     var FanRouter, _ref;
-
     FanRouter = (function(_super) {
       __extends(FanRouter, _super);
 

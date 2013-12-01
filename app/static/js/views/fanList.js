@@ -4,7 +4,6 @@
 
   define(["marionette"], function(Marionette) {
     var LoudrFanCollectionView, LoudrFanItem, _ref, _ref1;
-
     LoudrFanItem = (function(_super) {
       __extends(LoudrFanItem, _super);
 

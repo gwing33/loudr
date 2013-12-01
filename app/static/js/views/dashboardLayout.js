@@ -4,7 +4,6 @@
 
   define(["backbone", "marionette"], function(Backbone, Marionette) {
     var DashboardLayout, _ref;
-
     DashboardLayout = (function(_super) {
       __extends(DashboardLayout, _super);
 

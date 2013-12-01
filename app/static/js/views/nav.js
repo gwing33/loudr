@@ -4,7 +4,6 @@
 
   define(["marionette", "backbone"], function(Marionette, Backbone) {
     var LoudrNav, LoudrNavCollection, LoudrNavItemView, _ref, _ref1, _ref2;
-
     LoudrNavCollection = (function(_super) {
       var LoudrNavModel, _ref1;
 

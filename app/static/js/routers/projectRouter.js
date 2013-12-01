@@ -4,7 +4,6 @@
 
   define(["backbone", "marionette", "loudr.config", "views/projectLayout", "models/fanModel", "views/fanList"], function(Backbone, Marionette, LoudrConfig, ProjectLayout, FanCollection, FanCollectionView) {
     var ProjectRouter, _ref;
-
     ProjectRouter = (function(_super) {
       __extends(ProjectRouter, _super);
 
@@ -22,7 +21,6 @@
       ProjectRouter.prototype.controller = {
         project: function(project_id, params) {
           var fan_collection, key;
-
           key = '';
           if ((params != null) && params.key) {
             key = params.key;
@@ -52,9 +50,8 @@
         },
         new_note: function(project_id) {
           if (!this.project_page_rendered) {
-            this.project(project_id);
+            return this.project(project_id);
           }
-          return console.log('new note via controller...');
         }
       };
 

@@ -4,7 +4,7 @@
       backbone: 'vendor/backbone',
       'backbone.queryparams': 'vendor/backbone.queryparams',
       underscore: 'vendor/underscore',
-      jquery: 'vendor/jquery-1.10.2.min',
+      jquery: 'vendor/jquery-2.0.3',
       marionette: 'vendor/backbone.marionette',
       'backbone.wreqr': 'vendor/backbone.wreqr',
       'backbone.babysitter': 'vendor/backbone.babysitter'

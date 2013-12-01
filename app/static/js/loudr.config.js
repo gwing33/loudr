@@ -1,7 +1,6 @@
 (function() {
   define([], function() {
     var LoudrConfig;
-
     LoudrConfig = {
       auth: {},
       nav: {},
