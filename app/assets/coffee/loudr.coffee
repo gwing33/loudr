@@ -1,4 +1,14 @@
-define ['marionette', 'loudr.config', 'routers/dashboardRouter', 'routers/projectRouter', 'routers/fanRouter', 'views/nav', 'models/auth'], (Marionette, LoudrConfig, DashboardRouter, ProjectRouter, FanRouter, LoudrNav, LoudrAuth) ->
+define [
+  'backbone',
+  'backbone.queryparams'
+  'marionette',
+  'loudr.config',
+  'routers/dashboardRouter',
+  'routers/projectRouter',
+  'routers/fanRouter',
+  'views/nav',
+  'models/auth'
+], (Backbone, bqs, Marionette, LoudrConfig, DashboardRouter, ProjectRouter, FanRouter, LoudrNav, LoudrAuth) ->
 
   Loudr = new Marionette.Application()
 

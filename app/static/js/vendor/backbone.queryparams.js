@@ -58,6 +58,7 @@ _.extend(Backbone.History.prototype, {
   // but will return a map of key/value pairs (the value is a string or array)
   getQueryParameters: function(fragment, forcePushState) {
     fragment = _getFragment.apply(this, arguments);
+
     // if no query string exists, this will still be the original fragment
     var queryString = fragment.replace(fragmentStrip, '');
     var match = queryString.match(queryStringParam);
@@ -83,6 +84,7 @@ _.extend(Backbone.History.prototype, {
     }
   }
 });
+
 
 _.extend(Backbone.Router.prototype, {
   initialize: function(options) {

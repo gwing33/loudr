@@ -1,5 +1,5 @@
 (function() {
-  define(['marionette', 'loudr.config', 'routers/dashboardRouter', 'routers/projectRouter', 'routers/fanRouter', 'views/nav', 'models/auth'], function(Marionette, LoudrConfig, DashboardRouter, ProjectRouter, FanRouter, LoudrNav, LoudrAuth) {
+  define(['backbone', 'backbone.queryparams', 'marionette', 'loudr.config', 'routers/dashboardRouter', 'routers/projectRouter', 'routers/fanRouter', 'views/nav', 'models/auth'], function(Backbone, bqs, Marionette, LoudrConfig, DashboardRouter, ProjectRouter, FanRouter, LoudrNav, LoudrAuth) {
     var Loudr;
     Loudr = new Marionette.Application();
     Loudr.addRegions({

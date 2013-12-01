@@ -21,6 +21,7 @@
       ProjectRouter.prototype.controller = {
         project: function(project_id, params) {
           var fan_collection, key;
+          console.log(params);
           key = '';
           if ((params != null) && params.key) {
             key = params.key;

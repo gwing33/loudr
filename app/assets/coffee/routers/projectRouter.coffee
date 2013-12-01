@@ -15,6 +15,8 @@ define [
 
     controller:
       project: (project_id, params) ->
+        console.log params
+
         key = ''
         if params? and params.key
           key = params.key
