@@ -4,9 +4,11 @@ define ["backbone", "marionette", "loudr.config"], (Backbone, Marionette, LoudrC
     project_id: false
     
     template: "#project_fans_template"
+    className: 'fan-list-view'
     
     regions:
       fansRegion: '#fan_list'
+      noteRegion: '#new_note'
 
     events:
       'click .new-note': 'new_note'

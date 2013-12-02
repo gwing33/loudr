@@ -1,16 +1,16 @@
 define ["backbone"], (Backbone) ->
 
-  class LoudrProjectModel extends Backbone.Model
+  class ProjectModel extends Backbone.Model
     parse: (json) ->
       if json.success
         return json.project
       
       return json
 
-  class LoudrProjectCollection extends Backbone.Collection
-    model: LoudrProjectModel
+  class ProjectCollection extends Backbone.Collection
+    model: ProjectModel
     url: '/project'
     parse: (json) ->
       return json.projects
 
-  return LoudrProjectCollection
+  return ProjectCollection

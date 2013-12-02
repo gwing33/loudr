@@ -1,9 +1,11 @@
 define [
-  "backbone",
-  "marionette",
+  "backbone"
+  "marionette"
   "loudr.config"
 ], (Backbone, Marionette, LoudrConfig) ->
 
-  class NoteView extends Marionette.AppRouter
+  class NewNoteView extends Marionette.ItemView
+    template: '#new_note_template'
+    className: 'new-note-form'
 
-  return NoteView
+  return NewNoteView

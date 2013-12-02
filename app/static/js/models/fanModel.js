@@ -3,58 +3,58 @@
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   define(["backbone"], function(Backbone) {
-    var LoudrFanCollection, LoudrFanModel, _ref, _ref1;
-    LoudrFanModel = (function(_super) {
-      __extends(LoudrFanModel, _super);
+    var FanCollection, FanModel, _ref, _ref1;
+    FanModel = (function(_super) {
+      __extends(FanModel, _super);
 
-      function LoudrFanModel() {
-        _ref = LoudrFanModel.__super__.constructor.apply(this, arguments);
+      function FanModel() {
+        _ref = FanModel.__super__.constructor.apply(this, arguments);
         return _ref;
       }
 
-      LoudrFanModel.prototype.parse = function(json) {
+      FanModel.prototype.parse = function(json) {
         if (json.success) {
           return json.fan;
         }
         return json;
       };
 
-      return LoudrFanModel;
+      return FanModel;
 
     })(Backbone.Model);
-    LoudrFanCollection = (function(_super) {
-      __extends(LoudrFanCollection, _super);
+    FanCollection = (function(_super) {
+      __extends(FanCollection, _super);
 
-      function LoudrFanCollection() {
-        _ref1 = LoudrFanCollection.__super__.constructor.apply(this, arguments);
+      function FanCollection() {
+        _ref1 = FanCollection.__super__.constructor.apply(this, arguments);
         return _ref1;
       }
 
-      LoudrFanCollection.prototype.project_id = '';
+      FanCollection.prototype.project_id = '';
 
-      LoudrFanCollection.prototype.key = '';
+      FanCollection.prototype.key = '';
 
-      LoudrFanCollection.prototype.model = LoudrFanModel;
+      FanCollection.prototype.model = FanModel;
 
-      LoudrFanCollection.prototype.url = function() {
+      FanCollection.prototype.url = function() {
         var qs;
         qs = this.key !== '' ? '?key=' + this.key : '';
         return '/project/' + this.project_id + '/fan/' + qs;
       };
 
-      LoudrFanCollection.prototype.initialize = function(models, options) {
+      FanCollection.prototype.initialize = function(models, options) {
         this.project_id = options.project_id;
         return this.key = options.key;
       };
 
-      LoudrFanCollection.prototype.parse = function(json) {
+      FanCollection.prototype.parse = function(json) {
         return json.fans;
       };
 
-      return LoudrFanCollection;
+      return FanCollection;
 
     })(Backbone.Collection);
-    return LoudrFanCollection;
+    return FanCollection;
   });
 
 }).call(this);

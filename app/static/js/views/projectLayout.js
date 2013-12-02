@@ -16,8 +16,11 @@
 
       LoudrProject.prototype.template = "#project_fans_template";
 
+      LoudrProject.prototype.className = 'fan-list-view';
+
       LoudrProject.prototype.regions = {
-        fansRegion: '#fan_list'
+        fansRegion: '#fan_list',
+        noteRegion: '#new_note'
       };
 
       LoudrProject.prototype.events = {

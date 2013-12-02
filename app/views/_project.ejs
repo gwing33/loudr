@@ -3,22 +3,19 @@
 </script>
 
 <script type='text/html' id='project_fans_template'>
-  <div class='fan-list-view'>
-    <h3>Fans</h3>
-    <div class='fan-searchability'>
-      <a href='/app/project/{{ project_id }}/note' class='new-note btn btn-default'>Send New Notification</a>
-    </div>
-    <ul id='fan_list'></ul>
-    <div class='pagination'></div>
+  <h3>Fans</h3>
+  
+  <div class='fan-searchability'>
+    <a href='/app/project/{{ project_id }}/note' class='new-note btn btn-default'>Send New Notification</a>
   </div>
+  
+  <ul id='fan_list'></ul>
+  
+  <div class='pagination'></div>
+
+  <div id='new_note'></div>
 </script>
 
 <script type='text/html' id='fan_list_template'>
   <a href="/project/{{ project_id }}/fan/{{ _id }}">{{ email }}</a>
-</script>
-
-<script type='text/html' id='new_note_template'>
-  <div>
-    New Note...
-  </div>
 </script>

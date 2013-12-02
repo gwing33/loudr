@@ -1,15 +1,15 @@
 define ["backbone"], (Backbone) ->
-  class LoudrFanModel extends Backbone.Model
+  class FanModel extends Backbone.Model
     parse: (json) ->
       if json.success
         return json.fan
       
       return json
 
-  class LoudrFanCollection extends Backbone.Collection
+  class FanCollection extends Backbone.Collection
     project_id: ''
     key: ''
-    model: LoudrFanModel
+    model: FanModel
     
     url: () ->
       qs = if @key != '' then '?key=' + @key else ''
@@ -22,4 +22,4 @@ define ["backbone"], (Backbone) ->
     parse: (json) ->
       return json.fans
 
-  return LoudrFanCollection
+  return FanCollection
