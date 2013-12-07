@@ -19,9 +19,7 @@ peon_user = {}
 ###
 
 describe 'Project API', () ->
-
-  # Prep
-  it "Should Prep", (done) ->
+  before (done) ->
     user_data =
       form:
         email: "gerald.leenerts@gmail.com"
@@ -48,6 +46,14 @@ describe 'Project API', () ->
         
         assert.equal peon_user.success, true
         done()
+
+  after (done) ->
+    api_proxy.del '/user/' + peon_user.user._id, {}, "", (err, resp, body) ->
+      assert !err
+      json = JSON.parse body
+
+      assert.equal json.success, true
+      done()
 
   # Should Create Project
   it "Should Create a Project", (done) ->
@@ -125,14 +131,6 @@ describe 'Project API', () ->
   # Should Delete Project
   it "Should Delete the Project", (done) ->
     api_proxy.del '/user/' + user._id + '/project/' + project._id, {}, project.api.key, (err, resp, body) ->
-      assert !err
-      json = JSON.parse body
-
-      assert.equal json.success, true
-      done()
-
-  it "Should Cleanup (Delete Peon)", (done) ->
-    api_proxy.del '/user/' + peon_user.user._id, {}, "", (err, resp, body) ->
       assert !err
       json = JSON.parse body
 

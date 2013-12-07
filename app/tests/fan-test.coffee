@@ -18,9 +18,8 @@ user = {}
 project = {}
 fan = {}
 
-# Prep
-describe 'Prep for Fan API', () ->
-  it "Login as User", (done) ->
+describe 'Fan API', () ->
+  before (done) ->
     user_data =
       form:
         email: "gerald.leenerts@gmail.com"
@@ -33,26 +32,31 @@ describe 'Prep for Fan API', () ->
       assert.equal json.success, true
       
       user = json.user
-      done()
-  
-  it "Create Project", (done) -> 
-    post_data =
-      form:
-        name: 'My Awesome Test Project'
-        api:
-          is_secure: true
-    
-    # request.post
-    api_proxy.post '/user/' + user._id + '/project', post_data, "", (err, resp, body) ->
+
+      # Part 2 of Setup
+      post_data =
+        form:
+          name: 'My Awesome Test Project'
+          api:
+            is_secure: true
+      
+      # request.post
+      api_proxy.post '/user/' + user._id + '/project', post_data, "", (err, resp, body) ->
+        assert !err
+        json = JSON.parse body
+        
+        project = json.project
+
+        assert.equal json.success, true
+        done()
+
+  after (done) ->
+    api_proxy.del '/user/' + user._id + '/project/' + project._id, {}, project.api.key, (err, resp, body) ->
       assert !err
       json = JSON.parse body
-      
-      project = json.project
 
       assert.equal json.success, true
       done()
-
-describe 'Fan API', () ->
 
   # Should Create Fan
   it "Should Create Fan", (done) ->
@@ -170,13 +174,3 @@ describe 'Fan API', () ->
       assert.equal json.success, true
 
       done()
-
-  describe 'Teardown', () ->
-    # Should Delete Project
-    it "Should Delete the Project", (done) ->
-      api_proxy.del '/user/' + user._id + '/project/' + project._id, {}, project.api.key, (err, resp, body) ->
-        assert !err
-        json = JSON.parse body
-
-        assert.equal json.success, true
-        done()

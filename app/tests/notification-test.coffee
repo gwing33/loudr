@@ -22,9 +22,8 @@ fan = {}
 note = {}
 note2 = {}
 
-
-describe 'Prep for Fan Notificaiton API', () ->
-  it "Login as User", (done) ->
+describe 'Fan Notificaiton API', () ->
+  before (done) ->
     user_data =
       form:
         email: "gerald.leenerts@gmail.com"
@@ -37,47 +36,51 @@ describe 'Prep for Fan Notificaiton API', () ->
       assert.equal json.success, true
       
       user = json.user
-      done()
+      
+      # Setup Part 2
+      post_data =
+        form:
+          name: 'My Awesome Test Project'
+          api:
+            is_secure: true
+      
+      # request.post
+      api_proxy.post '/user/' + user._id + '/project', post_data, "", (err, resp, body) ->
+        assert !err
+        json = JSON.parse body
+        
+        project = json.project
 
-  it "Create Project", (done) -> 
-    post_data =
-      form:
-        name: 'My Awesome Test Project'
-        api:
-          is_secure: true
-    
-    # request.post
-    api_proxy.post '/user/' + user._id + '/project', post_data, "", (err, resp, body) ->
+        assert.equal json.success, true
+
+        # Setup Part 3
+        post_data =
+          form:
+            project_id: project._id
+            email: 'gerald.leenerts+fan1@gmail.com'
+            groups: ["Gold Membership", "Cicyle in Cirlces"]
+            first_name: "Steve"
+            last_name: "Steval"
+            registered_date: "2013-05-17T17:32:00.171Z"
+
+        api_proxy.post '/project/' + project._id + '/fan/', post_data, project.api.key, (err, resp, body) ->
+          assert !err
+          assert.notEqual body, 'Unauthorized'
+
+          json = JSON.parse body
+          assert.equal json.success, true
+
+          fan = json.fan
+          done()
+
+  after (done) ->
+    api_proxy.del '/user/' + user._id + '/project/' + project._id, {}, project.api.key, (err, resp, body) ->
       assert !err
       json = JSON.parse body
-      
-      project = json.project
 
       assert.equal json.success, true
       done()
-      
-  it "Create Fan", (done) ->
-    post_data =
-      form:
-        project_id: project._id
-        email: 'gerald.leenerts+fan1@gmail.com'
-        groups: ["Gold Membership", "Cicyle in Cirlces"]
-        first_name: "Steve"
-        last_name: "Steval"
-        registered_date: "2013-05-17T17:32:00.171Z"
 
-    api_proxy.post '/project/' + project._id + '/fan/', post_data, project.api.key, (err, resp, body) ->
-      assert !err
-      assert.notEqual body, 'Unauthorized'
-
-      json = JSON.parse body
-      assert.equal json.success, true
-
-      fan = json.fan
-      done()
-
-
-describe 'Fan Notificaiton API', () ->
   # Should Create Notification
   it "Should Create Notification", (done) ->
     post_data =
@@ -149,14 +152,3 @@ describe 'Fan Notificaiton API', () ->
       
       assert.equal json.success, true
       done()
-
-
-  describe 'Teardown', () ->
-    # Should Delete Project
-    it "Should Delete the Project", (done) ->
-      api_proxy.del '/user/' + user._id + '/project/' + project._id, {}, project.api.key, (err, resp, body) ->
-        assert !err
-        json = JSON.parse body
-
-        assert.equal json.success, true
-        done()
