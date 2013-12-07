@@ -24,7 +24,7 @@
         full_name = this.$('input[name="full_name"]').val();
         email = this.$('input[name="email"]').val();
         password = this.$('input[name="password"]').val();
-        return LoudrConfig.app.auth.register(full_name, email, password, function(success) {
+        return LoudrConfig.auth.register(full_name, email, password, function(success) {
           if (success) {
             Backbone.history.navigate('/', {
               trigger: true
