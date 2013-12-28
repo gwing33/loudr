@@ -19,8 +19,7 @@
       LoudrProject.prototype.className = 'fan-list-view';
 
       LoudrProject.prototype.regions = {
-        fansRegion: '#fan_list',
-        noteRegion: '#new_note'
+        fansRegion: '#fan_list'
       };
 
       LoudrProject.prototype.events = {
@@ -39,12 +38,10 @@
       };
 
       LoudrProject.prototype.new_note = function(e) {
-        var href;
+        var project_id;
         e.preventDefault();
-        href = $(e.currentTarget).attr('href').replace('/app', '');
-        return Backbone.history.navigate(href, {
-          trigger: true
-        });
+        project_id = $(e.currentTarget).attr('data-project-id');
+        return LoudrConfig.app.newNote(project_id);
       };
 
       return LoudrProject;

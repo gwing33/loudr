@@ -2,7 +2,6 @@
 require.config
   paths:
     backbone: 'vendor/backbone'
-    'backbone.queryparams': 'vendor/backbone.queryparams'
     underscore: 'vendor/underscore'
     jquery: 'vendor/jquery-2.0.3'
     marionette: 'vendor/backbone.marionette'

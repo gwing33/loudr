@@ -16,6 +16,24 @@
 
       NewNoteView.prototype.className = 'new-note-form';
 
+      NewNoteView.prototype.events = {
+        'click .send': 'sendNote',
+        'click .discard': 'closeNote'
+      };
+
+      NewNoteView.prototype.sendNote = function(e) {
+        e.preventDefault();
+        return this.model.set({
+          'to': this.$('input').val(),
+          'message': this.$('textarea').val()
+        });
+      };
+
+      NewNoteView.prototype.closeNote = function(e) {
+        e.preventDefault();
+        return LoudrConfig.app.noteRegion.close();
+      };
+
       return NewNoteView;
 
     })(Marionette.ItemView);

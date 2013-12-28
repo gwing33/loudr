@@ -1,4 +1,8 @@
-define ["backbone", "marionette", "loudr.config"], (Backbone, Marionette, LoudrConfig) ->
+define [
+  "backbone"
+  "marionette"
+  "loudr.config"
+], (Backbone, Marionette, LoudrConfig) ->
 
   class LoudrProject extends Marionette.Layout
     project_id: false
@@ -8,7 +12,6 @@ define ["backbone", "marionette", "loudr.config"], (Backbone, Marionette, LoudrC
     
     regions:
       fansRegion: '#fan_list'
-      noteRegion: '#new_note'
 
     events:
       'click .new-note': 'new_note'
@@ -24,9 +27,10 @@ define ["backbone", "marionette", "loudr.config"], (Backbone, Marionette, LoudrC
     new_note: (e) ->
       e.preventDefault()
       
-      href = $(e.currentTarget).attr('href').replace('/app','')
-      
-      Backbone.history.navigate href, {trigger: true}
-      # console.log 'New Note'
+      project_id = $(e.currentTarget).attr('data-project-id')
+      LoudrConfig.app.newNote project_id
+
+      # @note = new NewNoteView({ model: new NoteModel() })
+      # LoudrConfig.app.noteRegion.show @note
 
   return LoudrProject

@@ -5,22 +5,18 @@ define [
   "views/projectLayout"
   "models/fanModel"
   "views/fanList"
-  "models/noteModel"
-  "views/note"
-], (Backbone, Marionette, LoudrConfig, ProjectLayout, FanCollection, FanCollectionView, NoteModel, NewNoteView) ->
+], (Backbone, Marionette, LoudrConfig, ProjectLayout, FanCollection, FanCollectionView) ->
 
   class ProjectRouter extends Marionette.AppRouter
     project_page_rendered: false
 
     layout: {}
     fan_collection_view: {}
-    note: {}
 
     controller:
-      project: (project_id, params) ->
-        key = ''
-        if params? and params.key
-          key = params.key
+      project: (project_id, key) ->
+        unless key?
+          key = ''
 
         @project_page_rendered = true
 
@@ -42,14 +38,9 @@ define [
         LoudrConfig.app.mainRegion.show @layout
         @layout.fansRegion.show @fan_collection_view
 
-      newNote: (project_id) ->
-        @project(project_id)  unless @project_page_rendered
-        @note = new NewNoteView({ model: new NoteModel() })
-        @layout.noteRegion.show @note
-
     appRoutes:
       "project/:project_id/": "project"
-      "project/:project_id/note": "newNote"
+      "project/:project_id/key/:key": "project"
       
 
   return ProjectRouter

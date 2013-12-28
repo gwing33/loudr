@@ -1,19 +1,17 @@
 <script type='text/html' id='project_list_template'>
-  <a href="project/{{ _id }}/?key={{ api.key }}">{{ name }}</a>
+  <a href="project/{{ _id }}/key/{{ api.key }}">{{ name }}</a>
 </script>
 
 <script type='text/html' id='project_fans_template'>
   <h3>Fans</h3>
   
   <div class='fan-searchability'>
-    <a href='/app/project/{{ project_id }}/note' class='new-note btn btn-default'>Send New Notification</a>
+    <a href='#' data-project-id='{{ project_id }}' class='new-note btn btn-default'>Send New Notification</a>
   </div>
   
   <ul id='fan_list'></ul>
   
   <div class='pagination'></div>
-
-  <div id='new_note'></div>
 </script>
 
 <script type='text/html' id='fan_list_template'>

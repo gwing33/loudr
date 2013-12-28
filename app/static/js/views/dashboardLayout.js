@@ -24,8 +24,11 @@
       };
 
       DashboardLayout.prototype.open_project = function(e) {
+        var url;
         e.preventDefault();
-        return Backbone.history.navigate($(e.currentTarget).attr('href'), {
+        url = $(e.currentTarget).attr('href');
+        console.log(url);
+        return Backbone.history.navigate(url, {
           trigger: true
         });
       };
@@ -39,9 +42,7 @@
           success: function(json) {
             return this.$('#project_name').val('');
           },
-          error: function(grr, blah, doh) {
-            return console.log(grr, blah, doh);
-          }
+          error: function(grr, blah, doh) {}
         });
       };
 

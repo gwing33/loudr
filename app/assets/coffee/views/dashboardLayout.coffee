@@ -16,7 +16,10 @@ define ["backbone", "marionette"], (Backbone, Marionette) ->
 
     open_project: (e) ->
       e.preventDefault()
-      Backbone.history.navigate $(e.currentTarget).attr('href'), {trigger: true}
+      url = $(e.currentTarget).attr('href')
+      console.log url
+
+      Backbone.history.navigate url, {trigger: true}
 
     new_project: (e) ->
       e.preventDefault()
@@ -28,6 +31,6 @@ define ["backbone", "marionette"], (Backbone, Marionette) ->
           @$('#project_name').val ''
         error: (grr, blah, doh) ->
           # TODO
-          console.log grr, blah, doh
+          # console.log grr, blah, doh
 
   return DashboardLayout

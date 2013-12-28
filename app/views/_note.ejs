@@ -1,5 +1,30 @@
 <script type='text/html' id='new_note_template'>
-  <h4>New Notification</h4>
-  <input id='recipients'>
-  <textarea id='note'>Hello World</textarea>
+  <h4>
+    <div class='project-new-note'>
+      <label for='project'>Project:</label>
+      <select name="project" id='project'>
+        <option>asdf</option>
+      </select>
+    </div>
+    New Notification
+    
+  </h4>
+
+  <table>
+    <tr class='recipients'>
+      <td class='to'><a href='note/find-users'>To:</a></td>
+      <td class='to-input'><input name="to" id='to' type='text'></td>
+    </tr>
+    <tr class='message'>
+      <td colspan='2'>
+        <textarea placeholder='Type message here' id='note'></textarea>
+      </td>
+    </tr>
+    <tr class='actions'>
+      <td colspan='2'>
+        <a class='send' href='note/send'>Send</a>
+        <a class='discard' href='#'><i class='icon-trash'></i></a>
+      </td>
+    </tr>
+  </table>
 </script>
